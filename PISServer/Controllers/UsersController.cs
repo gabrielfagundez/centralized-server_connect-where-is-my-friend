@@ -9,9 +9,12 @@ namespace PISServer.Controllers
 {
     public class UsersController : ApiController
     {
+        // This holds an IProductRepository instance.
+        // This repository holds a collection of Users to handle operations.
+        static readonly PISServer.Models.IUserRepository repository = new PISServer.Models.UserRepository();
+
         // 
         // GET api/users 
-        // Returns a list of users from the database
         //
         public IEnumerable<string> Get()
         {
@@ -20,7 +23,6 @@ namespace PISServer.Controllers
 
         //
         // GET api/users/5
-        // Returns a json of a user from a given id
         //
         public string Get(int id)
         {
@@ -29,7 +31,6 @@ namespace PISServer.Controllers
 
         //
         // POST api/users
-        // ?
         //
         public void Post([FromBody]string value)
         {
@@ -37,7 +38,6 @@ namespace PISServer.Controllers
 
         //
         // PUT api/users/5
-        // ?
         //
         public void Put(int id, [FromBody]string value)
         {
@@ -45,7 +45,6 @@ namespace PISServer.Controllers
 
         //
         // DELETE api/users/5
-        // Delete a user from a given id
         //
         public void Delete(int id)
         {
