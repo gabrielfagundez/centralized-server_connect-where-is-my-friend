@@ -4,6 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Note:
+// This Repository Pattern allows to have multiple implementantions over
+// the time. It defines getters/setters and will be implemented into 
+// the class.
+
 namespace PISServer.Models
 {
     interface IUserRepository

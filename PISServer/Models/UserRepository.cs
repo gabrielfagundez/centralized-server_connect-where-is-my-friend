@@ -3,9 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+// Note:
+// This Repository Pattern allows to have multiple implementantions over
+// the time. It defines getters/setters and will be implemented into 
+// the class.
+
 namespace PISServer.Models
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private List<User> users = new List<User>();
         private int _nextId = 1;
