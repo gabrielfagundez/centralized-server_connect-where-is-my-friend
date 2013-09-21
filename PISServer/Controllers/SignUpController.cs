@@ -21,14 +21,14 @@ namespace PISServer.Controllers
         // GET api/signup
         //
         // Used when a client is trying to signup to the System.
-        public string GetSignUp([FromUri] string mail, [FromUri] string password)
+        public User GetSignUp([FromUri] string mail, [FromUri] string password)
         {
             User user = repository.GetByEmail(mail);
             if (user != null)
             {
-                return "Email was already taken.";
+                return user;
             }
-            return user.Email;
+            return user;
         }
     }
 }

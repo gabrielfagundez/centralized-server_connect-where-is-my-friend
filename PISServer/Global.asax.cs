@@ -22,6 +22,10 @@ namespace PISServer
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Remove XML formatter, we only want to allow JSON
+            HttpConfiguration httpConfig = GlobalConfiguration.Configuration;
+            httpConfig.Formatters.Remove(httpConfig.Formatters.XmlFormatter);
         }
     }
 }
