@@ -73,6 +73,7 @@ namespace PISServer.Controllers
         //
         // DELETE api/users/5
         //
+        // @param [Int] id This indicates the id of the user.
         public void DeleteUser(int id)
         {
             User item = repository.Get(id);

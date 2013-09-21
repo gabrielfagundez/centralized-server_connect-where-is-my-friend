@@ -21,13 +21,23 @@ namespace PISServer.Controllers
         // GET api/login
         //
         // Used when a client is trying to login to the System.
-        public string GetSignUp([FromUri] string mail, [FromUri] string password)
+        //
+        // @param [String] mail
+        // @param [String] password
+        //
+        // @return [User] the information of the user.
+        //
+        // @exception [NotFound] When the user try to login with incorrect credentials.
+        //
+        public string GetLogin([FromUri] string mail, [FromUri] string password)
         {
             User user = repository.GetByEmail(mail);
             if (user == null || user.Password != password)
             {
-                return "Cannot locate the user.";
+                throw new HttpResponseException(HttpStatusCode.NotFound);
             }
+
+            // User found
             return user.Email;
         }
     }
