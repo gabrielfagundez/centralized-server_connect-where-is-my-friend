@@ -17,17 +17,17 @@ namespace PISServer.Models
 
         public UserRepository()
         {
-            Add(new User { Id = 1001, Email = "gabriel.fa07@gmail.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1002, Email = "fab.kremer@gmail.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1003, Email = "felipepuig@gmail.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1004, Email = "gabriel@mordecki.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1005, Email = "ignacio.villaverde35@gmail.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1006, Email = "jivarela26@gmail.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1007, Email = "renzomassobrio@gmail.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1008, Email = "vicefava@hotmail.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1009, Email = "guidufort@msn.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1010, Email = "maitingui@gmail.com", FacebookId = "568349440", Password = "Pass" });
-            Add(new User { Id = 1011, Email = "fedemz88@gmail.com", FacebookId = "568349440", Password = "Pass" });
+            Add(new User { Id = 1001, Email = "gabriel.fa07@gmail.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1002, Email = "fab.kremer@gmail.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1003, Email = "felipepuig@gmail.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1004, Email = "gabriel@mordecki.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1005, Email = "ignacio.villaverde35@gmail.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1006, Email = "jivarela26@gmail.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1007, Email = "renzomassobrio@gmail.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1008, Email = "vicefava@hotmail.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1009, Email = "guidufort@msn.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1010, Email = "maitingui@gmail.com", FacebookId = "568349440", Password = "pass" });
+            Add(new User { Id = 1011, Email = "fedemz88@gmail.com", FacebookId = "568349440", Password = "pass" });
         }
 
         public IEnumerable<User> GetAll()
@@ -40,6 +40,12 @@ namespace PISServer.Models
             return users.Find(p => p.Id == id);
         }
 
+        // Get a user given an email.
+        public User GetByEmail(string email)
+        {
+            return users.Find(user => user.Email == email);
+        }
+        
         public User Add(User item)
         {
             if (item == null)

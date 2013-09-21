@@ -15,6 +15,7 @@ namespace PISServer.Models
     {
         IEnumerable<User> GetAll();
         User Get(int id);
+        User GetByEmail(string email);
         User Add(User item);
         void Remove(int id);
         bool Update(User item);
