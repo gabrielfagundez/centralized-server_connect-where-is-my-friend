@@ -20,13 +20,10 @@ namespace PISServer.Controllers
         //
         // GET api/login
         //
-        // This method name also starts with "Get", but the method has a parameter named id. 
-        // This parameter is mapped to the "id" segment of the URI path. 
-        // The ASP.NET Web API framework automatically converts the ID to the 
-        // correct data type (int) for the parameter.
-        public string GetLogin()
+        // Used when a client is trying to login to the System.
+        public string GetLogin([FromUri] string user, [FromUri] string password)
         {
-            return "item";
+            return user + " " + password;
         }
     }
 }
