@@ -29,8 +29,11 @@ namespace PISServer.Controllers
             User user = repository.GetByEmail(mail);
             if (user != null)
             {
-                return user;
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
+
+            // If the information is correct
+            user = repository.AddGivenEmailAndPass(mail, password);
             return user;
         }
     }

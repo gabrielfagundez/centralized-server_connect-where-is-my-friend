@@ -57,6 +57,23 @@ namespace PISServer.Models
             return item;
         }
 
+        public User AddGivenEmailAndPass(string email, string pass)
+        {
+            if (email == null || pass == null)
+            {
+                throw new ArgumentNullException("IncorrectParams");
+            }
+
+            // Creating the instance
+            var user = new User();
+            user.Email = email;
+            user.Password = pass;
+            user.Id = _nextId++;
+
+            users.Add(user);
+            return user;
+        }
+
         public void Remove(int id)
         {
             users.RemoveAll(p => p.Id == id);

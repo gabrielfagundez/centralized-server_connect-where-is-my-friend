@@ -27,14 +27,14 @@ namespace PISServer.Controllers
         //
         // @return [User] the information of the user.
         //
-        // @exception [NotFound] When the user try to login with incorrect credentials.
+        // @exception [Unathorized] When the user try to login with incorrect credentials.
         //
         public string GetLogin([FromUri] string mail, [FromUri] string password)
         {
             User user = repository.GetByEmail(mail);
             if (user == null || user.Password != password)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
 
             // User found
