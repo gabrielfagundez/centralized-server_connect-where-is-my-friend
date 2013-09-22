@@ -30,7 +30,7 @@ namespace PISServer.Controllers
             User user = repository.GetByEmail(mail);
             if (user != null)
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                throw new HttpResponseException(HttpStatusCode.Gone);
             }
 
             // If the information is correct
@@ -52,7 +52,7 @@ namespace PISServer.Controllers
             User user = repository.GetByEmail(mail);
             if (user != null)
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                throw new HttpResponseException(HttpStatusCode.Gone);
             }
 
             // If the information is correct
@@ -75,7 +75,7 @@ namespace PISServer.Controllers
             User user = repository.GetByEmail(mail);
             if (user != null)
             {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                throw new HttpResponseException(HttpStatusCode.Gone);
             }
 
             // If the information is correct
