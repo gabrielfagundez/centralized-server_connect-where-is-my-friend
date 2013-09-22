@@ -23,8 +23,9 @@ namespace PISServer.Controllers
         // Used when a client is trying to signup to the System.
         //
         // @param [String] mail
+        // @param [String] name
         // @param [String] password
-        public User GetSignUp([FromUri] string mail, [FromUri] string password)
+        public User PostSignUp([FromUri] string mail, [FromUri] string name, [FromUri] string password)
         {
             User user = repository.GetByEmail(mail);
             if (user != null)
@@ -33,7 +34,52 @@ namespace PISServer.Controllers
             }
 
             // If the information is correct
-            user = repository.AddGivenEmailAndPass(mail, password);
+            user = repository.AddUserWithData(mail, name, password, null, null);
+            return user;
+        }
+
+        //
+        // GET api/signup
+        //
+        // Used when a client is trying to signup to the System.
+        //
+        // @param [String] mail
+        // @param [String] name
+        // @param [String] password
+        // @param [String] facebookId
+        public User PostSignUp([FromUri] string mail, [FromUri] string name, [FromUri] string password, [FromUri] string facebookId)
+        {
+            User user = repository.GetByEmail(mail);
+            if (user != null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            // If the information is correct
+            user = repository.AddUserWithData(mail, name, password, facebookId, null);
+            return user;
+        }
+
+        //
+        // GET api/signup
+        //
+        // Used when a client is trying to signup to the System.
+        //
+        // @param [String] mail
+        // @param [String] name
+        // @param [String] password
+        // @param [String] facebookId
+        // @param [String] linkedIn
+        public User PostSignUp([FromUri] string mail, [FromUri] string name, [FromUri] string password, [FromUri] string facebookId, [FromUri] string linkedIn)
+        {
+            User user = repository.GetByEmail(mail);
+            if (user != null)
+            {
+                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            }
+
+            // If the information is correct
+            user = repository.AddUserWithData(mail, name, password, facebookId, linkedIn);
             return user;
         }
     }

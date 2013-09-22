@@ -17,7 +17,7 @@ namespace PISServer.Models
         User Get(int id);
         User GetByEmail(string email);
         User Add(User item);
-        User AddGivenEmailAndPass(string email, string pass);
+        User AddUserWithData(string mail, string name, string password, string facebookId, string linkedIn);
         void Remove(int id);
         bool Update(User item);
     }

@@ -57,23 +57,45 @@ namespace PISServer.Models
             return item;
         }
 
-        public User AddGivenEmailAndPass(string email, string pass)
+        // 
+        // Add an instance of User to the database.
+        //
+        // @param [String] mail
+        // @param [String] name
+        // @param [String] password
+        // @param [String] facebookId
+        // @param [String] linkedIn
+        // 
+        // @return [User] The instance of the user.
+        // 
+        public User AddUserWithData(string mail, string name, string password, string facebookId, string linkedIn)
         {
-            if (email == null || pass == null)
+            if (mail == null || name == null || password == null)
             {
                 throw new ArgumentNullException("IncorrectParams");
             }
 
             // Creating the instance
             var user = new User();
-            user.Email = email;
-            user.Password = pass;
+            user.Email = mail;
+            user.Name = name;
+            user.Password = password;
+            user.FacebookId = facebookId;
+            user.LinkedInId = linkedIn;
             user.Id = _nextId++;
 
             users.Add(user);
             return user;
         }
 
+
+        // 
+        // Remove an instance of User from the database.
+        //
+        // @param [Int] id
+        // 
+        // @return [Boolean] If the user was correctly deleted.
+        // 
         public void Remove(int id)
         {
             users.RemoveAll(p => p.Id == id);
