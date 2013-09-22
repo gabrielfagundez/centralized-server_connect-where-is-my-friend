@@ -25,52 +25,9 @@ namespace PISServer.Controllers
         // @param [String] mail
         // @param [String] name
         // @param [String] password
-        public User PostSignUp([FromUri] string mail, [FromUri] string name, [FromUri] string password)
-        {
-            User user = repository.GetByEmail(mail);
-            if (user != null)
-            {
-                throw new HttpResponseException(HttpStatusCode.Gone);
-            }
-
-            // If the information is correct
-            user = repository.AddUserWithData(mail, name, password, null, null);
-            return user;
-        }
-
-        //
-        // POST api/signup
-        //
-        // Used when a client is trying to signup to the System.
-        //
-        // @param [String] mail
-        // @param [String] name
-        // @param [String] password
-        // @param [String] facebookId
-        public User PostSignUp([FromUri] string mail, [FromUri] string name, [FromUri] string password, [FromUri] string facebookId)
-        {
-            User user = repository.GetByEmail(mail);
-            if (user != null)
-            {
-                throw new HttpResponseException(HttpStatusCode.Gone);
-            }
-
-            // If the information is correct
-            user = repository.AddUserWithData(mail, name, password, facebookId, null);
-            return user;
-        }
-
-        //
-        // POST api/signup
-        //
-        // Used when a client is trying to signup to the System.
-        //
-        // @param [String] mail
-        // @param [String] name
-        // @param [String] password
         // @param [String] facebookId
         // @param [String] linkedIn
-        public User PostSignUp([FromUri] string mail, [FromUri] string name, [FromUri] string password, [FromUri] string facebookId, [FromUri] string linkedIn)
+        public User PostSignUp([FromBody] string mail, [FromBody] string name, [FromBody] string password, [FromBody] string facebookId, [FromBody] string linkedIn)
         {
             User user = repository.GetByEmail(mail);
             if (user != null)
