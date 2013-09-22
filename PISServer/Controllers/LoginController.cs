@@ -18,7 +18,7 @@ namespace PISServer.Controllers
         static readonly IUserRepository repository = new UserRepository();
 
         //
-        // GET api/login
+        // POST api/login
         //
         // Used when a client is trying to login to the System.
         //

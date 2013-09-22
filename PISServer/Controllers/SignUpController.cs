@@ -18,7 +18,7 @@ namespace PISServer.Controllers
         static readonly IUserRepository repository = new UserRepository();
 
         //
-        // GET api/signup
+        // POST api/signup
         //
         // Used when a client is trying to signup to the System.
         //
@@ -39,7 +39,7 @@ namespace PISServer.Controllers
         }
 
         //
-        // GET api/signup
+        // POST api/signup
         //
         // Used when a client is trying to signup to the System.
         //
@@ -61,7 +61,7 @@ namespace PISServer.Controllers
         }
 
         //
-        // GET api/signup
+        // POST api/signup
         //
         // Used when a client is trying to signup to the System.
         //
