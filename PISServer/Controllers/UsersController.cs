@@ -33,5 +33,24 @@ namespace PISServer.Controllers
             }
             return user;
         }
+
+        // 
+        // GET api/users 
+        //
+        // The method name starts with "Get", so by convention it maps to GET requests. 
+        // Also, because the method has no parameters, it maps to a URI that does 
+        // not contain an "id" segment in the path.
+        public IEnumerable<User> GetAllUsers([FromUri] string secret_token)
+        {
+            if (secret_token == "abcdefgh")
+            {
+                return repository.GetAll();
+            }
+            else
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+        }
     }
 }
