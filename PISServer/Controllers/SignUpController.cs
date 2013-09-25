@@ -25,16 +25,21 @@ namespace PISServer.Controllers
         // @param [String] mail
         // @param [String] name
         // @param [String] password
-        public User PostSignUp([FromUri] string mail, [FromUri] string name, [FromUri] string password)
+        public User PostSignUp([FromBody] UserRequest request)
         {
-            User user = repository.GetByEmail(mail);
+            if (request.Email == null || request.Password == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            User user = repository.GetByEmail(request.Email);
             if (user != null)
             {
                 throw new HttpResponseException(HttpStatusCode.Gone);
             }
 
             // If the information is correct
-            user = repository.AddUserWithData(mail, name, password, null, null);
+            user = repository.AddUserWithData(request.Email, request.Name, request.Password, request.FacebookId, request.LinkedInId);
             return user;
         }
     }

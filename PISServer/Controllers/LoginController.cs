@@ -27,9 +27,15 @@ namespace PISServer.Controllers
         //
         // @return [User] the information of the user.
         //
-        public User PostLogin([FromUri] string mail, [FromUri] string password)
+        public User PostLogin([FromBody] UserLoginRequest request)
         {
-            User user = repository.GetByEmail(mail);
+            if (request.Email == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            // Find the user
+            User user = repository.GetByEmail(request.Email);
             
             // Cannot find the user
             if (user == null)
@@ -38,11 +44,10 @@ namespace PISServer.Controllers
             }
 
             // Incorrect Password
-            if (user.Password != password)
+            if (user.Password != request.Password)
             {
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
-
 
             // User found, return information
             return user;
