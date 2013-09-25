@@ -25,9 +25,7 @@ namespace PISServer.Controllers
         // @param [String] mail
         // @param [String] name
         // @param [String] password
-        // @param [String] facebookId
-        // @param [String] linkedIn
-        public User PostSignUp([FromBody] string mail, [FromBody] string name, [FromBody] string password, [FromBody] string facebookId, [FromBody] string linkedIn)
+        public User PostSignUp([FromUri] string mail, [FromUri] string name, [FromUri] string password)
         {
             User user = repository.GetByEmail(mail);
             if (user != null)
@@ -36,7 +34,7 @@ namespace PISServer.Controllers
             }
 
             // If the information is correct
-            user = repository.AddUserWithData(mail, name, password, facebookId, linkedIn);
+            user = repository.AddUserWithData(mail, name, password, null, null);
             return user;
         }
     }

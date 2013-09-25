@@ -27,7 +27,7 @@ namespace PISServer.Controllers
         //
         // @return [User] the information of the user.
         //
-        public User PostLogin([FromBody] string mail, [FromBody] string password)
+        public User PostLogin([FromUri] string mail, [FromUri] string password)
         {
             User user = repository.GetByEmail(mail);
             
