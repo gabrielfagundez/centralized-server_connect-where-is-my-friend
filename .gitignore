@@ -3,6 +3,8 @@
 
 # User-specific files
 *.suo
+*.cache
+PISServer.v11.suo
 *.user
 *.sln.docstates
 
