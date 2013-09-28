@@ -24,14 +24,17 @@ namespace PISServer.Controllers
         // This parameter is mapped to the "id" segment of the URI path. 
         // The ASP.NET Web API framework automatically converts the ID to the 
         // correct data type (int) for the parameter.
-        public User GetUser(int id)
+        public Users GetUser(int id)
         {
-            User user = repository.Get(id);
-            if (user == null)
+            using (var context = new MainDatabaseEntities())
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                var user = context.Users.Find(id);
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                return user;
             }
-            return user;
         }
 
         // 
@@ -52,7 +55,7 @@ namespace PISServer.Controllers
             }
             else
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
 
         }
