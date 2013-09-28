@@ -7,6 +7,7 @@ using System.Web.Http;
 
 // Import models
 using PISServer.Models;
+using PISServer.Models.Datatypes;
 
 namespace PISServer.Controllers
 {

@@ -7,16 +7,12 @@ using System.Web.Http;
 
 // Import models
 using PISServer.Models;
+using PISServer.Models.Datatypes;
 
 namespace PISServer.Controllers
 {
     public class LoginController : ApiController
     {
-        // This holds an IUsertRepository instance.
-        // This repository holds a collection of Users to handle operations.
-        // TODO: Check this http://www.asp.net/web-api/overview/extensibility/using-the-web-api-dependency-resolver
-        static readonly IUserRepository repository = new UserRepository();
-
         //
         // POST api/login
         //
@@ -27,30 +23,37 @@ namespace PISServer.Controllers
         //
         // @return [User] the information of the user.
         //
-        public User PostLogin([FromBody] UserLoginRequest request)
+        public Users PostLogin([FromBody] UserLoginRequest request)
         {
             if (request.Email == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            // Find the user
-            User user = repository.GetByEmail(request.Email);
-            
-            // Cannot find the user
-            if (user == null)
+            using (var context = new MainDatabaseEntities())
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-            }
+                Users user;
+                
+                // Find the user
+                user = context.Users
+                            .Where(u => u.Mail == request.Email)
+                            .FirstOrDefault();
 
-            // Incorrect Password
-            if (user.Password != request.Password)
-            {
-                throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    // Incorrect Password
+                    if (user.Password != request.Password)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                    }
+                }
+                
+                return user;
             }
-
-            // User found, return information
-            return user;
         }
     }
 }
