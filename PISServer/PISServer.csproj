@@ -45,6 +45,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -168,6 +170,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="MainDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainDataModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IUserRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserLoginRequest.cs" />
@@ -179,8 +196,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>MainDataModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MainDatabase.mdf" />
+    <Content Include="App_Data\MainDatabase_log.ldf">
+      <DependentUpon>MainDatabase.mdf</DependentUpon>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -249,8 +273,29 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <EntityDeploy Include="MainDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MainDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="MainDataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MainDataModel.edmx</DependentUpon>
+      <LastGenOutput>MainDataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="MainDataModel.edmx.diagram">
+      <DependentUpon>MainDataModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="MainDataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>MainDataModel.edmx</DependentUpon>
+      <LastGenOutput>MainDataModel.cs</LastGenOutput>
+    </Content>
     <None Include="Properties\PublishProfiles\connectwp - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\connectwp - Web Deploy.pubxml" />
+    <Content Include="MainDatabase.mdf" />
+    <Content Include="MainDatabase_log.ldf">
+      <DependentUpon>MainDatabase.mdf</DependentUpon>
+    </Content>
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -300,11 +345,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
