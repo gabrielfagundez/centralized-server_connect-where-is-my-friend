@@ -30,7 +30,7 @@ namespace PISServer.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            using (var context = new MainDatabaseEntities())
+            using (var context = new DatabasePisEntities())
             {
                 Users user;
                 

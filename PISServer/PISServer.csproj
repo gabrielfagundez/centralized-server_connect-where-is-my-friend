@@ -170,20 +170,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="MainDataModel.Context.cs">
+    <Compile Include="MainEDM.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MainDataModel.Context.tt</DependentUpon>
+      <DependentUpon>MainEDM.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="MainDataModel.cs">
+    <Compile Include="MainEDM.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MainDataModel.tt</DependentUpon>
+      <DependentUpon>MainEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="MainDataModel.Designer.cs">
+    <Compile Include="MainEDM.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MainDataModel.edmx</DependentUpon>
+      <DependentUpon>MainEDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IUserRepository.cs" />
     <Compile Include="Models\User.cs" />
@@ -197,7 +197,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Users.cs">
-      <DependentUpon>MainDataModel.tt</DependentUpon>
+      <DependentUpon>MainEDM.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -273,34 +273,33 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="MainDataModel.edmx">
+    <EntityDeploy Include="MainEDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MainDataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>MainEDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="MainDataModel.Context.tt">
+    <Content Include="MainEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MainDataModel.edmx</DependentUpon>
-      <LastGenOutput>MainDataModel.Context.cs</LastGenOutput>
+      <DependentUpon>MainEDM.edmx</DependentUpon>
+      <LastGenOutput>MainEDM.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="MainDataModel.edmx.diagram">
-      <DependentUpon>MainDataModel.edmx</DependentUpon>
+    <Content Include="MainEDM.edmx.diagram">
+      <DependentUpon>MainEDM.edmx</DependentUpon>
     </Content>
-    <Content Include="MainDataModel.tt">
+    <Content Include="MainEDM.edmx.sql" />
+    <Content Include="MainEDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MainDataModel.edmx</DependentUpon>
-      <LastGenOutput>MainDataModel.cs</LastGenOutput>
+      <DependentUpon>MainEDM.edmx</DependentUpon>
+      <LastGenOutput>MainEDM.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\connectwp - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\connectwp - Web Deploy.pubxml" />
-    <Content Include="MainDatabase.mdf" />
-    <Content Include="MainDatabase_log.ldf">
-      <DependentUpon>MainDatabase.mdf</DependentUpon>
-    </Content>
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </Content>
     <None Include="Properties\PublishProfiles\connectwp.pubxml" />
+    <None Include="Properties\PublishProfiles\servidorpis - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\servidorpis - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

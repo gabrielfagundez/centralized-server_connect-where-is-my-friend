@@ -26,7 +26,7 @@ namespace PISServer.Controllers
         // correct data type (int) for the parameter.
         public Users GetUser(int id)
         {
-            using (var context = new MainDatabaseEntities())
+            using (var context = new DatabasePisEntities())
             {
                 var user = context.Users.Find(id);
                 if (user == null)
@@ -47,7 +47,7 @@ namespace PISServer.Controllers
         {
             if (secret_token == "abcdefgh")
             {
-                using (var context = new MainDatabaseEntities())
+                using (var context = new DatabasePisEntities())
                 {
                     var users = context.Users.ToList();
                     return users;

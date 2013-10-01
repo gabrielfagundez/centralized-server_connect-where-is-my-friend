@@ -13,10 +13,10 @@ namespace PISServer
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MainDatabaseEntities : DbContext
+    public partial class DatabasePisEntities : DbContext
     {
-        public MainDatabaseEntities()
-            : base("name=MainDatabaseEntities")
+        public DatabasePisEntities()
+            : base("name=DatabasePisEntities")
         {
         }
     
