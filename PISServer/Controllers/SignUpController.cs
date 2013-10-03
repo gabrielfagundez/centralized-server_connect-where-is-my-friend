@@ -33,18 +33,19 @@ namespace PISServer.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
             System.Diagnostics.Debug.WriteLine("hola");
-            using (var context = new DatabasePisEntities())
+            using (var context = new Model1Container())
             {
                 // Find if there is another user with the same mail (that must be unique)
                 Users user = context.Users
-                            .Where(u => u.Mail == request.Email)
+                            .Where(u => u.Email == request.Email)
                             .FirstOrDefault();
                 if (user != null)
                 {
                     throw new HttpResponseException(HttpStatusCode.Gone);
                 }
+
                 //Users newUser = new Users { Mail = "aaaaaaaaaa.fa07@gmail.com", FacebookId = "568349440", Password = "pass" };
-                Users newUser = new Users { Name = request.Name, Mail = request.Email, FacebookId = request.FacebookId,
+                Users newUser = new Users { Name = request.Name, Email = request.Email, FacebookId = request.FacebookId,
                                             LinkedInId = request.LinkedInId, Password = request.Password };
                 
                 context.Users.Add(newUser);
@@ -52,8 +53,9 @@ namespace PISServer.Controllers
 
                 //I have to get it again from the database in order to receive the id that was asaigned
                 Users userToReturn = context.Users
-                            .Where(u => u.Mail == request.Email)
+                            .Where(u => u.Email == request.Email)
                             .FirstOrDefault();
+                
                 
                 //This should NEVER happen
                 if (userToReturn == null)

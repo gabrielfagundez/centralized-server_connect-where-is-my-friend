@@ -30,13 +30,13 @@ namespace PISServer.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            using (var context = new DatabasePisEntities())
+            using (var context = new  Model1Container())
             {
                 Users user;
                 
                 // Find the user
                 user = context.Users
-                            .Where(u => u.Mail == request.Email)
+                            .Where(u => u.Email == request.Email)
                             .FirstOrDefault();
 
                 if (user == null)
