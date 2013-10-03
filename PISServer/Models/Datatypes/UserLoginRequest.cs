@@ -7,7 +7,7 @@ namespace PISServer.Models.Datatypes
 {
     public class UserLoginRequest
     {
-        public string Email { get; set; }
+        public string Mail { get; set; }
         public string Password { get; set; }
     }
 }

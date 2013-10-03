@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8953a8948c6c41e3bc9d2f09e59b65d1" Name="Diagram1">
+        <EntityTypeShape EntityType="DevelopmentPISModel.Event" Width="1.5" PointX="5.5" PointY="1.375" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.ConnectEvent" Width="1.5" PointX="3" PointY="4.875" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.ConnectEvent" ></InheritanceConnector>
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereEvent" Width="1.5" PointX="7.875" PointY="4.875" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.WhereEvent" ManuallyRouted="false" >
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereSolicitationEvent" Width="1.5" PointX="6.25" PointY="6.625" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.WhereSolicitationEvent" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereAcceptationEvent" Width="1.5" PointX="7.875" PointY="6.625" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.WhereAcceptationEvent" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereNegationEvent" Width="1.5" PointX="9.5" PointY="6.625" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.WhereNegationEvent" ManuallyRouted="false" >
+        </InheritanceConnector>
+        <EntityTypeShape EntityType="DevelopmentPISModel.ConnectSolicitationEvent" Width="1.5" PointX="1.375" PointY="6.625" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.ConnectSolicitationEvent" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.ConnectAcceptationEvent" Width="1.5" PointX="3" PointY="6.625" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.ConnectAcceptationEvent" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.ConnectNegationEvent" Width="1.5" PointX="4.625" PointY="6.625" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.ConnectNegationEvent" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.Solicitation" Width="1.5" PointX="1.625" PointY="0.5" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.ConnectSolicitation" Width="1.5" PointX="0.5" PointY="3.375" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.ConnectSolicitation" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereSolicitation" Width="1.5" PointX="2.75" PointY="3.375" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.WhereSolicitation" />
+        <AssociationConnector Association="DevelopmentPISModel.WhereEventWhereSolicitation" />
+        <AssociationConnector Association="DevelopmentPISModel.ConnectEventConnectSolicitation" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.User" Width="1.5" PointX="9.25" PointY="0.75" />
+        <AssociationConnector Association="DevelopmentPISModel.UserUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
