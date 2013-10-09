@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Web
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PISServer", "PISServer\PISServer.csproj", "{664F17C3-E281-4C93-AACB-CBA826CCF962}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PISServer.Tests", "PISServer.Tests\PISServer.Tests.csproj", "{449C616F-8394-45B2-AC10-3BF7D72D9261}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PisDataAccess", "PisDataAccess\PisDataAccess.csproj", "{D2F1235D-0851-4A8B-84BB-5DC270EF5304}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{449C616F-8394-45B2-AC10-3BF7D72D9261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{449C616F-8394-45B2-AC10-3BF7D72D9261}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{449C616F-8394-45B2-AC10-3BF7D72D9261}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2F1235D-0851-4A8B-84BB-5DC270EF5304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2F1235D-0851-4A8B-84BB-5DC270EF5304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2F1235D-0851-4A8B-84BB-5DC270EF5304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2F1235D-0851-4A8B-84BB-5DC270EF5304}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

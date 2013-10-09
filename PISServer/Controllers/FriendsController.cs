@@ -14,6 +14,9 @@ namespace PISServer.Controllers
         [HttpPost]
         public string AddFriend()
         {
+            // Tiene que devolver la informacion del segundo usuario (no la pass!)
+            //Error: si no existe un id 404
+            //Error: si no existe un id 410 gone
             using (var context = new DevelopmentPISEntities())
             {
                 return "Method Not Implemented";

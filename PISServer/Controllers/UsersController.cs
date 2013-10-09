@@ -7,6 +7,7 @@ using System.Web.Http;
 
 // Import models
 using PISServer.Models.Datatypes;
+using PisDataAccess;
 
 namespace PISServer.Controllers
 {
@@ -128,7 +129,7 @@ namespace PISServer.Controllers
         // @param [String] password
         //
         [ActionName("SignUp")]
-        public User PostSignUp([FromBody] UserRequest request)
+        public User PostSignUp([FromBody] UserRequest request) 
         {
             if (request.Mail == null || request.Password == null)
             {

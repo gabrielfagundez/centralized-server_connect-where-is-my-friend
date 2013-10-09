@@ -163,45 +163,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="ConnectAcceptationEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ConnectEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ConnectNegationEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ConnectSolicitation.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ConnectSolicitationEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\ConnectEventController.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\GeolocationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WhereEventController.cs" />
-    <Compile Include="DevelopmentEntity.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DevelopmentEntity.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentEntity.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DevelopmentEntity.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DevelopmentEntity.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Event.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -213,27 +180,6 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="Solicitation.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="User.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WhereAcceptationEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WhereEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WhereNegationEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WhereSolicitation.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WhereSolicitationEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -292,7 +238,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="DevelopmentEntity.edmx.sql" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -306,23 +251,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="DevelopmentEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DevelopmentEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DevelopmentEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DevelopmentEntity.edmx</DependentUpon>
-      <LastGenOutput>DevelopmentEntity.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DevelopmentEntity.edmx.diagram">
-      <DependentUpon>DevelopmentEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="DevelopmentEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DevelopmentEntity.edmx</DependentUpon>
-      <LastGenOutput>DevelopmentEntity.cs</LastGenOutput>
-    </Content>
     <None Include="Properties\PublishProfiles\connectwp - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\connectwp - Web Deploy.pubxml" />
     <Content Include="Properties\Settings.settings">
@@ -388,6 +316,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PisDataAccess\PisDataAccess.csproj">
+      <Project>{d2f1235d-0851-4a8b-84bb-5dc270ef5304}</Project>
+      <Name>PisDataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

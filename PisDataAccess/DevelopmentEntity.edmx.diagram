@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="8953a8948c6c41e3bc9d2f09e59b65d1" Name="Diagram1">
-        <EntityTypeShape EntityType="DevelopmentPISModel.Event" Width="1.5" PointX="5.5" PointY="1.375" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.Event" Width="1.5" PointX="5.5" PointY="1" />
         <EntityTypeShape EntityType="DevelopmentPISModel.ConnectEvent" Width="1.5" PointX="3" PointY="4.875" />
         <InheritanceConnector EntityType="DevelopmentPISModel.ConnectEvent" ></InheritanceConnector>
         <EntityTypeShape EntityType="DevelopmentPISModel.WhereEvent" Width="1.5" PointX="7.875" PointY="4.875" />
@@ -31,8 +31,7 @@
         <InheritanceConnector EntityType="DevelopmentPISModel.WhereSolicitation" />
         <AssociationConnector Association="DevelopmentPISModel.WhereEventWhereSolicitation" />
         <AssociationConnector Association="DevelopmentPISModel.ConnectEventConnectSolicitation" />
-        <EntityTypeShape EntityType="DevelopmentPISModel.User" Width="1.5" PointX="9.25" PointY="0.75" />
-        <AssociationConnector Association="DevelopmentPISModel.UserUser" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.User" Width="1.5" PointX="8" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
