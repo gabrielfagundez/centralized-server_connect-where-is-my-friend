@@ -260,8 +260,12 @@
     <None Include="Properties\PublishProfiles\connectwp.pubxml" />
     <None Include="Properties\PublishProfiles\developmentpis - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\developmentpis - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\serverdevelopmentpis - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\serverdevelopmentpis - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\servidorpis - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\servidorpis - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\testingpis - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\testingpis - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\testPis - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\testPis - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
