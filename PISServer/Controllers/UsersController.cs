@@ -53,6 +53,7 @@ namespace PISServer.Controllers
         // This parameter is mapped to the "id" segment of the URI path. 
         // The ASP.NET Web API framework automatically converts the ID to the 
         // correct data type (int) for the parameter.
+        [HttpPost]
         public UserResponse GetUserByMail([FromBody] UserEmailRequest request)
         {
             using (var context = new DevelopmentPISEntities())
