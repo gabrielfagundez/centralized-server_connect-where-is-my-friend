@@ -9,14 +9,38 @@
     <EntitySet Name="EventSet" EntityType="DevelopmentPISModel.Store.EventSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SolicitationSet" EntityType="DevelopmentPISModel.Store.SolicitationSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="DevelopmentPISModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SessionSet" EntityType="DevelopmentPISModel.Store.SessionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserPositionSet" EntityType="DevelopmentPISModel.Store.UserPositionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SharingRelationshipSet" EntityType="DevelopmentPISModel.Store.SharingRelationshipSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SolicitationSet_WhereSolicitation" EntityType="DevelopmentPISModel.Store.SolicitationSet_WhereSolicitation" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereSolicitationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereSolicitationEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereAcceptationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereAcceptationEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereNegationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereNegationEvent" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserUser" EntityType="DevelopmentPISModel.Store.UserUser" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="WhereEventWhereSolicitation" Association="DevelopmentPISModel.Store.WhereEventWhereSolicitation">
       <End Role="WhereEvent" EntitySet="EventSet_WhereEvent" />
       <End Role="WhereSolicitation" EntitySet="SolicitationSet_WhereSolicitation" />
+    </AssociationSet>
+    <AssociationSet Name="UserSession" Association="DevelopmentPISModel.Store.UserSession">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Session" EntitySet="SessionSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserUserPosition" Association="DevelopmentPISModel.Store.UserUserPosition">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserPosition" EntitySet="UserPositionSet" />
+    </AssociationSet>
+    <AssociationSet Name="UserEvent" Association="DevelopmentPISModel.Store.UserEvent">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Event" EntitySet="EventSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUser_User" Association="DevelopmentPISModel.Store.FK_UserUser_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserUser" EntitySet="UserUser" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUser_User1" Association="DevelopmentPISModel.Store.FK_UserUser_User1">
+      <End Role="User1" EntitySet="Users" />
+      <End Role="UserUser" EntitySet="UserUser" />
     </AssociationSet>
     <AssociationSet Name="FK_WhereEvent_inherits_Event" Association="DevelopmentPISModel.Store.FK_WhereEvent_inherits_Event">
       <End Role="Event" EntitySet="EventSet" />
@@ -38,18 +62,21 @@
       <End Role="WhereEvent" EntitySet="EventSet_WhereEvent" />
       <End Role="WhereNegationEvent" EntitySet="EventSet_WhereNegationEvent" />
     </AssociationSet>
-    </EntityContainer>
+  </EntityContainer>
   <EntityType Name="EventSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="SolicitationSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Sender" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Receiver" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -61,6 +88,31 @@
     <Property Name="Mail" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SessionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DeviceId" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Platform" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserPositionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Latitude" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Longitude" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="User_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="SharingRelationshipSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="EventSet_WhereEvent">
     <Key>
@@ -93,6 +145,14 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="UserUser">
+    <Key>
+      <PropertyRef Name="FriendsFrom_Id" />
+      <PropertyRef Name="FriendsOf_Id" />
+    </Key>
+    <Property Name="FriendsFrom_Id" Type="int" Nullable="false" />
+    <Property Name="FriendsOf_Id" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="WhereEventWhereSolicitation">
     <End Role="WhereEvent" Type="DevelopmentPISModel.Store.EventSet_WhereEvent" Multiplicity="*" />
     <End Role="WhereSolicitation" Type="DevelopmentPISModel.Store.SolicitationSet_WhereSolicitation" Multiplicity="1" />
@@ -102,6 +162,66 @@
       </Principal>
       <Dependent Role="WhereEvent">
         <PropertyRef Name="WhereSolicitation_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserSession">
+    <End Role="User" Type="DevelopmentPISModel.Store.Users" Multiplicity="1" />
+    <End Role="Session" Type="DevelopmentPISModel.Store.SessionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserUserPosition">
+    <End Role="User" Type="DevelopmentPISModel.Store.Users" Multiplicity="0..1" />
+    <End Role="UserPosition" Type="DevelopmentPISModel.Store.UserPositionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserPosition">
+        <PropertyRef Name="User_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserEvent">
+    <End Role="User" Type="DevelopmentPISModel.Store.Users" Multiplicity="1" />
+    <End Role="Event" Type="DevelopmentPISModel.Store.EventSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Event">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUser_User">
+    <End Role="User" Type="DevelopmentPISModel.Store.Users" Multiplicity="1" />
+    <End Role="UserUser" Type="DevelopmentPISModel.Store.UserUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserUser">
+        <PropertyRef Name="FriendsFrom_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUser_User1">
+    <End Role="UserUser" Type="DevelopmentPISModel.Store.UserUser" Multiplicity="*" />
+    <End Role="User1" Type="DevelopmentPISModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="User1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserUser">
+        <PropertyRef Name="FriendsOf_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -175,7 +295,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  </Schema></edmx:StorageModels>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DevelopmentPISModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -284,7 +404,7 @@
           <NavigationProperty Name="User" Relationship="DevelopmentPISModel.UserUserPosition" FromRole="UserPosition" ToRole="User" />
         </EntityType>
         <Association Name="UserUserPosition">
-          <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="1" />
+          <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="0..1" />
           <End Type="DevelopmentPISModel.UserPosition" Role="UserPosition" Multiplicity="0..1" />
         </Association>
         <Association Name="UserEvent">
@@ -320,6 +440,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.Event)">
         <MappingFragment StoreEntitySet="EventSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereEvent)">
@@ -342,11 +463,13 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
-      </EntitySetMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SolicitationSet">
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.Solicitation)">
         <MappingFragment StoreEntitySet="SolicitationSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sender" ColumnName="Sender" />
+          <ScalarProperty Name="Receiver" ColumnName="Receiver" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereSolicitation)">
@@ -367,6 +490,33 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SessionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.Session)">
+        <MappingFragment StoreEntitySet="SessionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserPositionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.UserPosition)">
+        <MappingFragment StoreEntitySet="UserPositionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+          <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SharingRelationshipSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.SharingRelationship)">
+        <MappingFragment StoreEntitySet="SharingRelationshipSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="WhereEventWhereSolicitation" TypeName="DevelopmentPISModel.WhereEventWhereSolicitation" StoreEntitySet="EventSet_WhereEvent">
       <EndProperty Name="WhereSolicitation">
         <ScalarProperty Name="Id" ColumnName="WhereSolicitation_Id" />
@@ -375,7 +525,24 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-          </EntityContainerMapping>
+    <AssociationSetMapping Name="UserUserPosition" TypeName="DevelopmentPISModel.UserUserPosition" StoreEntitySet="UserPositionSet">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="User_Id" />
+      </EndProperty>
+      <EndProperty Name="UserPosition">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="User_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="UserUser" TypeName="DevelopmentPISModel.UserUser" StoreEntitySet="UserUser">
+      <EndProperty Name="User">
+        <ScalarProperty Name="Id" ColumnName="FriendsFrom_Id" />
+      </EndProperty>
+      <EndProperty Name="User1">
+        <ScalarProperty Name="Id" ColumnName="FriendsOf_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

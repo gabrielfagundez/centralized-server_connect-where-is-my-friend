@@ -21,16 +21,28 @@ namespace PISServer.Controllers
         // This parameter is mapped to the "id" segment of the URI path. 
         // The ASP.NET Web API framework automatically converts the ID to the 
         // correct data type (int) for the parameter.
-        public User GetUser(int id)
+        public UserResponse GetUser(int id)
         {
             using (var context = new DevelopmentPISEntities())
             {
-                var user = context.Users.Find(id);
+                // Find the user
+                var user = context.Users
+                            .Where(u => u.Id == id)
+                            .FirstOrDefault();
+
                 if (user == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
-                return user;
+
+                UserResponse userResponse = new UserResponse();
+                userResponse.Id = user.Id;
+                userResponse.Name = user.Name;
+                userResponse.Mail = user.Mail;
+                userResponse.FacebookId = user.FacebookId;
+                userResponse.LinkedInId = user.LinkedInId;
+
+                return userResponse;
             }
         }
 
@@ -40,14 +52,29 @@ namespace PISServer.Controllers
         // The method name starts with "Get", so by convention it maps to GET requests. 
         // Also, because the method has no parameters, it maps to a URI that does 
         // not contain an "id" segment in the path.
-        public List<User> GetAll([FromUri] string secret_token)
+        public List<UserResponse> GetAll([FromUri] string secret_token)
         {
             if (secret_token == "abcdefgh")
             {
                 using (var context = new DevelopmentPISEntities())
                 {
                     var users = context.Users.ToList();
-                    return users;
+                    var ret = new List<UserResponse>();
+
+                    for (int i = 0; i < users.Count; i++)
+                    {
+                        UserResponse userResponse = new UserResponse();
+                        userResponse.Id = users[i].Id;
+                        userResponse.Name = users[i].Name;
+                        userResponse.Mail = users[i].Mail;
+                        userResponse.FacebookId = users[i].FacebookId;
+                        userResponse.LinkedInId = users[i].LinkedInId;
+
+                        ret.Add(userResponse);
+                    }
+
+                    return ret;
+                    
                 }
             }
             else
@@ -86,7 +113,7 @@ namespace PISServer.Controllers
         // @return [User] the information of the user.
         //
         [ActionName("Login")]
-        public User PostLogin([FromBody] UserLoginRequest request)
+        public UserResponse PostLogin([FromBody] UserLoginRequest request)
         {
             if (request.Mail == null)
             {
@@ -115,7 +142,14 @@ namespace PISServer.Controllers
                     }
                 }
 
-                return user;
+                UserResponse userResponse = new UserResponse();
+                userResponse.Id = user.Id;
+                userResponse.Name = user.Name;
+                userResponse.Mail = user.Mail;
+                userResponse.FacebookId = user.FacebookId;
+                userResponse.LinkedInId = user.LinkedInId;
+
+                return userResponse;
             }
         }
 
@@ -129,7 +163,7 @@ namespace PISServer.Controllers
         // @param [String] password
         //
         [ActionName("SignUp")]
-        public User PostSignUp([FromBody] UserRequest request) 
+        public UserResponse PostSignUp([FromBody] UserRequest request) 
         {
             if (request.Mail == null || request.Password == null)
             {
@@ -149,12 +183,13 @@ namespace PISServer.Controllers
 
                 User newUser = new User
                 {
-                    Id = 2,
                     Name = request.Name,
                     Mail = request.Mail,
                     FacebookId = request.FacebookId,
                     LinkedInId = request.LinkedInId,
-                    Password = request.Password
+                    Password = request.Password,
+                    Session = null,
+                    UserPosition = null
                 };
 
                 context.Users.Add(newUser);
@@ -173,7 +208,14 @@ namespace PISServer.Controllers
                 }
 
 
-                return userToReturn;
+                UserResponse userResponse = new UserResponse();
+                userResponse.Id = userToReturn.Id;
+                userResponse.Name = userToReturn.Name;
+                userResponse.Mail = userToReturn.Mail;
+                userResponse.FacebookId = userToReturn.FacebookId;
+                userResponse.LinkedInId = userToReturn.LinkedInId;
+
+                return userResponse;
 
             }
         }
