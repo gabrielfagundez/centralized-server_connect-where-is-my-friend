@@ -12,7 +12,9 @@ namespace PisDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class ConnectAcceptationEvent : ConnectEvent
+    public partial class SharingRelationship
     {
+        public int Id { get; set; }
+        public System.DateTime StartTime { get; set; }
     }
 }

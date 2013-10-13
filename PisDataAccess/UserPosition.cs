@@ -12,7 +12,12 @@ namespace PisDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class ConnectSolicitationEvent : ConnectEvent
+    public partial class UserPosition
     {
+        public int Id { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

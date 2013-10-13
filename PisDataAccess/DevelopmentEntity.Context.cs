@@ -28,5 +28,8 @@ namespace PisDataAccess
         public DbSet<Event> EventSet { get; set; }
         public DbSet<Solicitation> SolicitationSet { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Session> SessionSet { get; set; }
+        public DbSet<UserPosition> UserPositionSet { get; set; }
+        public DbSet<SharingRelationship> SharingRelationshipSet { get; set; }
     }
 }

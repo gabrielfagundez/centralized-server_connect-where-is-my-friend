@@ -11,21 +11,12 @@
     <EntitySet Name="Users" EntityType="DevelopmentPISModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SolicitationSet_WhereSolicitation" EntityType="DevelopmentPISModel.Store.SolicitationSet_WhereSolicitation" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EventSet_ConnectEvent" EntityType="DevelopmentPISModel.Store.EventSet_ConnectEvent" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SolicitationSet_ConnectSolicitation" EntityType="DevelopmentPISModel.Store.SolicitationSet_ConnectSolicitation" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereSolicitationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereSolicitationEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereAcceptationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereAcceptationEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereNegationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereNegationEvent" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EventSet_ConnectSolicitationEvent" EntityType="DevelopmentPISModel.Store.EventSet_ConnectSolicitationEvent" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EventSet_ConnectAcceptationEvent" EntityType="DevelopmentPISModel.Store.EventSet_ConnectAcceptationEvent" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EventSet_ConnectNegationEvent" EntityType="DevelopmentPISModel.Store.EventSet_ConnectNegationEvent" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="WhereEventWhereSolicitation" Association="DevelopmentPISModel.Store.WhereEventWhereSolicitation">
       <End Role="WhereEvent" EntitySet="EventSet_WhereEvent" />
       <End Role="WhereSolicitation" EntitySet="SolicitationSet_WhereSolicitation" />
-    </AssociationSet>
-    <AssociationSet Name="ConnectEventConnectSolicitation" Association="DevelopmentPISModel.Store.ConnectEventConnectSolicitation">
-      <End Role="ConnectEvent" EntitySet="EventSet_ConnectEvent" />
-      <End Role="ConnectSolicitation" EntitySet="SolicitationSet_ConnectSolicitation" />
     </AssociationSet>
     <AssociationSet Name="FK_WhereEvent_inherits_Event" Association="DevelopmentPISModel.Store.FK_WhereEvent_inherits_Event">
       <End Role="Event" EntitySet="EventSet" />
@@ -34,14 +25,6 @@
     <AssociationSet Name="FK_WhereSolicitation_inherits_Solicitation" Association="DevelopmentPISModel.Store.FK_WhereSolicitation_inherits_Solicitation">
       <End Role="Solicitation" EntitySet="SolicitationSet" />
       <End Role="WhereSolicitation" EntitySet="SolicitationSet_WhereSolicitation" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ConnectEvent_inherits_Event" Association="DevelopmentPISModel.Store.FK_ConnectEvent_inherits_Event">
-      <End Role="Event" EntitySet="EventSet" />
-      <End Role="ConnectEvent" EntitySet="EventSet_ConnectEvent" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ConnectSolicitation_inherits_Solicitation" Association="DevelopmentPISModel.Store.FK_ConnectSolicitation_inherits_Solicitation">
-      <End Role="Solicitation" EntitySet="SolicitationSet" />
-      <End Role="ConnectSolicitation" EntitySet="SolicitationSet_ConnectSolicitation" />
     </AssociationSet>
     <AssociationSet Name="FK_WhereSolicitationEvent_inherits_WhereEvent" Association="DevelopmentPISModel.Store.FK_WhereSolicitationEvent_inherits_WhereEvent">
       <End Role="WhereEvent" EntitySet="EventSet_WhereEvent" />
@@ -55,19 +38,7 @@
       <End Role="WhereEvent" EntitySet="EventSet_WhereEvent" />
       <End Role="WhereNegationEvent" EntitySet="EventSet_WhereNegationEvent" />
     </AssociationSet>
-    <AssociationSet Name="FK_ConnectSolicitationEvent_inherits_ConnectEvent" Association="DevelopmentPISModel.Store.FK_ConnectSolicitationEvent_inherits_ConnectEvent">
-      <End Role="ConnectEvent" EntitySet="EventSet_ConnectEvent" />
-      <End Role="ConnectSolicitationEvent" EntitySet="EventSet_ConnectSolicitationEvent" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ConnectAcceptationEvent_inherits_ConnectEvent" Association="DevelopmentPISModel.Store.FK_ConnectAcceptationEvent_inherits_ConnectEvent">
-      <End Role="ConnectEvent" EntitySet="EventSet_ConnectEvent" />
-      <End Role="ConnectAcceptationEvent" EntitySet="EventSet_ConnectAcceptationEvent" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ConnectNegationEvent_inherits_ConnectEvent" Association="DevelopmentPISModel.Store.FK_ConnectNegationEvent_inherits_ConnectEvent">
-      <End Role="ConnectEvent" EntitySet="EventSet_ConnectEvent" />
-      <End Role="ConnectNegationEvent" EntitySet="EventSet_ConnectNegationEvent" />
-    </AssociationSet>
-  </EntityContainer>
+    </EntityContainer>
   <EntityType Name="EventSet">
     <Key>
       <PropertyRef Name="Id" />
@@ -104,19 +75,6 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="EventSet_ConnectEvent">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="ConnectSolicitation_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SolicitationSet_ConnectSolicitation">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-  </EntityType>
   <EntityType Name="EventSet_WhereSolicitationEvent">
     <Key>
       <PropertyRef Name="Id" />
@@ -135,24 +93,6 @@
     </Key>
     <Property Name="Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="EventSet_ConnectSolicitationEvent">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EventSet_ConnectAcceptationEvent">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="EventSet_ConnectNegationEvent">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-  </EntityType>
   <Association Name="WhereEventWhereSolicitation">
     <End Role="WhereEvent" Type="DevelopmentPISModel.Store.EventSet_WhereEvent" Multiplicity="*" />
     <End Role="WhereSolicitation" Type="DevelopmentPISModel.Store.SolicitationSet_WhereSolicitation" Multiplicity="1" />
@@ -162,18 +102,6 @@
       </Principal>
       <Dependent Role="WhereEvent">
         <PropertyRef Name="WhereSolicitation_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ConnectEventConnectSolicitation">
-    <End Role="ConnectEvent" Type="DevelopmentPISModel.Store.EventSet_ConnectEvent" Multiplicity="*" />
-    <End Role="ConnectSolicitation" Type="DevelopmentPISModel.Store.SolicitationSet_ConnectSolicitation" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="ConnectSolicitation">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ConnectEvent">
-        <PropertyRef Name="ConnectSolicitation_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -201,34 +129,6 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="WhereSolicitation">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ConnectEvent_inherits_Event">
-    <End Role="Event" Type="DevelopmentPISModel.Store.EventSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ConnectEvent" Type="DevelopmentPISModel.Store.EventSet_ConnectEvent" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Event">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ConnectEvent">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ConnectSolicitation_inherits_Solicitation">
-    <End Role="Solicitation" Type="DevelopmentPISModel.Store.SolicitationSet" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ConnectSolicitation" Type="DevelopmentPISModel.Store.SolicitationSet_ConnectSolicitation" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="Solicitation">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ConnectSolicitation">
         <PropertyRef Name="Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -275,49 +175,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ConnectSolicitationEvent_inherits_ConnectEvent">
-    <End Role="ConnectEvent" Type="DevelopmentPISModel.Store.EventSet_ConnectEvent" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ConnectSolicitationEvent" Type="DevelopmentPISModel.Store.EventSet_ConnectSolicitationEvent" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="ConnectEvent">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ConnectSolicitationEvent">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ConnectAcceptationEvent_inherits_ConnectEvent">
-    <End Role="ConnectEvent" Type="DevelopmentPISModel.Store.EventSet_ConnectEvent" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ConnectAcceptationEvent" Type="DevelopmentPISModel.Store.EventSet_ConnectAcceptationEvent" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="ConnectEvent">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ConnectAcceptationEvent">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ConnectNegationEvent_inherits_ConnectEvent">
-    <End Role="ConnectEvent" Type="DevelopmentPISModel.Store.EventSet_ConnectEvent" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ConnectNegationEvent" Type="DevelopmentPISModel.Store.EventSet_ConnectNegationEvent" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="ConnectEvent">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ConnectNegationEvent">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+  </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DevelopmentPISModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -328,20 +186,34 @@
             <End Role="WhereEvent" EntitySet="EventSet" />
             <End Role="WhereSolicitation" EntitySet="SolicitationSet" />
           </AssociationSet>
-          <AssociationSet Name="ConnectEventConnectSolicitation" Association="DevelopmentPISModel.ConnectEventConnectSolicitation">
-            <End Role="ConnectEvent" EntitySet="EventSet" />
-            <End Role="ConnectSolicitation" EntitySet="SolicitationSet" />
-          </AssociationSet>
           <EntitySet Name="Users" EntityType="DevelopmentPISModel.User" />
-        </EntityContainer>
+          <EntitySet Name="SessionSet" EntityType="DevelopmentPISModel.Session" />
+          <AssociationSet Name="UserSession" Association="DevelopmentPISModel.UserSession">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Session" EntitySet="SessionSet" />
+          </AssociationSet>
+          <EntitySet Name="UserPositionSet" EntityType="DevelopmentPISModel.UserPosition" />
+          <AssociationSet Name="UserUserPosition" Association="DevelopmentPISModel.UserUserPosition">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UserPosition" EntitySet="UserPositionSet" />
+          </AssociationSet>
+          <AssociationSet Name="UserEvent" Association="DevelopmentPISModel.UserEvent">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Event" EntitySet="EventSet" />
+          </AssociationSet>
+          <EntitySet Name="SharingRelationshipSet" EntityType="DevelopmentPISModel.SharingRelationship" />
+          <AssociationSet Name="UserUser" Association="DevelopmentPISModel.UserUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User1" EntitySet="Users" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Event">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="ConnectEvent" BaseType="DevelopmentPISModel.Event" >
-          <NavigationProperty Name="ConnectSolicitation" Relationship="DevelopmentPISModel.ConnectEventConnectSolicitation" FromRole="ConnectEvent" ToRole="ConnectSolicitation" />
+          <NavigationProperty Name="User" Relationship="DevelopmentPISModel.UserEvent" FromRole="Event" ToRole="User" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
         </EntityType>
         <EntityType Name="WhereEvent" BaseType="DevelopmentPISModel.Event" >
           <NavigationProperty Name="WhereSolicitation" Relationship="DevelopmentPISModel.WhereEventWhereSolicitation" FromRole="WhereEvent" ToRole="WhereSolicitation" />
@@ -349,28 +221,20 @@
         <EntityType Name="WhereSolicitationEvent" BaseType="DevelopmentPISModel.WhereEvent" />
         <EntityType Name="WhereAcceptationEvent" BaseType="DevelopmentPISModel.WhereEvent" />
         <EntityType Name="WhereNegationEvent" BaseType="DevelopmentPISModel.WhereEvent" />
-        <EntityType Name="ConnectSolicitationEvent" BaseType="DevelopmentPISModel.ConnectEvent" />
-        <EntityType Name="ConnectAcceptationEvent" BaseType="DevelopmentPISModel.ConnectEvent" />
-        <EntityType Name="ConnectNegationEvent" BaseType="DevelopmentPISModel.ConnectEvent" />
         <EntityType Name="Solicitation">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Sender" Nullable="false" />
+          <Property Type="String" Name="Receiver" Nullable="false" />
           </EntityType>
-        <EntityType Name="ConnectSolicitation" BaseType="DevelopmentPISModel.Solicitation" >
-          <NavigationProperty Name="ConnectEvent" Relationship="DevelopmentPISModel.ConnectEventConnectSolicitation" FromRole="ConnectSolicitation" ToRole="ConnectEvent" />
-        </EntityType>
         <EntityType Name="WhereSolicitation" BaseType="DevelopmentPISModel.Solicitation" >
           <NavigationProperty Name="WhereEvent" Relationship="DevelopmentPISModel.WhereEventWhereSolicitation" FromRole="WhereSolicitation" ToRole="WhereEvent" />
         </EntityType>
         <Association Name="WhereEventWhereSolicitation">
           <End Type="DevelopmentPISModel.WhereEvent" Role="WhereEvent" Multiplicity="*" />
           <End Type="DevelopmentPISModel.WhereSolicitation" Role="WhereSolicitation" Multiplicity="1" />
-        </Association>
-        <Association Name="ConnectEventConnectSolicitation">
-          <End Type="DevelopmentPISModel.ConnectEvent" Role="ConnectEvent" Multiplicity="*" />
-          <End Type="DevelopmentPISModel.ConnectSolicitation" Role="ConnectSolicitation" Multiplicity="1" />
         </Association>
         <EntityType Name="User">
           <Key>
@@ -382,7 +246,70 @@
           <Property Type="String" Name="Mail" Nullable="false" />
           <Property Type="String" Name="Password" Nullable="false" />
           <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Session" Relationship="DevelopmentPISModel.UserSession" FromRole="User" ToRole="Session" />
+          <NavigationProperty Name="UserPosition" Relationship="DevelopmentPISModel.UserUserPosition" FromRole="User" ToRole="UserPosition" />
+          <NavigationProperty Name="Event" Relationship="DevelopmentPISModel.UserEvent" FromRole="User" ToRole="Event" />
+          <NavigationProperty Name="FriendsOf" Relationship="DevelopmentPISModel.UserUser" FromRole="User" ToRole="User1" />
+          <NavigationProperty Name="FriendsFrom" Relationship="DevelopmentPISModel.UserUser" FromRole="User1" ToRole="User" />
           </EntityType>
+        <EntityType Name="Session">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="DeviceId" Nullable="false" />
+          <Property Type="String" Name="Platform" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DevelopmentPISModel.UserSession" FromRole="Session" ToRole="User" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+        </EntityType>
+        <Association Name="UserSession">
+          <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="1" />
+          <End Type="DevelopmentPISModel.Session" Role="Session" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Session">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserPosition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Latitude" Nullable="false" />
+          <Property Type="String" Name="Longitude" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DevelopmentPISModel.UserUserPosition" FromRole="UserPosition" ToRole="User" />
+        </EntityType>
+        <Association Name="UserUserPosition">
+          <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="1" />
+          <End Type="DevelopmentPISModel.UserPosition" Role="UserPosition" Multiplicity="0..1" />
+        </Association>
+        <Association Name="UserEvent">
+          <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="1" />
+          <End Type="DevelopmentPISModel.Event" Role="Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Event">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SharingRelationship">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="StartTime" Nullable="false" />
+        </EntityType>
+        <Association Name="UserUser">
+          <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="*" />
+          <End Type="DevelopmentPISModel.User" Role="User1" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -397,11 +324,6 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereEvent)">
         <MappingFragment StoreEntitySet="EventSet_WhereEvent">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.ConnectEvent)">
-        <MappingFragment StoreEntitySet="EventSet_ConnectEvent">
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -420,22 +342,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.ConnectSolicitationEvent)">
-        <MappingFragment StoreEntitySet="EventSet_ConnectSolicitationEvent">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.ConnectAcceptationEvent)">
-        <MappingFragment StoreEntitySet="EventSet_ConnectAcceptationEvent">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.ConnectNegationEvent)">
-        <MappingFragment StoreEntitySet="EventSet_ConnectNegationEvent">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+      </EntitySetMapping>
     <EntitySetMapping Name="SolicitationSet">
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.Solicitation)">
         <MappingFragment StoreEntitySet="SolicitationSet">
@@ -444,11 +351,6 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereSolicitation)">
         <MappingFragment StoreEntitySet="SolicitationSet_WhereSolicitation">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.ConnectSolicitation)">
-        <MappingFragment StoreEntitySet="SolicitationSet_ConnectSolicitation">
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -473,15 +375,7 @@
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="ConnectEventConnectSolicitation" TypeName="DevelopmentPISModel.ConnectEventConnectSolicitation" StoreEntitySet="EventSet_ConnectEvent">
-      <EndProperty Name="ConnectSolicitation">
-        <ScalarProperty Name="Id" ColumnName="ConnectSolicitation_Id" />
-      </EndProperty>
-      <EndProperty Name="ConnectEvent">
-        <ScalarProperty Name="Id" ColumnName="Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-  </EntityContainerMapping>
+          </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->

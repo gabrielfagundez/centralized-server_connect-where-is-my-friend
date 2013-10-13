@@ -12,9 +12,13 @@ namespace PisDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class ConnectEvent : Event
+    public partial class Session
     {
+        public int Id { get; set; }
+        public string DeviceId { get; set; }
+        public string Platform { get; set; }
+        public int UserId { get; set; }
     
-        public virtual ConnectSolicitation ConnectSolicitation { get; set; }
+        public virtual User User { get; set; }
     }
 }

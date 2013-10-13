@@ -14,11 +14,25 @@ namespace PisDataAccess
     
     public partial class User
     {
+        public User()
+        {
+            this.Session = new HashSet<Session>();
+            this.Event = new HashSet<Event>();
+            this.FriendsOf = new HashSet<User>();
+            this.FriendsFrom = new HashSet<User>();
+        }
+    
         public int Id { get; set; }
         public string FacebookId { get; set; }
         public string LinkedInId { get; set; }
         public string Mail { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
+    
+        public virtual ICollection<Session> Session { get; set; }
+        public virtual UserPosition UserPosition { get; set; }
+        public virtual ICollection<Event> Event { get; set; }
+        public virtual ICollection<User> FriendsOf { get; set; }
+        public virtual ICollection<User> FriendsFrom { get; set; }
     }
 }
