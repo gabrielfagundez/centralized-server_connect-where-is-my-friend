@@ -46,6 +46,44 @@ namespace PISServer.Controllers
             }
         }
 
+        //
+        // GET api/users/GetUserByMail
+        //
+        // This method name also starts with "Get", but the method has a parameter named id. 
+        // This parameter is mapped to the "id" segment of the URI path. 
+        // The ASP.NET Web API framework automatically converts the ID to the 
+        // correct data type (int) for the parameter.
+        public UserResponse GetUserByMail([FromBody] UserEmailRequest request)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                if (request.Mail == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Find the user
+                var user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                UserResponse userResponse = new UserResponse();
+                userResponse.Id = user.Id;
+                userResponse.Name = user.Name;
+                userResponse.Mail = user.Mail;
+                userResponse.FacebookId = user.FacebookId;
+                userResponse.LinkedInId = user.LinkedInId;
+
+                return userResponse;
+            }
+        }
+
+
         // 
         // GET api/users 
         //
