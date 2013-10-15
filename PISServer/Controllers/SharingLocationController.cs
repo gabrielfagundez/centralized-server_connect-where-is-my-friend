@@ -13,7 +13,7 @@ namespace PISServer.Controllers
     public class SharingLocationController : ApiController
     {
         [HttpPost]
-        public UserResponse AddSharingRelationship([FromBody] FriendRequest request)
+        public string AddSharingRelationship([FromBody] FriendRequest request)
         {
             // Tiene que devolver la informacion del segundo usuario (no la pass!)
             // Error: si no existe un id 404
@@ -43,8 +43,6 @@ namespace PISServer.Controllers
                 };
 
                 User userTo;
-
-                // Buscamos el amigo al cual vamos a agregarle el amigo
                 userTo = context.Users
                             .Where(u => u.Mail == request.MailTo)
                             .FirstOrDefault();
@@ -54,23 +52,18 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                userFrom.FriendsOf.Add(userTo);
-                userTo.FriendsOf.Add(userFrom);
+                SharingRelationship sharingTo = new SharingRelationship();
+                sharingTo.SharingWith = userFrom.Id;
+                sharingTo.StartTime = DateTime.Now;
+                userTo.SharingRelationship.Add(sharingTo);
                 context.SaveChanges();
 
-                UserResponse userResponse = new UserResponse();
-                userResponse.Id = userTo.Id;
-                userResponse.Name = userTo.Name;
-                userResponse.Mail = userTo.Mail;
-                userResponse.FacebookId = userTo.FacebookId;
-                userResponse.LinkedInId = userTo.LinkedInId;
-
-                return userResponse;
+                return "OK";
             }
         }
 
         [HttpGet]
-        public List<UserResponse> GetAllFriends(int id)
+        public List<SharingResponse> GetAllLocations(int id)
         {
             using (var context = new DevelopmentPISEntities())
             {
@@ -86,19 +79,23 @@ namespace PISServer.Controllers
                 }
 
                 // Buscamos sus amigos
-                var users = user.FriendsOf.ToList();
-                var ret = new List<UserResponse>();
+                var users = user.SharingRelationship.ToList();
+                var ret = new List<SharingResponse>();
 
                 for (int i = 0; i < users.Count; i++)
                 {
-                    UserResponse userResponse = new UserResponse();
-                    userResponse.Id = users[i].Id;
-                    userResponse.Name = users[i].Name;
-                    userResponse.Mail = users[i].Mail;
-                    userResponse.FacebookId = users[i].FacebookId;
-                    userResponse.LinkedInId = users[i].LinkedInId;
+                    var u = context.Users
+                            .Where(u => u.Id == users[i].Id)
+                            .FirstOrDefault();
 
-                    ret.Add(userResponse);
+                    SharingResponse sharingResponse = new SharingResponse();
+                    sharingResponse.Id = users[i].Id;
+                    sharingResponse.Name = u.Name;
+                    sharingResponse.Mail = u.Mail;
+                    sharingResponse.Latitude = u.UserPosition.Latitude;
+                    sharingResponse.Longitude = u.UserPosition.Longitude;
+
+                    ret.Add(sharingResponse);
                 }
 
                 return ret;
@@ -109,7 +106,7 @@ namespace PISServer.Controllers
 
         // Metodos que usan id en lugar de mails
         [HttpPost]
-        public UserResponse AddFriendFromIds([FromBody] FriendRequestId request)
+        public string AddSharingRelationshipFromIds([FromBody] FriendRequestId request)
         {
             // Tiene que devolver la informacion del segundo usuario (no la pass!)
             // Error: si no existe un id 404
@@ -150,18 +147,13 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                userFrom.FriendsOf.Add(userTo);
-                userTo.FriendsOf.Add(userFrom);
+                SharingRelationship sharingTo = new SharingRelationship();
+                sharingTo.SharingWith = userFrom.Id;
+                sharingTo.StartTime = DateTime.Now;
+                userTo.SharingRelationship.Add(sharingTo);
                 context.SaveChanges();
 
-                UserResponse userResponse = new UserResponse();
-                userResponse.Id = userTo.Id;
-                userResponse.Name = userTo.Name;
-                userResponse.Mail = userTo.Mail;
-                userResponse.FacebookId = userTo.FacebookId;
-                userResponse.LinkedInId = userTo.LinkedInId;
-
-                return userResponse;
+                return "OK";
             }
         }
     }
