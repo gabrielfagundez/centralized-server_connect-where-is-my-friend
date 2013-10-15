@@ -167,6 +167,7 @@
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\GeolocationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SharingLocationController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\WhereEventController.cs" />
     <Compile Include="Global.asax.cs">

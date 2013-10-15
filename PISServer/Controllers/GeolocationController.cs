@@ -73,7 +73,7 @@ namespace PISServer.Controllers
         }
 
         [HttpPost]
-        public List<LocationAddRequest> GetAllFriendsLocation([FromBody] UserEmailRequest request)
+        public List<LocationAddRequest> GetLastFriendsLocation([FromBody] UserEmailRequest request)
         {
             using (var context = new DevelopmentPISEntities())
             {
@@ -110,7 +110,8 @@ namespace PISServer.Controllers
             }
         }
 
-        public List<LocationAddRequest> GetFriendsLocations(int id)
+        [HttpGet]
+        public List<LocationAddRequest> GetLastFriendsLocations(int id)
         {
             using (var context = new DevelopmentPISEntities())
             {

@@ -16,5 +16,9 @@ namespace PisDataAccess
     {
         public int Id { get; set; }
         public System.DateTime StartTime { get; set; }
+        public int UserId { get; set; }
+        public int SharingWith { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }

@@ -28,6 +28,7 @@
         <AssociationConnector Association="DevelopmentPISModel.UserEvent" />
         <EntityTypeShape EntityType="DevelopmentPISModel.SharingRelationship" Width="1.5" PointX="10.375" PointY="4.25" />
         <AssociationConnector Association="DevelopmentPISModel.UserUser" />
+        <AssociationConnector Association="DevelopmentPISModel.UserSharingRelationship" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
