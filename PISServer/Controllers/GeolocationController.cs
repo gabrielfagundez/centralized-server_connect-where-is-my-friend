@@ -71,5 +71,43 @@ namespace PISServer.Controllers
                 return l;
             }
         }
+
+        [HttpPost]
+        public List<LocationAddRequest> GetAllFriendsLocation([FromBody] UserEmailRequest request)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                if (request.Mail == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Find the user
+                var user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Buscamos sus amigos
+                var users = user.FriendsOf.ToList();
+                var ret = new List<LocationAddRequest>();
+
+                for (int i = 0; i < users.Count; i++)
+                {
+                    LocationAddRequest userLocation = new LocationAddRequest();
+                    userLocation.Mail = users[i].Mail;
+                    userLocation.Latitude = users[i].UserPosition.Latitude;
+                    userLocation.Longitude = users[i].UserPosition.Longitude;
+
+                    ret.Add(userLocation);
+                }
+
+                return ret;
+            }
+        }
     }
 }
