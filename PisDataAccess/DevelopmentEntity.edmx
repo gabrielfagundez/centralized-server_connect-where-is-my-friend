@@ -11,7 +11,6 @@
     <EntitySet Name="Users" EntityType="DevelopmentPISModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SessionSet" EntityType="DevelopmentPISModel.Store.SessionSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserPositionSet" EntityType="DevelopmentPISModel.Store.UserPositionSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SharingRelationshipSet" EntityType="DevelopmentPISModel.Store.SharingRelationshipSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SolicitationSet_WhereSolicitation" EntityType="DevelopmentPISModel.Store.SolicitationSet_WhereSolicitation" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereSolicitationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereSolicitationEvent" store:Type="Tables" Schema="dbo" />
@@ -106,13 +105,6 @@
     <Property Name="Latitude" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Longitude" Type="nvarchar(max)" Nullable="false" />
     <Property Name="User_Id" Type="int" Nullable="true" />
-  </EntityType>
-  <EntityType Name="SharingRelationshipSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="StartTime" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="EventSet_WhereEvent">
     <Key>
@@ -321,14 +313,9 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Event" EntitySet="EventSet" />
           </AssociationSet>
-          <EntitySet Name="SharingRelationshipSet" EntityType="DevelopmentPISModel.SharingRelationship" />
           <AssociationSet Name="UserUser" Association="DevelopmentPISModel.UserUser">
             <End Role="User" EntitySet="Users" />
             <End Role="User1" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="UserSharingRelationship" Association="DevelopmentPISModel.UserSharingRelationship">
-            <End Role="User" EntitySet="Users" />
-            <End Role="SharingRelationship" EntitySet="SharingRelationshipSet" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Event">
@@ -375,7 +362,6 @@
           <NavigationProperty Name="Event" Relationship="DevelopmentPISModel.UserEvent" FromRole="User" ToRole="Event" />
           <NavigationProperty Name="FriendsOf" Relationship="DevelopmentPISModel.UserUser" FromRole="User" ToRole="User1" />
           <NavigationProperty Name="FriendsFrom" Relationship="DevelopmentPISModel.UserUser" FromRole="User1" ToRole="User" />
-          <NavigationProperty Name="SharingRelationship" Relationship="DevelopmentPISModel.UserSharingRelationship" FromRole="User" ToRole="SharingRelationship" />
           </EntityType>
         <EntityType Name="Session">
           <Key>
@@ -424,31 +410,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="SharingRelationship">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="StartTime" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="DevelopmentPISModel.UserSharingRelationship" FromRole="SharingRelationship" ToRole="User" />
-          <Property Type="Int32" Name="UserId" Nullable="false" />
-          <Property Type="Int32" Name="SharingWith" Nullable="false" />
-        </EntityType>
         <Association Name="UserUser">
           <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="*" />
           <End Type="DevelopmentPISModel.User" Role="User1" Multiplicity="*" />
-        </Association>
-        <Association Name="UserSharingRelationship">
-          <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="1" />
-          <End Type="DevelopmentPISModel.SharingRelationship" Role="SharingRelationship" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SharingRelationship">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -526,14 +490,6 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Latitude" ColumnName="Latitude" />
           <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SharingRelationshipSet">
-      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.SharingRelationship)">
-        <MappingFragment StoreEntitySet="SharingRelationshipSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

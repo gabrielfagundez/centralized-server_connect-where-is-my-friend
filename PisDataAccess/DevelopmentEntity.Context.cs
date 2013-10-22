@@ -30,6 +30,5 @@ namespace PisDataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Session> SessionSet { get; set; }
         public DbSet<UserPosition> UserPositionSet { get; set; }
-        public DbSet<SharingRelationship> SharingRelationshipSet { get; set; }
     }
 }

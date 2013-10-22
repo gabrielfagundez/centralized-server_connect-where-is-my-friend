@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8953a8948c6c41e3bc9d2f09e59b65d1" Name="Diagram1">
+      <Diagram DiagramId="8953a8948c6c41e3bc9d2f09e59b65d1" Name="Diagram1" ZoomLevel="72">
         <EntityTypeShape EntityType="DevelopmentPISModel.Event" Width="1.5" PointX="7.875" PointY="3" />
         <EntityTypeShape EntityType="DevelopmentPISModel.WhereEvent" Width="1.5" PointX="7.875" PointY="4.875" />
         <InheritanceConnector EntityType="DevelopmentPISModel.WhereEvent" ManuallyRouted="false" >
@@ -26,9 +26,7 @@
         <EntityTypeShape EntityType="DevelopmentPISModel.UserPosition" Width="1.5" PointX="3.375" PointY="0.625" />
         <AssociationConnector Association="DevelopmentPISModel.UserUserPosition" />
         <AssociationConnector Association="DevelopmentPISModel.UserEvent" />
-        <EntityTypeShape EntityType="DevelopmentPISModel.SharingRelationship" Width="1.5" PointX="10.375" PointY="4.25" />
         <AssociationConnector Association="DevelopmentPISModel.UserUser" />
-        <AssociationConnector Association="DevelopmentPISModel.UserSharingRelationship" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
