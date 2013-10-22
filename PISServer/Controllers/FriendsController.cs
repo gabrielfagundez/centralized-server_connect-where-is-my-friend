@@ -13,14 +13,15 @@ namespace PISServer.Controllers
 {
     public class FriendsController : ApiController
     {
+        // 
+        // Allows adding a friend.
+        //
         [HttpPost]
         public UserResponse AddFriend([FromBody] FriendRequest request)
         {
-            // Tiene que devolver la informacion del segundo usuario (no la pass!)
-            // Error: si no existe un id 404
-            // Error: si no existe un id 410 gone
             using (var context = new DevelopmentPISEntities())
             {
+                // If one of the mails is null return Not Found
                 if (request.MailFrom == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -33,7 +34,7 @@ namespace PISServer.Controllers
 
                 User userFrom;
 
-                // Buscamos el amigo de quien solicita la amistad
+                // Find the user that request the friendship
                 userFrom = context.Users
                             .Where(u => u.Mail == request.MailFrom)
                             .FirstOrDefault();
@@ -45,7 +46,7 @@ namespace PISServer.Controllers
 
                 User userTo;
 
-                // Buscamos el amigo al cual vamos a agregarle el amigo
+                // Find the user to add as friend of the first one
                 userTo = context.Users
                             .Where(u => u.Mail == request.MailTo)
                             .FirstOrDefault();
@@ -55,10 +56,12 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
+                // Add friends and save
                 userFrom.FriendsOf.Add(userTo);
                 userTo.FriendsOf.Add(userFrom);
                 context.SaveChanges();
 
+                // Create the response
                 UserResponse userResponse = new UserResponse();
                 userResponse.Id = userTo.Id;
                 userResponse.Name = userTo.Name;
@@ -70,6 +73,9 @@ namespace PISServer.Controllers
             }
         }
 
+        //
+        // Allows to get all friends
+        //
         [HttpGet]
         public List<UserResponse> GetAllFriends(int id)
         {
@@ -106,15 +112,12 @@ namespace PISServer.Controllers
             }
         }
 
-
-
-        // Metodos que usan id en lugar de mails
+        //
+        // Allow to add a friend based on ids
+        //
         [HttpPost]
         public UserResponse AddFriendFromIds([FromBody] FriendRequestId request)
         {
-            // Tiene que devolver la informacion del segundo usuario (no la pass!)
-            // Error: si no existe un id 404
-            // Error: si no existe un id 410 gone
             using (var context = new DevelopmentPISEntities())
             {
                 if (request.IdFrom == null)
