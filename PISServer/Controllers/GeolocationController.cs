@@ -12,11 +12,116 @@ namespace PISServer.Controllers
 {
     public class GeolocationController : ApiController
     {
+
+        // 
+        // Returns the last location of a user given its mail
+        //
+        [HttpPost]
+        public Location GetFriendLocation([FromBody] UserEmailRequest request)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                // If mail is null return Not Found
+                if (request.Mail == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Find the user
+                var user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // If user is null return Not Found
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // If user position is null return not found
+                if (user.UserPosition == null)
+                {
+                    Location null_location = new Location();
+
+                    null_location.Latitude = null;
+                    null_location.Longitude = null;
+
+                    return null_location;
+                }
+
+                // Create the response
+                Location l = new Location();
+
+                l.Latitude = user.UserPosition.Latitude;
+                l.Longitude = user.UserPosition.Longitude;
+
+                return l;
+            }
+        }
+
+        //
+        // Returns the last position of each friend
+        //
+        [HttpPost]
+        public List<LocationAddRequest> GetLastFriendsLocation([FromBody] UserEmailRequest request)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                // If mail is null return null
+                if (request.Mail == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Find the user
+                var user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // If user is null return Not Found
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Find its friends
+                var users = user.FriendsOf.ToList();
+                var ret = new List<LocationAddRequest>();
+
+                for (int i = 0; i < users.Count; i++)
+                {
+                    // Create a response
+                    LocationAddRequest userLocation = new LocationAddRequest();
+                    userLocation.Mail = users[i].Mail;
+                    
+                    // If user dont have position, return nulls
+                    if (users[i].UserPosition == null)
+                    {
+                        userLocation.Latitude = null;
+                        userLocation.Longitude = null;
+                    }
+                    else
+                    {
+                        userLocation.Latitude = users[i].UserPosition.Latitude;
+                        userLocation.Longitude = users[i].UserPosition.Longitude;
+                    }
+
+                    ret.Add(userLocation);
+                }
+
+                return ret;
+            }
+        }
+
+        // 
+        // Allow to set the last position of a friend
+        //
         [HttpPost]
         public LocationAddRequest SetLocation([FromBody] LocationAddRequest request)
         {
             using (var context = new DevelopmentPISEntities())
             {
+                // If the one of the fields is null return Not Found
                 if (request.Mail == null || request.Longitude == null || request.Latitude == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -27,11 +132,13 @@ namespace PISServer.Controllers
                             .Where(u => u.Mail == request.Mail)
                             .FirstOrDefault();
 
+                // If the user is null return Not Found
                 if (user == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
+                // Create the response
                 UserPosition up = new UserPosition();
                 up.Latitude = request.Latitude;
                 up.Longitude = request.Longitude;
@@ -43,75 +150,11 @@ namespace PISServer.Controllers
             }
         }
 
-        [HttpPost]
-        public Location GetFriendLocation([FromBody] UserEmailRequest request)
-        {
-            using (var context = new DevelopmentPISEntities())
-            {
-                if (request.Mail == null)
-                {
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
-                }
-
-                // Find the user
-                var user = context.Users
-                            .Where(u => u.Mail == request.Mail)
-                            .FirstOrDefault();
-
-                if (user == null)
-                {
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
-                }
-
-                Location l = new Location();
-
-                l.Latitude = user.UserPosition.Latitude;
-                l.Longitude = user.UserPosition.Longitude;
-
-                return l;
-            }
-        }
-
-        [HttpPost]
-        public List<LocationAddRequest> GetLastFriendsLocation([FromBody] UserEmailRequest request)
-        {
-            using (var context = new DevelopmentPISEntities())
-            {
-                if (request.Mail == null)
-                {
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
-                }
-
-                // Find the user
-                var user = context.Users
-                            .Where(u => u.Mail == request.Mail)
-                            .FirstOrDefault();
-
-                if (user == null)
-                {
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
-                }
-
-                // Buscamos sus amigos
-                var users = user.FriendsOf.ToList();
-                var ret = new List<LocationAddRequest>();
-
-                for (int i = 0; i < users.Count; i++)
-                {
-                    LocationAddRequest userLocation = new LocationAddRequest();
-                    userLocation.Mail = users[i].Mail;
-                    userLocation.Latitude = users[i].UserPosition.Latitude;
-                    userLocation.Longitude = users[i].UserPosition.Longitude;
-
-                    ret.Add(userLocation);
-                }
-
-                return ret;
-            }
-        }
-
+        //
+        // Get last friends location based on an id
+        //
         [HttpGet]
-        public List<LocationAddRequest> GetLastFriendsLocations(int id)
+        public List<LocationAddRequest> GetLastFriendsLocationsById(int id)
         {
             using (var context = new DevelopmentPISEntities())
             {
@@ -120,6 +163,7 @@ namespace PISServer.Controllers
                             .Where(u => u.Id == id)
                             .FirstOrDefault();
 
+                // If user is null return Not Found
                 if (user == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -131,11 +175,21 @@ namespace PISServer.Controllers
 
                 for (int i = 0; i < users.Count; i++)
                 {
+                    // Create the response
                     LocationAddRequest userLocation = new LocationAddRequest();
                     userLocation.Mail = users[i].Mail;
-                    userLocation.Latitude = users[i].UserPosition.Latitude;
-                    userLocation.Longitude = users[i].UserPosition.Longitude;
 
+                    // If user dont have position, return nulls
+                    if (users[i].UserPosition == null)
+                    {
+                        userLocation.Latitude = null;
+                        userLocation.Longitude = null;
+                    }
+                    else
+                    {
+                        userLocation.Latitude = users[i].UserPosition.Latitude;
+                        userLocation.Longitude = users[i].UserPosition.Longitude;
+                    }
                     ret.Add(userLocation);
                 }
 
