@@ -17,10 +17,8 @@ namespace PISServer.Controllers
         //
         // GET api/users/:id
         //
-        // This method name also starts with "Get", but the method has a parameter named id. 
-        // This parameter is mapped to the "id" segment of the URI path. 
-        // The ASP.NET Web API framework automatically converts the ID to the 
-        // correct data type (int) for the parameter.
+        // Return a user identified by its id
+        //
         public UserResponse GetUser(int id)
         {
             using (var context = new DevelopmentPISEntities())
@@ -30,11 +28,13 @@ namespace PISServer.Controllers
                             .Where(u => u.Id == id)
                             .FirstOrDefault();
 
+                // If the user is null return Not Found
                 if (user == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
+                // Create a response
                 UserResponse userResponse = new UserResponse();
                 userResponse.Id = user.Id;
                 userResponse.Name = user.Name;
@@ -53,11 +53,15 @@ namespace PISServer.Controllers
         // This parameter is mapped to the "id" segment of the URI path. 
         // The ASP.NET Web API framework automatically converts the ID to the 
         // correct data type (int) for the parameter.
+        // 
+        // Return a user identified by its email.
+        //
         [HttpPost]
         public UserResponse GetUserByMail([FromBody] UserEmailRequest request)
         {
             using (var context = new DevelopmentPISEntities())
             {
+                // If empty mail is received return Not Found
                 if (request.Mail == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -68,11 +72,13 @@ namespace PISServer.Controllers
                             .Where(u => u.Mail == request.Mail)
                             .FirstOrDefault();
 
+                // If the user is null return Not Found
                 if (user == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
+                // Create the response
                 UserResponse userResponse = new UserResponse();
                 userResponse.Id = user.Id;
                 userResponse.Name = user.Name;
@@ -91,15 +97,20 @@ namespace PISServer.Controllers
         // The method name starts with "Get", so by convention it maps to GET requests. 
         // Also, because the method has no parameters, it maps to a URI that does 
         // not contain an "id" segment in the path.
+        //
+        // Return the list of users
+        //
         public List<UserResponse> GetAll([FromUri] string secret_token)
         {
             if (secret_token == "abcdefgh")
             {
                 using (var context = new DevelopmentPISEntities())
                 {
+                    // Create a temporal list of users
                     var users = context.Users.ToList();
                     var ret = new List<UserResponse>();
 
+                    // Navigate into the users
                     for (int i = 0; i < users.Count; i++)
                     {
                         UserResponse userResponse = new UserResponse();
@@ -109,6 +120,7 @@ namespace PISServer.Controllers
                         userResponse.FacebookId = users[i].FacebookId;
                         userResponse.LinkedInId = users[i].LinkedInId;
 
+                        // Add the current user
                         ret.Add(userResponse);
                     }
 
@@ -118,6 +130,7 @@ namespace PISServer.Controllers
             }
             else
             {
+                // If token is erroneous, return Unauthorized
                 throw new HttpResponseException(HttpStatusCode.Unauthorized);
             }
 
@@ -146,14 +159,10 @@ namespace PISServer.Controllers
         //
         // Used when a client is trying to login to the System.
         //
-        // @param [String] mail
-        // @param [String] password
-        //
-        // @return [User] the information of the user.
-        //
         [ActionName("Login")]
         public UserResponse PostLogin([FromBody] UserLoginRequest request)
         {
+            // If mail is empty return Not Found
             if (request.Mail == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -168,6 +177,7 @@ namespace PISServer.Controllers
                             .Where(u => u.Mail == request.Mail)
                             .FirstOrDefault();
 
+                // Return not found if user is null
                 if (user == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -181,6 +191,7 @@ namespace PISServer.Controllers
                     }
                 }
 
+                // Create a response
                 UserResponse userResponse = new UserResponse();
                 userResponse.Id = user.Id;
                 userResponse.Name = user.Name;
@@ -197,13 +208,10 @@ namespace PISServer.Controllers
         //
         // Used when a client is trying to signup to the System.
         //
-        // @param [String] mail
-        // @param [String] name
-        // @param [String] password
-        //
         [ActionName("SignUp")]
         public UserResponse PostSignUp([FromBody] UserRequest request) 
         {
+            // Return Not Found if mail or password is null
             if (request.Mail == null || request.Password == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -220,6 +228,7 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.Gone);
                 }
 
+                // Create the user
                 User newUser = new User
                 {
                     Name = request.Name,
@@ -231,6 +240,7 @@ namespace PISServer.Controllers
                     UserPosition = null
                 };
 
+                // Save the user
                 context.Users.Add(newUser);
                 context.SaveChanges();
 
@@ -246,7 +256,7 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
-
+                // Create the response
                 UserResponse userResponse = new UserResponse();
                 userResponse.Id = userToReturn.Id;
                 userResponse.Name = userToReturn.Name;
