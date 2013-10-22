@@ -81,7 +81,6 @@ namespace PISServer.Controllers
         {
             using (var context = new DevelopmentPISEntities())
             {
-                // Buscamos el usuario
                 // Find the user
                 var user = context.Users
                             .Where(u => u.Id == id)
@@ -92,10 +91,11 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
-                // Buscamos sus amigos
+                // Find its friends
                 var users = user.FriendsOf.ToList();
                 var ret = new List<UserResponse>();
 
+                // Create the response
                 for (int i = 0; i < users.Count; i++)
                 {
                     UserResponse userResponse = new UserResponse();
