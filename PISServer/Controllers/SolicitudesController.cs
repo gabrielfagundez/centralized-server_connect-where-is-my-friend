@@ -104,12 +104,34 @@ namespace PISServer.Controllers
         [HttpPost]
         public string Accept([FromBody] SolicitudRequest request)
         {
+            using (var context = new DevelopmentPISEntities())
+            {
+                // If bad parameters
+                if (request.IdUser == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                };
 
+                if (request.IdSolicitud == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                };
 
+                User user;
 
+                // Find the requesting friend
+                user = context.Users
+                            .Where(u => u.Id == request.IdUser)
+                            .FirstOrDefault();
 
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                };
 
-            return "OK"
+                return "OK";
+
+            }
         }
 
         //
@@ -117,14 +139,35 @@ namespace PISServer.Controllers
         //
         [HttpPost]
         public string Reject([FromBody] SolicitudRequest request)
-        { 
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                // If bad parameters
+                if (request.IdUser == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                };
 
+                if (request.IdSolicitud == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                };
 
+                User user;
 
+                // Find the requesting friend
+                user = context.Users
+                            .Where(u => u.Id == request.IdUser)
+                            .FirstOrDefault();
 
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                };
 
+                return "OK";
 
-            return "OK"
+            }
         }
     }
 }
