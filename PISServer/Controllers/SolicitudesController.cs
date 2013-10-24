@@ -55,9 +55,12 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                // Add the request
+                // Create the solicitation
+                WhereSolicitation sol = new WhereSolicitation();
+                sol.Receiver = userTo.Mail;
+                sol.Sender = userFrom.Mail;
 
-               
+
 
 
 

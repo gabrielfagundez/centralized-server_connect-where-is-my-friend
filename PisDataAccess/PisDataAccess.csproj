@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DevelopmentEntity.Context.cs">
       <DependentUpon>DevelopmentEntity.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
