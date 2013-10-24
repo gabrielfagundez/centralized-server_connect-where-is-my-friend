@@ -13,14 +13,14 @@ namespace PISServer.Controllers
     public class SolicitudesController : ApiController
     {
         //
-        // Allow to add a friend based on ids
+        // Allow to add a request from Where Is My Friend?
         //
         [HttpPost]
         public FriendRequestId Send([FromBody] FriendRequestId request)
         {
             using (var context = new DevelopmentPISEntities())
             {
-                // Si no existe alguno de los parametros necesarions
+                // If bad parameters
                 if (request.IdFrom == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -33,7 +33,7 @@ namespace PISServer.Controllers
 
                 User userFrom;
 
-                // Buscamos el amigo de quien solicita la amistad
+                // Find the requesting friend
                 userFrom = context.Users
                             .Where(u => u.Id == request.IdFrom)
                             .FirstOrDefault();
@@ -45,7 +45,7 @@ namespace PISServer.Controllers
 
                 User userTo;
 
-                // Buscamos el amigo al cual vamos a agregarle el amigo
+                // Find the other friend
                 userTo = context.Users
                             .Where(u => u.Id == request.IdTo)
                             .FirstOrDefault();
@@ -55,13 +55,46 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                // Agregamos la solicitud
+                // Add the request
 
                
 
 
 
                 return request;
+            }
+        }
+
+        //
+        // Allows to get all request for a friend
+        //
+        [HttpGet]
+        public List<SolicitudesResponse> GetAll(int id)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                // Find the user
+                var user = context.Users
+                            .Where(u => u.Id == id)
+                            .FirstOrDefault();
+
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Find its requests
+
+
+
+
+
+
+
+
+
+
+                return null;
             }
         }
     }

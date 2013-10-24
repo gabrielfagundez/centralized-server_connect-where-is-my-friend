@@ -132,7 +132,7 @@ namespace PISServer.Controllers
 
                 User userFrom;
 
-                // Buscamos el amigo de quien solicita la amistad
+                // Find the requesting friend
                 userFrom = context.Users
                             .Where(u => u.Id == request.IdFrom)
                             .FirstOrDefault();
@@ -144,7 +144,7 @@ namespace PISServer.Controllers
 
                 User userTo;
 
-                // Buscamos el amigo al cual vamos a agregarle el amigo
+                // Find the other friend
                 userTo = context.Users
                             .Where(u => u.Id == request.IdTo)
                             .FirstOrDefault();
