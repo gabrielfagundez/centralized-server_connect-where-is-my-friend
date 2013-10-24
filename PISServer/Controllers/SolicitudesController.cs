@@ -60,10 +60,6 @@ namespace PISServer.Controllers
                 sol.Receiver = userTo.Mail;
                 sol.Sender = userFrom.Mail;
 
-
-
-
-
                 return request;
             }
         }
@@ -87,15 +83,24 @@ namespace PISServer.Controllers
                 }
 
                 // Find its requests
+                var solicitudes = context.SolicitationSet
+                            .Where(s => s.Receiver == user.Mail).ToList();
 
+                var ret = new List<SolicitudesResponse>();
 
+                // Create the response
+                for (int i = 0; i < solicitudes.Count; i++)
+                {
+                    SolicitudesResponse solResponse = new SolicitudesResponse();
+                    var user_sol = context.Users
+                        .Where(u => u.Mail == solicitudes[i].Receiver)
+                        .FirstOrDefault();
 
+                    solResponse.SolicitudId = solicitudes[i].Id;
+                    solResponse.SolicitudFromNombre = user_sol.Name;
 
-
-
-
-
-
+                    ret.Add(solResponse);
+                }
 
                 return null;
             }
@@ -131,6 +136,9 @@ namespace PISServer.Controllers
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
+
+                solicitud = context.SolicitationSet
+                    .Where
 
                 return "OK";
 
