@@ -5,9 +5,9 @@ using System.Web;
 
 namespace PISServer.Models.Datatypes
 {
-    public class SolicitudesResponse
+    public class SolicitudRequest
     {
-        public string SolicitudFromNombre { get; set; }
-        public int SolicitudId { get; set; }
+        public int IdUser { get; set; }
+        public int IdSolicitud { get; set; }
     }
 }

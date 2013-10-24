@@ -180,6 +180,7 @@
     <Compile Include="Models\Datatypes\LocationAddRequest.cs" />
     <Compile Include="Models\Datatypes\SharingResponse.cs" />
     <Compile Include="Models\Datatypes\SolicitudesResponse.cs" />
+    <Compile Include="Models\Datatypes\SolicitudRequest.cs" />
     <Compile Include="Models\Datatypes\UserEmailRequest.cs" />
     <Compile Include="Models\Datatypes\UserLoginRequest.cs" />
     <Compile Include="Models\Datatypes\UserRequest.cs" />

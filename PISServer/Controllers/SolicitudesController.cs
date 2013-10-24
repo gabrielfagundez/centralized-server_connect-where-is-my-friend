@@ -97,5 +97,34 @@ namespace PISServer.Controllers
                 return null;
             }
         }
+
+        //
+        // Allows to get accept a request
+        //
+        [HttpPost]
+        public string Accept([FromBody] SolicitudRequest request)
+        {
+
+
+
+
+
+            return "OK"
+        }
+
+        //
+        // Allows to get reject a request
+        //
+        [HttpPost]
+        public string Reject([FromBody] SolicitudRequest request)
+        { 
+
+
+
+
+
+
+            return "OK"
+        }
     }
 }
