@@ -59,6 +59,7 @@ namespace PISServer.Controllers
                 WhereSolicitation sol = new WhereSolicitation();
                 sol.Receiver = userTo.Mail;
                 sol.Sender = userFrom.Mail;
+                context.SaveChanges();
 
                 return request;
             }
@@ -102,7 +103,7 @@ namespace PISServer.Controllers
                     ret.Add(solResponse);
                 }
 
-                return null;
+                return ret;
             }
         }
 
@@ -137,8 +138,21 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                solicitud = context.SolicitationSet
-                    .Where
+                // Find the request
+                var solicitud = context.SolicitationSet
+                    .Where(s => s.Id == request.IdSolicitud)
+                    .FirstOrDefault();
+
+                if (solicitud == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                };
+
+                // FALTA CHEQUEAR POR USUARIO
+
+                WhereAcceptationEvent wa = new WhereAcceptationEvent();
+                wa.WhereSolicitation = solicitud;
+                context.SaveChanges();
 
                 return "OK";
 
