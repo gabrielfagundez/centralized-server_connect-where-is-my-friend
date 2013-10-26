@@ -159,7 +159,13 @@ namespace PISServer.Controllers
                 // FALTA CHEQUEAR POR USUARIO
 
                 WhereAcceptationEvent wa = new WhereAcceptationEvent();
+<<<<<<< HEAD
+                //COMENTE LA LINEA DE ABAJO PORQUE ME DABA ERROR
                 //wa.WhereSolicitation = solicitud;
+                //HASTA ACA COMENTE PORQUE ME DABA ERROR
+=======
+                //wa.WhereSolicitation = solicitud;
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
                 context.SaveChanges();
 
                 return "OK";

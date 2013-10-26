@@ -12,11 +12,10 @@ namespace PisDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Event
+    public partial class Solicitation
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
-    
-        public virtual User User { get; set; }
+        public string Sender { get; set; }
+        public string Receiver { get; set; }
     }
 }
