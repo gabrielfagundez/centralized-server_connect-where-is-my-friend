@@ -96,6 +96,8 @@
     <Property Name="DeviceId" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Platform" Type="nvarchar(max)" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="UserPositionSet">
     <Key>
@@ -372,6 +374,8 @@
           <Property Type="String" Name="Platform" Nullable="false" />
           <NavigationProperty Name="User" Relationship="DevelopmentPISModel.UserSession" FromRole="Session" ToRole="User" />
           <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
         </EntityType>
         <Association Name="UserSession">
           <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="1" />
@@ -481,6 +485,8 @@
           <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
           <ScalarProperty Name="Platform" ColumnName="Platform" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
