@@ -255,8 +255,10 @@ namespace PISServer.Controllers
 
                 // Create the accept
                 WhereAcceptationEvent wa = new WhereAcceptationEvent();
-                wa.UserId = solicitud.For;
+                user.Event.Add(wa);
                 solicitud.WhereNegationEvent = null;
+                solicitud.WhereAcceptationEvent = wa;
+                context.EventSet.Add(wa);
                 context.SaveChanges();
 
                 return "OK";
@@ -301,8 +303,10 @@ namespace PISServer.Controllers
 
                 // Create the negate
                 WhereNegationEvent wn = new WhereNegationEvent();
-                wn.UserId = solicitud.For;
+                user.Event.Add(wn);
                 solicitud.WhereAcceptationEvent = null;
+                solicitud.WhereNegationEvent = wn;
+                context.EventSet.Add(wn);
                 context.SaveChanges();
 
                 return "OK";
