@@ -6,20 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="8953a8948c6c41e3bc9d2f09e59b65d1" Name="Diagram1" ZoomLevel="94">
         <EntityTypeShape EntityType="DevelopmentPISModel.Event" Width="1.5" PointX="7.875" PointY="3" />
-        <EntityTypeShape EntityType="DevelopmentPISModel.WhereEvent" Width="1.5" PointX="7.875" PointY="4.875" />
-        <InheritanceConnector EntityType="DevelopmentPISModel.WhereEvent" ManuallyRouted="false" >
-        </InheritanceConnector>
-        <EntityTypeShape EntityType="DevelopmentPISModel.WhereSolicitationEvent" Width="1.5" PointX="6.25" PointY="6.625" />
-        <InheritanceConnector EntityType="DevelopmentPISModel.WhereSolicitationEvent" />
-        <EntityTypeShape EntityType="DevelopmentPISModel.WhereAcceptationEvent" Width="1.5" PointX="7.875" PointY="6.625" />
-        <InheritanceConnector EntityType="DevelopmentPISModel.WhereAcceptationEvent" />
-        <EntityTypeShape EntityType="DevelopmentPISModel.WhereNegationEvent" Width="1.5" PointX="9.5" PointY="6.625" />
-        <InheritanceConnector EntityType="DevelopmentPISModel.WhereNegationEvent" ManuallyRouted="false" >
-        </InheritanceConnector>
-        <EntityTypeShape EntityType="DevelopmentPISModel.Solicitation" Width="1.5" PointX="0.625" PointY="0.5" />
-        <EntityTypeShape EntityType="DevelopmentPISModel.WhereSolicitation" Width="1.5" PointX="0.625" PointY="3.25" />
-        <InheritanceConnector EntityType="DevelopmentPISModel.WhereSolicitation" />
-        <AssociationConnector Association="DevelopmentPISModel.WhereEventWhereSolicitation" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereAcceptationEvent" Width="1.5" PointX="5.5" PointY="6.5" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereNegationEvent" Width="1.5" PointX="9.625" PointY="7.75" />
         <EntityTypeShape EntityType="DevelopmentPISModel.User" Width="1.5" PointX="5.5" PointY="0.625" />
         <EntityTypeShape EntityType="DevelopmentPISModel.Session" Width="1.5" PointX="9.75" PointY="1" />
         <AssociationConnector Association="DevelopmentPISModel.UserSession" />
@@ -27,6 +15,11 @@
         <AssociationConnector Association="DevelopmentPISModel.UserUserPosition" />
         <AssociationConnector Association="DevelopmentPISModel.UserEvent" />
         <AssociationConnector Association="DevelopmentPISModel.UserUser" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereSolicitation" Width="1.5" PointX="0.75" PointY="3.75" />
+        <AssociationConnector Association="DevelopmentPISModel.WhereSolicitationWhereAcceptationEvent" />
+        <AssociationConnector Association="DevelopmentPISModel.WhereSolicitationWhereNegationEvent" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.WhereAcceptationEvent" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.WhereNegationEvent" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,14 +12,13 @@ namespace PisDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class WhereSolicitation : Solicitation
+    public partial class WhereSolicitation
     {
-        public WhereSolicitation()
-        {
-            this.WhereEvent = new HashSet<WhereEvent>();
-        }
+        public int Id { get; set; }
+        public int From { get; set; }
+        public int For { get; set; }
     
-    
-        public virtual ICollection<WhereEvent> WhereEvent { get; set; }
+        public virtual WhereAcceptationEvent WhereAcceptationEvent { get; set; }
+        public virtual WhereNegationEvent WhereNegationEvent { get; set; }
     }
 }

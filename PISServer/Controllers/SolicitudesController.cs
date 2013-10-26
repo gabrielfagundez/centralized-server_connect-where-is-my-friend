@@ -151,7 +151,7 @@ namespace PISServer.Controllers
                 // FALTA CHEQUEAR POR USUARIO
 
                 WhereAcceptationEvent wa = new WhereAcceptationEvent();
-                wa.WhereSolicitation = solicitud;
+                //wa.WhereSolicitation = solicitud;
                 context.SaveChanges();
 
                 return "OK";

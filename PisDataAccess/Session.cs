@@ -18,6 +18,8 @@ namespace PisDataAccess
         public string DeviceId { get; set; }
         public string Platform { get; set; }
         public int UserId { get; set; }
+        public bool Active { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual User User { get; set; }
     }
