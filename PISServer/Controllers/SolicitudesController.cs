@@ -43,22 +43,26 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                User userTo;
+                User userFor;
 
                 // Find the other friend
-                userTo = context.Users
+                userFor = context.Users
                             .Where(u => u.Id == request.IdTo)
                             .FirstOrDefault();
 
-                if (userTo == null)
+                if (userFor == null)
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
                 // Create the solicitation
                 WhereSolicitation sol = new WhereSolicitation();
-                sol.Receiver = userTo.Mail;
-                sol.Sender = userFrom.Mail;
+                sol.WhereAcceptationEvent = null;
+                sol.WhereNegationEvent = null;
+                sol.From = userFrom.Id;
+                sol.For = userFor.Id;
+
+                context.WhereSolicitationSet.Add(sol);
                 context.SaveChanges();
 
                 return request;
@@ -84,8 +88,8 @@ namespace PISServer.Controllers
                 }
 
                 // Find its requests
-                var solicitudes = context.SolicitationSet
-                            .Where(s => s.Receiver == user.Mail).ToList();
+                var solicitudes = context.WhereSolicitationSet
+                            .Where(s => s.For == user.Id).ToList();
 
                 var ret = new List<SolicitudesResponse>();
 
@@ -93,14 +97,18 @@ namespace PISServer.Controllers
                 for (int i = 0; i < solicitudes.Count; i++)
                 {
                     SolicitudesResponse solResponse = new SolicitudesResponse();
-                    var user_sol = context.Users
-                        .Where(u => u.Mail == solicitudes[i].Receiver)
-                        .FirstOrDefault();
+
+                    // Find the user
+                    var user_sol = context.Users.Find(solicitudes[i].For);
 
                     solResponse.SolicitudId = solicitudes[i].Id;
                     solResponse.SolicitudFromNombre = user_sol.Name;
 
-                    ret.Add(solResponse);
+                    if(solicitudes[i].WhereAcceptationEvent == null && solicitudes[i].WhereNegationEvent == null)
+                    {
+                        // Agregamos la solución
+                        ret.Add(solResponse);
+                    }
                 }
 
                 return ret;
@@ -139,7 +147,7 @@ namespace PISServer.Controllers
                 };
 
                 // Find the request
-                var solicitud = context.SolicitationSet
+                var solicitud = context.WhereSolicitationSet
                     .Where(s => s.Id == request.IdSolicitud)
                     .FirstOrDefault();
 
