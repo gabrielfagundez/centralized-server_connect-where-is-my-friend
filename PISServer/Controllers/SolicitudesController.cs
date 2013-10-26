@@ -116,6 +116,98 @@ namespace PISServer.Controllers
         }
 
         //
+        // Allows to get all accepted request for a friend
+        //
+        [HttpGet]
+        public List<SolicitudesResponse> GetAllAccepted(int id)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                // Find the user
+                var user = context.Users
+                            .Where(u => u.Id == id)
+                            .FirstOrDefault();
+
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Find its requests
+                var solicitudes = context.WhereSolicitationSet
+                            .Where(s => s.For == user.Id).ToList();
+
+                var ret = new List<SolicitudesResponse>();
+
+                // Create the response
+                for (int i = 0; i < solicitudes.Count; i++)
+                {
+                    SolicitudesResponse solResponse = new SolicitudesResponse();
+
+                    // Find the user
+                    var user_sol = context.Users.Find(solicitudes[i].For);
+
+                    solResponse.SolicitudId = solicitudes[i].Id;
+                    solResponse.SolicitudFromNombre = user_sol.Name;
+
+                    if (solicitudes[i].WhereAcceptationEvent != null && solicitudes[i].WhereNegationEvent == null)
+                    {
+                        // Agregamos la solución
+                        ret.Add(solResponse);
+                    }
+                }
+
+                return ret;
+            }
+        }
+
+        //
+        // Allows to get all rejected request for a friend
+        //
+        [HttpGet]
+        public List<SolicitudesResponse> GetAllRejected(int id)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                // Find the user
+                var user = context.Users
+                            .Where(u => u.Id == id)
+                            .FirstOrDefault();
+
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+
+                // Find its requests
+                var solicitudes = context.WhereSolicitationSet
+                            .Where(s => s.For == user.Id).ToList();
+
+                var ret = new List<SolicitudesResponse>();
+
+                // Create the response
+                for (int i = 0; i < solicitudes.Count; i++)
+                {
+                    SolicitudesResponse solResponse = new SolicitudesResponse();
+
+                    // Find the user
+                    var user_sol = context.Users.Find(solicitudes[i].For);
+
+                    solResponse.SolicitudId = solicitudes[i].Id;
+                    solResponse.SolicitudFromNombre = user_sol.Name;
+
+                    if (solicitudes[i].WhereAcceptationEvent == null && solicitudes[i].WhereNegationEvent != null)
+                    {
+                        // Agregamos la solución
+                        ret.Add(solResponse);
+                    }
+                }
+
+                return ret;
+            }
+        }
+
+        //
         // Allows to get accept a request
         //
         [HttpPost]
@@ -158,14 +250,10 @@ namespace PISServer.Controllers
 
                 // FALTA CHEQUEAR POR USUARIO
 
+                // Create the accept
                 WhereAcceptationEvent wa = new WhereAcceptationEvent();
-<<<<<<< HEAD
-                //COMENTE LA LINEA DE ABAJO PORQUE ME DABA ERROR
-                //wa.WhereSolicitation = solicitud;
-                //HASTA ACA COMENTE PORQUE ME DABA ERROR
-=======
-                //wa.WhereSolicitation = solicitud;
->>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
+                wa.UserId = solicitud.For;
+                solicitud.WhereNegationEvent = null;
                 context.SaveChanges();
 
                 return "OK";
@@ -203,6 +291,24 @@ namespace PISServer.Controllers
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
+
+                // Find the request
+                var solicitud = context.WhereSolicitationSet
+                    .Where(s => s.Id == request.IdSolicitud)
+                    .FirstOrDefault();
+
+                if (solicitud == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                };
+
+                // FALTA CHEQUEAR POR USUARIO
+
+                // Create the negate
+                WhereNegationEvent wn = new WhereNegationEvent();
+                wn.UserId = solicitud.For;
+                solicitud.WhereAcceptationEvent = null;
+                context.SaveChanges();
 
                 return "OK";
 
