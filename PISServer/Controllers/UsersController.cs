@@ -168,6 +168,23 @@ namespace PISServer.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
+            if (request.DeviceId == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            }
+            
+            if (request.Platform == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            }
+
+            if ((!request.Platform.Equals("ios", StringComparison.OrdinalIgnoreCase)) &&
+                (!request.Platform.Equals("wp", StringComparison.OrdinalIgnoreCase)) &&
+                (!request.Platform.Equals("android", StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            }
+
             using (var context = new DevelopmentPISEntities())
             {
                 User user;
@@ -190,6 +207,18 @@ namespace PISServer.Controllers
                         throw new HttpResponseException(HttpStatusCode.Unauthorized);
                     }
                 }
+
+                // Create the session in the database
+                Session ses = new Session();
+                ses.DeviceId = request.DeviceId;
+                ses.Platform = request.Platform;
+                ses.UserId = user.Id;
+                ses.User = user;
+                ses.Active = true;
+                ses.Date = DateTime.Now;
+
+                user.Session.Add(ses);
+                context.SaveChanges();
 
                 // Create a response
                 UserResponse userResponse = new UserResponse();
@@ -266,6 +295,39 @@ namespace PISServer.Controllers
 
                 return userResponse;
 
+            }
+        }
+
+        //
+        // POST api/logout
+        //
+        // Used when a client is trying to login to the System.
+        //
+        [ActionName("Logout")]
+        public string PostLogout([FromBody] UserLoginRequest request)
+        {
+            // If mail is empty return Not Found
+            if (request.Mail == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            using (var context = new DevelopmentPISEntities())
+            {
+                User user;
+
+                // Find the user
+                user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // Return not found if user is null
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                
+                return "OK";
             }
         }
     }

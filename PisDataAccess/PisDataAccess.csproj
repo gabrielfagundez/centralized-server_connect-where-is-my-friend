@@ -111,6 +111,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DevelopmentEntity.edmx.sql" />
     <Content Include="DevelopmentEntity.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DevelopmentEntity.edmx</DependentUpon>
