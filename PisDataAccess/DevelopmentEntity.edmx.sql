@@ -2,13 +2,22 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
+<<<<<<< HEAD
 -- Date Created: 10/26/2013 12:59:56
 -- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
+=======
+-- Date Created: 10/26/2013 13:54:03
+-- Generated from EDMX file: C:\Users\ENVY 14 SPECTRE\Documents\Fing\PIS\PISServer\PisDataAccess\DevelopmentEntity.edmx
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
+<<<<<<< HEAD
 USE [serverdevelopmentpis];
+=======
+USE [developmentpis];
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,9 +26,12 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+<<<<<<< HEAD
 IF OBJECT_ID(N'[dbo].[FK_WhereEventWhereSolicitation]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EventSet_WhereEvent] DROP CONSTRAINT [FK_WhereEventWhereSolicitation];
 GO
+=======
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 IF OBJECT_ID(N'[dbo].[FK_UserSession]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SessionSet] DROP CONSTRAINT [FK_UserSession];
 GO
@@ -35,6 +47,7 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_UserUser_User1]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[UserUser] DROP CONSTRAINT [FK_UserUser_User1];
 GO
+<<<<<<< HEAD
 IF OBJECT_ID(N'[dbo].[FK_WhereEvent_inherits_Event]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EventSet_WhereEvent] DROP CONSTRAINT [FK_WhereEvent_inherits_Event];
 GO
@@ -50,6 +63,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_WhereNegationEvent_inherits_WhereEvent]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EventSet_WhereNegationEvent] DROP CONSTRAINT [FK_WhereNegationEvent_inherits_WhereEvent];
 GO
+=======
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -58,9 +73,12 @@ GO
 IF OBJECT_ID(N'[dbo].[EventSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet];
 GO
+<<<<<<< HEAD
 IF OBJECT_ID(N'[dbo].[SolicitationSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SolicitationSet];
 GO
+=======
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Users];
 GO
@@ -70,6 +88,7 @@ GO
 IF OBJECT_ID(N'[dbo].[UserPositionSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[UserPositionSet];
 GO
+<<<<<<< HEAD
 IF OBJECT_ID(N'[dbo].[EventSet_WhereEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet_WhereEvent];
 GO
@@ -79,6 +98,8 @@ GO
 IF OBJECT_ID(N'[dbo].[EventSet_WhereSolicitationEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet_WhereSolicitationEvent];
 GO
+=======
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 IF OBJECT_ID(N'[dbo].[EventSet_WhereAcceptationEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet_WhereAcceptationEvent];
 GO
@@ -100,6 +121,7 @@ CREATE TABLE [dbo].[EventSet] (
 );
 GO
 
+<<<<<<< HEAD
 -- Creating table 'SolicitationSet'
 CREATE TABLE [dbo].[SolicitationSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
@@ -108,6 +130,8 @@ CREATE TABLE [dbo].[SolicitationSet] (
 );
 GO
 
+=======
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 -- Creating table 'Users'
 CREATE TABLE [dbo].[Users] (
     [Id] int IDENTITY(1,1) NOT NULL,
@@ -124,9 +148,13 @@ CREATE TABLE [dbo].[SessionSet] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DeviceId] nvarchar(max)  NOT NULL,
     [Platform] nvarchar(max)  NOT NULL,
+<<<<<<< HEAD
     [UserId] int  NOT NULL,
     [Active] bit  NOT NULL,
     [Date] datetime  NOT NULL
+=======
+    [UserId] int  NOT NULL
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 );
 GO
 
@@ -139,6 +167,7 @@ CREATE TABLE [dbo].[UserPositionSet] (
 );
 GO
 
+<<<<<<< HEAD
 -- Creating table 'EventSet_WhereEvent'
 CREATE TABLE [dbo].[EventSet_WhereEvent] (
     [Id] int  NOT NULL,
@@ -155,18 +184,35 @@ GO
 -- Creating table 'EventSet_WhereSolicitationEvent'
 CREATE TABLE [dbo].[EventSet_WhereSolicitationEvent] (
     [Id] int  NOT NULL
+=======
+-- Creating table 'WhereSolicitationSet'
+CREATE TABLE [dbo].[WhereSolicitationSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [From] int  NOT NULL,
+    [For] int  NOT NULL
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 );
 GO
 
 -- Creating table 'EventSet_WhereAcceptationEvent'
 CREATE TABLE [dbo].[EventSet_WhereAcceptationEvent] (
+<<<<<<< HEAD
     [Id] int  NOT NULL
+=======
+    [Id] int  NOT NULL,
+    [WhereSolicitation_Id] int  NULL
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 );
 GO
 
 -- Creating table 'EventSet_WhereNegationEvent'
 CREATE TABLE [dbo].[EventSet_WhereNegationEvent] (
+<<<<<<< HEAD
     [Id] int  NOT NULL
+=======
+    [Id] int  NOT NULL,
+    [WhereSolicitation_Id] int  NULL
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 );
 GO
 
@@ -187,12 +233,15 @@ ADD CONSTRAINT [PK_EventSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+<<<<<<< HEAD
 -- Creating primary key on [Id] in table 'SolicitationSet'
 ALTER TABLE [dbo].[SolicitationSet]
 ADD CONSTRAINT [PK_SolicitationSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+=======
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 -- Creating primary key on [Id] in table 'Users'
 ALTER TABLE [dbo].[Users]
 ADD CONSTRAINT [PK_Users]
@@ -211,6 +260,7 @@ ADD CONSTRAINT [PK_UserPositionSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+<<<<<<< HEAD
 -- Creating primary key on [Id] in table 'EventSet_WhereEvent'
 ALTER TABLE [dbo].[EventSet_WhereEvent]
 ADD CONSTRAINT [PK_EventSet_WhereEvent]
@@ -226,6 +276,11 @@ GO
 -- Creating primary key on [Id] in table 'EventSet_WhereSolicitationEvent'
 ALTER TABLE [dbo].[EventSet_WhereSolicitationEvent]
 ADD CONSTRAINT [PK_EventSet_WhereSolicitationEvent]
+=======
+-- Creating primary key on [Id] in table 'WhereSolicitationSet'
+ALTER TABLE [dbo].[WhereSolicitationSet]
+ADD CONSTRAINT [PK_WhereSolicitationSet]
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -251,6 +306,7 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
+<<<<<<< HEAD
 -- Creating foreign key on [WhereSolicitation_Id] in table 'EventSet_WhereEvent'
 ALTER TABLE [dbo].[EventSet_WhereEvent]
 ADD CONSTRAINT [FK_WhereEventWhereSolicitation]
@@ -265,6 +321,8 @@ ON [dbo].[EventSet_WhereEvent]
     ([WhereSolicitation_Id]);
 GO
 
+=======
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 -- Creating foreign key on [UserId] in table 'SessionSet'
 ALTER TABLE [dbo].[SessionSet]
 ADD CONSTRAINT [FK_UserSession]
@@ -330,6 +388,7 @@ ON [dbo].[UserUser]
     ([FriendsOf_Id]);
 GO
 
+<<<<<<< HEAD
 -- Creating foreign key on [Id] in table 'EventSet_WhereEvent'
 ALTER TABLE [dbo].[EventSet_WhereEvent]
 ADD CONSTRAINT [FK_WhereEvent_inherits_Event]
@@ -355,22 +414,62 @@ ADD CONSTRAINT [FK_WhereSolicitationEvent_inherits_WhereEvent]
     REFERENCES [dbo].[EventSet_WhereEvent]
         ([Id])
     ON DELETE CASCADE ON UPDATE NO ACTION;
+=======
+-- Creating foreign key on [WhereSolicitation_Id] in table 'EventSet_WhereAcceptationEvent'
+ALTER TABLE [dbo].[EventSet_WhereAcceptationEvent]
+ADD CONSTRAINT [FK_WhereSolicitationWhereAcceptationEvent]
+    FOREIGN KEY ([WhereSolicitation_Id])
+    REFERENCES [dbo].[WhereSolicitationSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_WhereSolicitationWhereAcceptationEvent'
+CREATE INDEX [IX_FK_WhereSolicitationWhereAcceptationEvent]
+ON [dbo].[EventSet_WhereAcceptationEvent]
+    ([WhereSolicitation_Id]);
+GO
+
+-- Creating foreign key on [WhereSolicitation_Id] in table 'EventSet_WhereNegationEvent'
+ALTER TABLE [dbo].[EventSet_WhereNegationEvent]
+ADD CONSTRAINT [FK_WhereSolicitationWhereNegationEvent]
+    FOREIGN KEY ([WhereSolicitation_Id])
+    REFERENCES [dbo].[WhereSolicitationSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_WhereSolicitationWhereNegationEvent'
+CREATE INDEX [IX_FK_WhereSolicitationWhereNegationEvent]
+ON [dbo].[EventSet_WhereNegationEvent]
+    ([WhereSolicitation_Id]);
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
 GO
 
 -- Creating foreign key on [Id] in table 'EventSet_WhereAcceptationEvent'
 ALTER TABLE [dbo].[EventSet_WhereAcceptationEvent]
+<<<<<<< HEAD
 ADD CONSTRAINT [FK_WhereAcceptationEvent_inherits_WhereEvent]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[EventSet_WhereEvent]
+=======
+ADD CONSTRAINT [FK_WhereAcceptationEvent_inherits_Event]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[EventSet]
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
         ([Id])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO
 
 -- Creating foreign key on [Id] in table 'EventSet_WhereNegationEvent'
 ALTER TABLE [dbo].[EventSet_WhereNegationEvent]
+<<<<<<< HEAD
 ADD CONSTRAINT [FK_WhereNegationEvent_inherits_WhereEvent]
     FOREIGN KEY ([Id])
     REFERENCES [dbo].[EventSet_WhereEvent]
+=======
+ADD CONSTRAINT [FK_WhereNegationEvent_inherits_Event]
+    FOREIGN KEY ([Id])
+    REFERENCES [dbo].[EventSet]
+>>>>>>> fb1f1b068f10934bdabb49d24b9ff4ed322acc89
         ([Id])
     ON DELETE CASCADE ON UPDATE NO ACTION;
 GO

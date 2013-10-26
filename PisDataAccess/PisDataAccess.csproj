@@ -67,9 +67,6 @@
     <Compile Include="Session.cs">
       <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Solicitation.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>
@@ -79,16 +76,10 @@
     <Compile Include="WhereAcceptationEvent.cs">
       <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="WhereEvent.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
     <Compile Include="WhereNegationEvent.cs">
       <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="WhereSolicitation.cs">
-      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WhereSolicitationEvent.cs">
       <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>
   </ItemGroup>

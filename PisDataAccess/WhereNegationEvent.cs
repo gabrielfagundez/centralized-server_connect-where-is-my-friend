@@ -12,7 +12,9 @@ namespace PisDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class WhereNegationEvent : WhereEvent
+    public partial class WhereNegationEvent : Event
     {
+    
+        public virtual WhereSolicitation WhereSolicitation { get; set; }
     }
 }
