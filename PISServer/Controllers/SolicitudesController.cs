@@ -99,7 +99,7 @@ namespace PISServer.Controllers
                     SolicitudesResponse solResponse = new SolicitudesResponse();
 
                     // Find the user
-                    var user_sol = context.Users.Find(solicitudes[i].For);
+                    var user_sol = context.Users.Find(solicitudes[i].From);
 
                     solResponse.SolicitudId = solicitudes[i].Id;
                     solResponse.SolicitudFromNombre = user_sol.Name;
@@ -145,7 +145,7 @@ namespace PISServer.Controllers
                     SolicitudesResponse solResponse = new SolicitudesResponse();
 
                     // Find the user
-                    var user_sol = context.Users.Find(solicitudes[i].For);
+                    var user_sol = context.Users.Find(solicitudes[i].From);
 
                     solResponse.SolicitudId = solicitudes[i].Id;
                     solResponse.SolicitudFromNombre = user_sol.Name;
@@ -191,7 +191,7 @@ namespace PISServer.Controllers
                     SolicitudesResponse solResponse = new SolicitudesResponse();
 
                     // Find the user
-                    var user_sol = context.Users.Find(solicitudes[i].For);
+                    var user_sol = context.Users.Find(solicitudes[i].From);
 
                     solResponse.SolicitudId = solicitudes[i].Id;
                     solResponse.SolicitudFromNombre = user_sol.Name;
@@ -248,7 +248,10 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                // FALTA CHEQUEAR POR USUARIO
+                if (user.Id != solicitud.For)
+                {
+                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                }
 
                 // Create the accept
                 WhereAcceptationEvent wa = new WhereAcceptationEvent();
@@ -269,17 +272,6 @@ namespace PISServer.Controllers
         {
             using (var context = new DevelopmentPISEntities())
             {
-                // If bad parameters
-                if (request.IdUser == null)
-                {
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
-                };
-
-                if (request.IdSolicitud == null)
-                {
-                    throw new HttpResponseException(HttpStatusCode.NotFound);
-                };
-
                 User user;
 
                 // Find the requesting friend
@@ -302,7 +294,10 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                // FALTA CHEQUEAR POR USUARIO
+                if (user.Id != solicitud.For)
+                {
+                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                }
 
                 // Create the negate
                 WhereNegationEvent wn = new WhereNegationEvent();
