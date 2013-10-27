@@ -82,6 +82,9 @@
     <Compile Include="WhereSolicitation.cs">
       <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="WhereSolicitationEvent.cs">
+      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DevelopmentEntity.edmx">

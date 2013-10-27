@@ -13,6 +13,7 @@
     <EntitySet Name="WhereSolicitationSet" EntityType="DevelopmentPISModel.Store.WhereSolicitationSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereAcceptationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereAcceptationEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereNegationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereNegationEvent" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EventSet_WhereSolicitationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereSolicitationEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserUser" EntityType="DevelopmentPISModel.Store.UserUser" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserSession" Association="DevelopmentPISModel.Store.UserSession">
       <End Role="User" EntitySet="Users" />
@@ -42,6 +43,10 @@
       <End Role="WhereSolicitation" EntitySet="WhereSolicitationSet" />
       <End Role="WhereNegationEvent" EntitySet="EventSet_WhereNegationEvent" />
     </AssociationSet>
+    <AssociationSet Name="WhereSolicitationWhereSolicitationEvent" Association="DevelopmentPISModel.Store.WhereSolicitationWhereSolicitationEvent">
+      <End Role="WhereSolicitation" EntitySet="WhereSolicitationSet" />
+      <End Role="WhereSolicitationEvent" EntitySet="EventSet_WhereSolicitationEvent" />
+    </AssociationSet>
     <AssociationSet Name="FK_WhereAcceptationEvent_inherits_Event" Association="DevelopmentPISModel.Store.FK_WhereAcceptationEvent_inherits_Event">
       <End Role="Event" EntitySet="EventSet" />
       <End Role="WhereAcceptationEvent" EntitySet="EventSet_WhereAcceptationEvent" />
@@ -49,6 +54,10 @@
     <AssociationSet Name="FK_WhereNegationEvent_inherits_Event" Association="DevelopmentPISModel.Store.FK_WhereNegationEvent_inherits_Event">
       <End Role="Event" EntitySet="EventSet" />
       <End Role="WhereNegationEvent" EntitySet="EventSet_WhereNegationEvent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WhereSolicitationEvent_inherits_Event" Association="DevelopmentPISModel.Store.FK_WhereSolicitationEvent_inherits_Event">
+      <End Role="Event" EntitySet="EventSet" />
+      <End Role="WhereSolicitationEvent" EntitySet="EventSet_WhereSolicitationEvent" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="EventSet">
@@ -105,6 +114,13 @@
     <Property Name="WhereSolicitation_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="EventSet_WhereNegationEvent">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="WhereSolicitation_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="EventSet_WhereSolicitationEvent">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -179,6 +195,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="WhereSolicitationWhereSolicitationEvent">
+    <End Role="WhereSolicitation" Type="DevelopmentPISModel.Store.WhereSolicitationSet" Multiplicity="0..1" />
+    <End Role="WhereSolicitationEvent" Type="DevelopmentPISModel.Store.EventSet_WhereSolicitationEvent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WhereSolicitation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WhereSolicitationEvent">
+        <PropertyRef Name="WhereSolicitation_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_UserUser_User">
     <End Role="User" Type="DevelopmentPISModel.Store.Users" Multiplicity="1" />
     <End Role="UserUser" Type="DevelopmentPISModel.Store.UserUser" Multiplicity="*" />
@@ -231,6 +259,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_WhereSolicitationEvent_inherits_Event">
+    <End Role="Event" Type="DevelopmentPISModel.Store.EventSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="WhereSolicitationEvent" Type="DevelopmentPISModel.Store.EventSet_WhereSolicitationEvent" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WhereSolicitationEvent">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -264,6 +306,10 @@
           <AssociationSet Name="WhereSolicitationWhereNegationEvent" Association="DevelopmentPISModel.WhereSolicitationWhereNegationEvent">
             <End Role="WhereSolicitation" EntitySet="WhereSolicitationSet" />
             <End Role="WhereNegationEvent" EntitySet="EventSet" />
+          </AssociationSet>
+          <AssociationSet Name="WhereSolicitationWhereSolicitationEvent" Association="DevelopmentPISModel.WhereSolicitationWhereSolicitationEvent">
+            <End Role="WhereSolicitation" EntitySet="WhereSolicitationSet" />
+            <End Role="WhereSolicitationEvent" EntitySet="EventSet" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Event">
@@ -358,6 +404,7 @@
           <Property Type="Int32" Name="For" Nullable="false" />
           <NavigationProperty Name="WhereAcceptationEvent" Relationship="DevelopmentPISModel.WhereSolicitationWhereAcceptationEvent" FromRole="WhereSolicitation" ToRole="WhereAcceptationEvent" />
           <NavigationProperty Name="WhereNegationEvent" Relationship="DevelopmentPISModel.WhereSolicitationWhereNegationEvent" FromRole="WhereSolicitation" ToRole="WhereNegationEvent" />
+          <NavigationProperty Name="WhereSolicitationEvent" Relationship="DevelopmentPISModel.WhereSolicitationWhereSolicitationEvent" FromRole="WhereSolicitation" ToRole="WhereSolicitationEvent" />
         </EntityType>
         <Association Name="WhereSolicitationWhereAcceptationEvent">
           <End Type="DevelopmentPISModel.WhereSolicitation" Role="WhereSolicitation" Multiplicity="0..1" />
@@ -366,6 +413,13 @@
         <Association Name="WhereSolicitationWhereNegationEvent">
           <End Type="DevelopmentPISModel.WhereSolicitation" Role="WhereSolicitation" Multiplicity="0..1" />
           <End Type="DevelopmentPISModel.WhereNegationEvent" Role="WhereNegationEvent" Multiplicity="0..1" />
+        </Association>
+        <EntityType Name="WhereSolicitationEvent" BaseType="DevelopmentPISModel.Event" >
+          <NavigationProperty Name="WhereSolicitation" Relationship="DevelopmentPISModel.WhereSolicitationWhereSolicitationEvent" FromRole="WhereSolicitationEvent" ToRole="WhereSolicitation" />
+        </EntityType>
+        <Association Name="WhereSolicitationWhereSolicitationEvent">
+          <End Type="DevelopmentPISModel.WhereSolicitation" Role="WhereSolicitation" Multiplicity="0..1" />
+          <End Type="DevelopmentPISModel.WhereSolicitationEvent" Role="WhereSolicitationEvent" Multiplicity="0..1" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -387,6 +441,11 @@
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereNegationEvent)">
         <MappingFragment StoreEntitySet="EventSet_WhereNegationEvent">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereSolicitationEvent)">
+        <MappingFragment StoreEntitySet="EventSet_WhereSolicitationEvent">
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -464,6 +523,15 @@
         <ScalarProperty Name="Id" ColumnName="WhereSolicitation_Id" />
       </EndProperty>
       <EndProperty Name="WhereNegationEvent">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="WhereSolicitation_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="WhereSolicitationWhereSolicitationEvent" TypeName="DevelopmentPISModel.WhereSolicitationWhereSolicitationEvent" StoreEntitySet="EventSet_WhereSolicitationEvent">
+      <EndProperty Name="WhereSolicitation">
+        <ScalarProperty Name="Id" ColumnName="WhereSolicitation_Id" />
+      </EndProperty>
+      <EndProperty Name="WhereSolicitationEvent">
         <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
       <Condition ColumnName="WhereSolicitation_Id" IsNull="false" />

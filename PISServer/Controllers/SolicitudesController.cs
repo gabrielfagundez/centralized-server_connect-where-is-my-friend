@@ -72,6 +72,13 @@ namespace PISServer.Controllers
                 sol.From = userFrom.Id;
                 sol.For = userFor.Id;
 
+                WhereSolicitationEvent wse = new WhereSolicitationEvent();
+                userFor.Event.Add(wse);
+                wse.User = userFor;
+                sol.WhereSolicitationEvent = wse;
+                sol.WhereNegationEvent = null;
+                sol.WhereAcceptationEvent = null;
+
                 context.WhereSolicitationSet.Add(sol);
                 context.SaveChanges();
 

@@ -20,6 +20,9 @@
         <AssociationConnector Association="DevelopmentPISModel.WhereSolicitationWhereNegationEvent" />
         <InheritanceConnector EntityType="DevelopmentPISModel.WhereAcceptationEvent" />
         <InheritanceConnector EntityType="DevelopmentPISModel.WhereNegationEvent" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.WhereSolicitationEvent" Width="1.5" PointX="10.875" PointY="5.625" />
+        <InheritanceConnector EntityType="DevelopmentPISModel.WhereSolicitationEvent" />
+        <AssociationConnector Association="DevelopmentPISModel.WhereSolicitationWhereSolicitationEvent" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
