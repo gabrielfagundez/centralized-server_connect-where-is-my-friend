@@ -55,6 +55,16 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
+                // Verify if are friends
+                var friends = userFor.FriendsOf
+                            .Where(u => u.Id == userFrom.Id)
+                            .FirstOrDefault();
+                if (friends == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                }
+
+
                 // Create the solicitation
                 WhereSolicitation sol = new WhereSolicitation();
                 sol.WhereAcceptationEvent = null;
