@@ -157,10 +157,59 @@ namespace PISServer.Controllers
         //
         // POST api/login
         //
-        // Used when a client is trying to login to the System.
+        // Used when a client of Connect! is trying to login to the System.
         //
         [ActionName("Login")]
         public UserResponse PostLogin([FromBody] UserLoginRequest request)
+        {
+            // If mail is empty return Not Found
+            if (request.Mail == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            using (var context = new DevelopmentPISEntities())
+            {
+                User user;
+
+                // Find the user
+                user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // Return not found if user is null
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    // Incorrect Password
+                    if (user.Password != request.Password)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                    }
+                }
+                
+                // Create a response
+                UserResponse userResponse = new UserResponse();
+                userResponse.Id = user.Id;
+                userResponse.Name = user.Name;
+                userResponse.Mail = user.Mail;
+                userResponse.FacebookId = user.FacebookId;
+                userResponse.LinkedInId = user.LinkedInId;
+
+                return userResponse;
+            }
+        }
+
+        //
+        // POST api/loginWhere
+        //
+        // Used when a client of Where? is trying to login to the System.
+        //
+        [ActionName("LoginWhere")]
+        public UserResponse PostLogin([FromBody] UserLoginWhereRequest request)
         {
             // If mail is empty return Not Found
             if (request.Mail == null)
