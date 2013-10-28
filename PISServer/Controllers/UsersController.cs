@@ -348,12 +348,12 @@ namespace PISServer.Controllers
         }
 
         //
-        // POST api/logout
+        // POST api/logoutWhere
         //
-        // Used when a client is trying to login to the System.
+        // Used when a client of Where? is trying to login to the System.
         //
-        [ActionName("Logout")]
-        public string PostLogout([FromBody] UserLoginRequest request)
+        [ActionName("LogoutWhere")]
+        public string PostLogin([FromBody] UserEmailRequest request)
         {
             // If mail is empty return Not Found
             if (request.Mail == null)
@@ -363,10 +363,8 @@ namespace PISServer.Controllers
 
             using (var context = new DevelopmentPISEntities())
             {
-                User user;
-
                 // Find the user
-                user = context.Users
+                User user = context.Users
                             .Where(u => u.Mail == request.Mail)
                             .FirstOrDefault();
 
@@ -375,8 +373,22 @@ namespace PISServer.Controllers
                 {
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
-                
-                return "OK";
+                else
+                {
+                    List<Session> sesList;
+                    sesList = context.SessionSet
+                                .Where(s => s.Active == true)
+                                .Where(s => s.UserId == user.Id)
+                                .ToList();
+                    
+                    foreach (Session ses in sesList)
+                    {
+                        ses.Active = false;
+                    }
+                    context.SaveChanges();
+                }
+
+                return "ok";
             }
         }
     }

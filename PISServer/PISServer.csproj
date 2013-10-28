@@ -183,6 +183,7 @@
     <Compile Include="Models\Datatypes\SolicitudRequest.cs" />
     <Compile Include="Models\Datatypes\UserEmailRequest.cs" />
     <Compile Include="Models\Datatypes\UserLoginRequest.cs" />
+    <Compile Include="Models\Datatypes\UserLoginWhereRequest.cs" />
     <Compile Include="Models\Datatypes\UserRequest.cs" />
     <Compile Include="Models\Datatypes\UserResponse.cs" />
     <Compile Include="Models\TempUserClass.cs" />

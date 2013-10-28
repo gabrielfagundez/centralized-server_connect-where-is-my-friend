@@ -20,5 +20,6 @@ namespace PisDataAccess
     
         public virtual WhereAcceptationEvent WhereAcceptationEvent { get; set; }
         public virtual WhereNegationEvent WhereNegationEvent { get; set; }
+        public virtual WhereSolicitationEvent WhereSolicitationEvent { get; set; }
     }
 }
