@@ -398,5 +398,77 @@ namespace PISServer.Controllers
                 return "ok";
             }
         }
+
+        //
+        // POST api/changeDeviceId
+        //
+        // Used when a client of Where? is trying to login to the System.
+        //
+        [ActionName("ChangeDeviceId")]
+        public string PostLogin([FromBody] ChangeDeviceIdRequest request)
+        {
+            // If mail is empty return Not Found
+            if (request.Mail == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            if (request.DeviceId == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            }
+
+            if (request.Platform == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            }
+
+            if ((!request.Platform.Equals("ios", StringComparison.OrdinalIgnoreCase)) &&
+                (!request.Platform.Equals("wp", StringComparison.OrdinalIgnoreCase)) &&
+                (!request.Platform.Equals("android", StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            }
+
+            using (var context = new DevelopmentPISEntities())
+            {
+                User user;
+
+                // Find the user
+                user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // Return not found if user is null
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    List<Session> sesList;
+                    sesList = context.SessionSet
+                                .Where(s => s.Active == true)
+                                .Where(s => s.UserId == user.Id)
+                                .ToList();
+
+                    //The user is not logued in
+                    if (sesList.Count == 0)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.NotFound);
+                    }
+
+
+                    foreach (Session ses in sesList)
+                    {
+                        ses.DeviceId = request.DeviceId;
+                        ses.Platform = request.Platform;
+                    }
+                    context.SaveChanges();
+                }
+
+                return "ok";
+            }
+        }
     }
 }
