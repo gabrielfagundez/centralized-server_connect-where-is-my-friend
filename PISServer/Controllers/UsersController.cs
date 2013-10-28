@@ -380,7 +380,14 @@ namespace PISServer.Controllers
                                 .Where(s => s.Active == true)
                                 .Where(s => s.UserId == user.Id)
                                 .ToList();
-                    
+
+                    //The user is not logued in
+                    if (sesList.Count == 0)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.Gone);
+                    }
+
+
                     foreach (Session ses in sesList)
                     {
                         ses.Active = false;
