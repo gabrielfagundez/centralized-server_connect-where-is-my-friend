@@ -265,7 +265,7 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                if (user.Id != solicitud.For)
+                if (user.Id != solicitud.From)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
@@ -313,7 +313,7 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                if (user.Id != solicitud.For)
+                if (user.Id != solicitud.From)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
