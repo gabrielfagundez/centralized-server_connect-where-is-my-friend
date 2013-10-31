@@ -374,9 +374,11 @@
         </EntityType>
         <EntityType Name="WhereAcceptationEvent" BaseType="DevelopmentPISModel.Event" >
           <NavigationProperty Name="WhereSolicitation" Relationship="DevelopmentPISModel.WhereSolicitationWhereAcceptationEvent" FromRole="WhereAcceptationEvent" ToRole="WhereSolicitation" />
+          <Property Type="Boolean" Name="Sent" Nullable="false" />
         </EntityType>
         <EntityType Name="WhereNegationEvent" BaseType="DevelopmentPISModel.Event" >
           <NavigationProperty Name="WhereSolicitation" Relationship="DevelopmentPISModel.WhereSolicitationWhereNegationEvent" FromRole="WhereNegationEvent" ToRole="WhereSolicitation" />
+          <Property Type="Boolean" Name="Sent" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -470,6 +472,7 @@
         </Association>
         <EntityType Name="WhereSolicitationEvent" BaseType="DevelopmentPISModel.Event" >
           <NavigationProperty Name="WhereSolicitation" Relationship="DevelopmentPISModel.WhereSolicitationWhereSolicitationEvent" FromRole="WhereSolicitationEvent" ToRole="WhereSolicitation" />
+          <Property Type="Boolean" Name="Sent" Nullable="false" />
         </EntityType>
         <Association Name="WhereSolicitationWhereSolicitationEvent">
           <End Type="DevelopmentPISModel.WhereSolicitation" Role="WhereSolicitation" Multiplicity="0..1" />
