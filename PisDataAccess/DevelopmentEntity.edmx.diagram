@@ -23,6 +23,9 @@
         <EntityTypeShape EntityType="DevelopmentPISModel.WhereSolicitationEvent" Width="1.5" PointX="10.875" PointY="5.625" />
         <InheritanceConnector EntityType="DevelopmentPISModel.WhereSolicitationEvent" />
         <AssociationConnector Association="DevelopmentPISModel.WhereSolicitationWhereSolicitationEvent" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.Share" Width="1.5" PointX="3.25" PointY="3" />
+        <AssociationConnector Association="DevelopmentPISModel.ShareUser" />
+        <AssociationConnector Association="DevelopmentPISModel.UserShare" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

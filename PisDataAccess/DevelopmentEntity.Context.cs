@@ -30,5 +30,6 @@ namespace PisDataAccess
         public DbSet<Session> SessionSet { get; set; }
         public DbSet<UserPosition> UserPositionSet { get; set; }
         public DbSet<WhereSolicitation> WhereSolicitationSet { get; set; }
+        public DbSet<Share> ShareSet { get; set; }
     }
 }

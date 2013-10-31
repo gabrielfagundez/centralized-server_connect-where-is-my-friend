@@ -20,6 +20,8 @@ namespace PisDataAccess
             this.Event = new HashSet<Event>();
             this.FriendsOf = new HashSet<User>();
             this.FriendsFrom = new HashSet<User>();
+            this.ShareWith = new HashSet<Share>();
+            this.ShareFrom = new HashSet<Share>();
         }
     
         public int Id { get; set; }
@@ -34,5 +36,7 @@ namespace PisDataAccess
         public virtual ICollection<Event> Event { get; set; }
         public virtual ICollection<User> FriendsOf { get; set; }
         public virtual ICollection<User> FriendsFrom { get; set; }
+        public virtual ICollection<Share> ShareWith { get; set; }
+        public virtual ICollection<Share> ShareFrom { get; set; }
     }
 }
