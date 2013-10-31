@@ -64,6 +64,16 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
 
+                // Verify if exists a pending solicitation for the user
+                WhereSolicitation exists = context.WhereSolicitationSet
+                            .Where(s => s.From == userFrom.Id && s.For == userFor.Id && s.WhereSolicitationEvent != null)
+                            .FirstOrDefault();
+
+                if (exists != null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+                }
+
 
                 // Create the solicitation
                 WhereSolicitation sol = new WhereSolicitation();
