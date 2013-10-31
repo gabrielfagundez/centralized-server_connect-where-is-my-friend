@@ -5,8 +5,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Threading;
-//SACAAAAR es para escribir en el debug
-using System.Diagnostics;
 
 using PisDataAccess;
 using PISServer.Models.Datatypes;
@@ -16,7 +14,7 @@ namespace PISServer.Controllers
     public class SharingLocationController : ApiController
     {
         private volatile bool _stop;
-        public int minutes = 10;
+        public static int minutes = 10;
 
         // This method will be called when the thread is started. 
         public void Start()
@@ -25,8 +23,7 @@ namespace PISServer.Controllers
             {
                 while (!_stop)
                 {
-                    Debug.WriteLine("worker thread: working... *****************************************");
-
+                    
                     DateTime minAgo = DateTime.Now - new TimeSpan(0, minutes, 0);
                     // Find shares that should end
                     var oldShares = context.ShareSet
@@ -36,10 +33,8 @@ namespace PISServer.Controllers
                     for (int i = 0; i < oldShares.Count; i++)
                     {
                         oldShares[i].Active = false;
-                        Debug.WriteLine("worker thread: una sharing que cambio *****************************************");
                     }
                     context.SaveChanges();
-                    Debug.WriteLine("worker thread: FINISH working... *****************************************");
                     //Time is in miliseconds, so it works every 10 seconds
                     Thread.Sleep(10000);
                 }
@@ -61,7 +56,7 @@ namespace PISServer.Controllers
         public int SetMinutes(int m)
         {
             minutes = m;
-            return this.minutes;
+            return minutes;
         }
     }
 }
