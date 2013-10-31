@@ -67,6 +67,9 @@
     <Compile Include="Session.cs">
       <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>
+    <Compile Include="Share.cs">
+      <DependentUpon>DevelopmentEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>DevelopmentEntity.tt</DependentUpon>
     </Compile>

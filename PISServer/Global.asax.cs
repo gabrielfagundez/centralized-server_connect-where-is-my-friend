@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Threading;
+using PISServer.Controllers;
 
 namespace PISServer
 {
@@ -26,6 +28,15 @@ namespace PISServer
             // Remove XML formatter, we only want to allow JSON
             HttpConfiguration httpConfig = GlobalConfiguration.Configuration;
             httpConfig.Formatters.Remove(httpConfig.Formatters.XmlFormatter);
+
+            SharingLocationController slc = new SharingLocationController();
+            Thread workerThread = new Thread(slc.Start);
+
+            // Start the worker thread.
+            workerThread.Start();
+            // Loop until worker thread activates.
+            while (!workerThread.IsAlive) ;
+
         }
     }
 }

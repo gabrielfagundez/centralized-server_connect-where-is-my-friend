@@ -84,26 +84,37 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
-                // Find its friends
-                var users = user.FriendsOf.ToList();
-                var ret = new List<LocationAddRequest>();
+                // Find its friends who are sharing position
+                var shares = context.ShareSet
+                            .Where(u => u.UserWith.Mail == request.Mail)
+                            .Where(u => u.Active == true)
+                            .ToList();
 
-                for (int i = 0; i < users.Count; i++)
+                var ret = new List<LocationAddRequest>();
+                User userSharing;
+                
+                for (int i = 0; i < shares.Count; i++)
                 {
+                    //Find the user
+                    string m = shares[i].UserFrom.Mail;
+                    userSharing = context.Users
+                            .Where(u => u.Mail == m)
+                            .FirstOrDefault();
+                    
                     // Create a response
                     LocationAddRequest userLocation = new LocationAddRequest();
-                    userLocation.Mail = users[i].Mail;
+                    userLocation.Mail = userSharing.Mail;
                     
                     // If user dont have position, return nulls
-                    if (users[i].UserPosition == null)
+                    if (userSharing.UserPosition == null)
                     {
                         userLocation.Latitude = null;
                         userLocation.Longitude = null;
                     }
                     else
                     {
-                        userLocation.Latitude = users[i].UserPosition.Latitude;
-                        userLocation.Longitude = users[i].UserPosition.Longitude;
+                        userLocation.Latitude = userSharing.UserPosition.Latitude;
+                        userLocation.Longitude = userSharing.UserPosition.Longitude;
                     }
 
                     ret.Add(userLocation);
@@ -169,26 +180,37 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
-                // Buscamos sus amigos
-                var users = user.FriendsOf.ToList();
-                var ret = new List<LocationAddRequest>();
+                // Find its friends who are sharing position
+                var shares = context.ShareSet
+                            .Where(u => u.UserWith.Id == id)
+                            .Where(u => u.Active == true)
+                            .ToList();
 
-                for (int i = 0; i < users.Count; i++)
+                var ret = new List<LocationAddRequest>();
+                User userSharing;
+
+                for (int i = 0; i < shares.Count; i++)
                 {
+                    //Find the user
+                    string m = shares[i].UserFrom.Mail;
+                    userSharing = context.Users
+                            .Where(u => u.Mail == m)
+                            .FirstOrDefault();
+
                     // Create the response
                     LocationAddRequest userLocation = new LocationAddRequest();
-                    userLocation.Mail = users[i].Mail;
+                    userLocation.Mail = userSharing.Mail;
 
                     // If user dont have position, return nulls
-                    if (users[i].UserPosition == null)
+                    if (userSharing.UserPosition == null)
                     {
                         userLocation.Latitude = null;
                         userLocation.Longitude = null;
                     }
                     else
                     {
-                        userLocation.Latitude = users[i].UserPosition.Latitude;
-                        userLocation.Longitude = users[i].UserPosition.Longitude;
+                        userLocation.Latitude = userSharing.UserPosition.Latitude;
+                        userLocation.Longitude = userSharing.UserPosition.Longitude;
                     }
                     ret.Add(userLocation);
                 }

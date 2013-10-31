@@ -63,18 +63,7 @@ namespace PISServer.Controllers
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
-
-                // Verify if exists a pending solicitation for the user
-                WhereSolicitation exists = context.WhereSolicitationSet
-                            .Where(s => s.From == userFrom.Id && s.For == userFor.Id && s.WhereSolicitationEvent != null)
-                            .FirstOrDefault();
-
-                if (exists != null)
-                {
-                    throw new HttpResponseException(HttpStatusCode.BadRequest);
-                }
-
-
+                
                 // Create the solicitation
                 WhereSolicitation sol = new WhereSolicitation();
                 sol.WhereAcceptationEvent = null;
@@ -275,10 +264,15 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                if (user.Id != solicitud.From)
+                if (user.Id != solicitud.For)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
+
+                // Find the other friend
+                var userFrom = context.Users
+                            .Where(u => u.Id == solicitud.From)
+                            .FirstOrDefault();
 
                 // Create the accept
                 WhereAcceptationEvent wa = new WhereAcceptationEvent();
@@ -286,7 +280,21 @@ namespace PISServer.Controllers
                 solicitud.WhereNegationEvent = null;
                 solicitud.WhereAcceptationEvent = wa;
                 context.EventSet.Add(wa);
+                
+
+                //Create the sharing relation
+                Share sh = new Share()
+                {
+                    Date = DateTime.Now,
+                    Active = true,
+                    UserId = request.IdUser,
+                    UserId1 = solicitud.From,
+                };
+                user.ShareWith.Add(sh);
+                userFrom.ShareFrom.Add(sh);
+                
                 context.SaveChanges();
+                
 
                 return "OK";
 
@@ -323,7 +331,7 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                if (user.Id != solicitud.From)
+                if (user.Id != solicitud.For)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/28/2013 01:07:26
+-- Date Created: 10/30/2013 01:52:41
 -- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
 -- --------------------------------------------------
 
@@ -133,6 +133,16 @@ CREATE TABLE [dbo].[WhereSolicitationSet] (
 );
 GO
 
+-- Creating table 'ShareSet'
+CREATE TABLE [dbo].[ShareSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [UserId] int  NOT NULL,
+    [UserId1] int  NOT NULL,
+    [Date] datetime  NOT NULL,
+    [Active] bit  NOT NULL
+);
+GO
+
 -- Creating table 'EventSet_WhereAcceptationEvent'
 CREATE TABLE [dbo].[EventSet_WhereAcceptationEvent] (
     [Id] int  NOT NULL,
@@ -192,6 +202,12 @@ GO
 -- Creating primary key on [Id] in table 'WhereSolicitationSet'
 ALTER TABLE [dbo].[WhereSolicitationSet]
 ADD CONSTRAINT [PK_WhereSolicitationSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ShareSet'
+ALTER TABLE [dbo].[ShareSet]
+ADD CONSTRAINT [PK_ShareSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -328,6 +344,34 @@ ADD CONSTRAINT [FK_WhereSolicitationWhereSolicitationEvent]
 CREATE INDEX [IX_FK_WhereSolicitationWhereSolicitationEvent]
 ON [dbo].[EventSet_WhereSolicitationEvent]
     ([WhereSolicitation_Id]);
+GO
+
+-- Creating foreign key on [UserId] in table 'ShareSet'
+ALTER TABLE [dbo].[ShareSet]
+ADD CONSTRAINT [FK_ShareUser]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[Users]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ShareUser'
+CREATE INDEX [IX_FK_ShareUser]
+ON [dbo].[ShareSet]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [UserId1] in table 'ShareSet'
+ALTER TABLE [dbo].[ShareSet]
+ADD CONSTRAINT [FK_UserShare]
+    FOREIGN KEY ([UserId1])
+    REFERENCES [dbo].[Users]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserShare'
+CREATE INDEX [IX_FK_UserShare]
+ON [dbo].[ShareSet]
+    ([UserId1]);
 GO
 
 -- Creating foreign key on [Id] in table 'EventSet_WhereAcceptationEvent'
