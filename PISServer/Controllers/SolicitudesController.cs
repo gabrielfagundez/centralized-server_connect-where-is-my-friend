@@ -63,8 +63,7 @@ namespace PISServer.Controllers
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
                 }
-
-
+                
                 // Create the solicitation
                 WhereSolicitation sol = new WhereSolicitation();
                 sol.WhereAcceptationEvent = null;
