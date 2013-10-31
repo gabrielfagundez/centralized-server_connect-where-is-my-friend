@@ -61,7 +61,7 @@ namespace PISServer.Controllers
                             .FirstOrDefault();
                 if (friends == null)
                 {
-                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
                 }
                 
                 // Create the solicitation
@@ -71,9 +71,11 @@ namespace PISServer.Controllers
                 sol.From = userFrom.Id;
                 sol.For = userFor.Id;
 
+                // Associate the user with the FOR (which will receive the push)
                 WhereSolicitationEvent wse = new WhereSolicitationEvent();
                 userFor.Event.Add(wse);
                 wse.User = userFor;
+
                 sol.WhereSolicitationEvent = wse;
                 sol.WhereNegationEvent = null;
                 sol.WhereAcceptationEvent = null;
@@ -264,19 +266,17 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                if (user.Id != solicitud.For)
-                {
-                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
-                }
-
-                // Find the other friend
+                // Find the user that will be notified with a PUSH notification
                 var userFrom = context.Users
                             .Where(u => u.Id == solicitud.From)
                             .FirstOrDefault();
 
                 // Create the accept
                 WhereAcceptationEvent wa = new WhereAcceptationEvent();
-                user.Event.Add(wa);
+                userFrom.Event.Add(wa);
+                wa.User = userFrom;
+
+                solicitud.WhereSolicitationEvent = null;
                 solicitud.WhereNegationEvent = null;
                 solicitud.WhereAcceptationEvent = wa;
                 context.EventSet.Add(wa);
@@ -287,7 +287,7 @@ namespace PISServer.Controllers
                 {
                     Date = DateTime.Now,
                     Active = true,
-                    UserId = request.IdUser,
+                    UserId = solicitud.For,
                     UserId1 = solicitud.From,
                 };
                 user.ShareWith.Add(sh);
@@ -331,14 +331,17 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
-                if (user.Id != solicitud.For)
-                {
-                    throw new HttpResponseException(HttpStatusCode.Unauthorized);
-                }
+                // Find the user that will be notified with a PUSH notification
+                var userFrom = context.Users
+                            .Where(u => u.Id == solicitud.From)
+                            .FirstOrDefault();
 
                 // Create the negate
                 WhereNegationEvent wn = new WhereNegationEvent();
-                user.Event.Add(wn);
+                userFrom.Event.Add(wn);
+                wn.User = userFrom;
+
+                solicitud.WhereSolicitationEvent = null;
                 solicitud.WhereAcceptationEvent = null;
                 solicitud.WhereNegationEvent = wn;
                 context.EventSet.Add(wn);
