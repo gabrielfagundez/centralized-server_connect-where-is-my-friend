@@ -290,8 +290,8 @@ namespace PISServer.Controllers
                     UserId = solicitud.For,
                     UserId1 = solicitud.From,
                 };
-                user.ShareWith.Add(sh);
-                userFrom.ShareFrom.Add(sh);
+                user.ShareFrom.Add(sh);
+                userFrom.ShareWith.Add(sh);
                 
                 context.SaveChanges();
                 

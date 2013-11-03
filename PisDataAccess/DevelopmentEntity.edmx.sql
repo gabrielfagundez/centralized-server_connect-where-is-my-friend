@@ -2,13 +2,18 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
+<<<<<<< HEAD
 -- Date Created: 11/03/2013 21:24:30
 -- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
+=======
+-- Date Created: 11/03/2013 19:09:50
+-- Generated from EDMX file: C:\Users\ENVY 14 SPECTRE\Documents\Fing\PIS\PISServer\PisDataAccess\DevelopmentEntity.edmx
+>>>>>>> 4c8800b5ab6dc6ae9f38285be25a4ec4fdb6274d
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [developmentpis];
+USE [serverdevelopmentpis];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -79,9 +84,12 @@ GO
 IF OBJECT_ID(N'[dbo].[ShareSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ShareSet];
 GO
+<<<<<<< HEAD
 IF OBJECT_ID(N'[dbo].[PermissionSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PermissionSet];
 GO
+=======
+>>>>>>> 4c8800b5ab6dc6ae9f38285be25a4ec4fdb6274d
 IF OBJECT_ID(N'[dbo].[EventSet_WhereAcceptationEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet_WhereAcceptationEvent];
 GO
