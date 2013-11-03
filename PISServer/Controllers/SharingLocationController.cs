@@ -19,12 +19,12 @@ namespace PISServer.Controllers
         // This method will be called when the thread is started. 
         public void Start()
         {
-            using (var context = new DevelopmentPISEntities())
+            while (!_stop)
             {
-                while (!_stop)
+                using (var context = new DevelopmentPISEntities())
                 {
-                    
                     DateTime minAgo = DateTime.Now - new TimeSpan(0, minutes, 0);
+                    
                     // Find shares that should end
                     var oldShares = context.ShareSet
                                 .Where(u => u.Active == true)
@@ -35,10 +35,11 @@ namespace PISServer.Controllers
                         oldShares[i].Active = false;
                     }
                     context.SaveChanges();
+
                     //Time is in miliseconds, so it works every 10 seconds
                     Thread.Sleep(10000);
                 }
-            }
+            }   
         }
 
         public void RequestStop()
