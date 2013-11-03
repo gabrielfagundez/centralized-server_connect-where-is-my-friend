@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/30/2013 01:52:41
+-- Date Created: 11/03/2013 21:24:30
 -- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
 -- --------------------------------------------------
 
@@ -41,6 +41,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_WhereSolicitationWhereSolicitationEvent]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EventSet_WhereSolicitationEvent] DROP CONSTRAINT [FK_WhereSolicitationWhereSolicitationEvent];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ShareUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ShareSet] DROP CONSTRAINT [FK_ShareUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserShare]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ShareSet] DROP CONSTRAINT [FK_UserShare];
+GO
 IF OBJECT_ID(N'[dbo].[FK_WhereAcceptationEvent_inherits_Event]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EventSet_WhereAcceptationEvent] DROP CONSTRAINT [FK_WhereAcceptationEvent_inherits_Event];
 GO
@@ -69,6 +75,12 @@ IF OBJECT_ID(N'[dbo].[UserPositionSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[WhereSolicitationSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[WhereSolicitationSet];
+GO
+IF OBJECT_ID(N'[dbo].[ShareSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ShareSet];
+GO
+IF OBJECT_ID(N'[dbo].[PermissionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PermissionSet];
 GO
 IF OBJECT_ID(N'[dbo].[EventSet_WhereAcceptationEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet_WhereAcceptationEvent];
@@ -143,8 +155,17 @@ CREATE TABLE [dbo].[ShareSet] (
 );
 GO
 
+-- Creating table 'PermissionSet'
+CREATE TABLE [dbo].[PermissionSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Platform] nvarchar(max)  NOT NULL,
+    [Content] varbinary(max)  NOT NULL
+);
+GO
+
 -- Creating table 'EventSet_WhereAcceptationEvent'
 CREATE TABLE [dbo].[EventSet_WhereAcceptationEvent] (
+    [Sent] bit  NOT NULL,
     [Id] int  NOT NULL,
     [WhereSolicitation_Id] int  NULL
 );
@@ -152,6 +173,7 @@ GO
 
 -- Creating table 'EventSet_WhereNegationEvent'
 CREATE TABLE [dbo].[EventSet_WhereNegationEvent] (
+    [Sent] bit  NOT NULL,
     [Id] int  NOT NULL,
     [WhereSolicitation_Id] int  NULL
 );
@@ -159,6 +181,7 @@ GO
 
 -- Creating table 'EventSet_WhereSolicitationEvent'
 CREATE TABLE [dbo].[EventSet_WhereSolicitationEvent] (
+    [Sent] bit  NOT NULL,
     [Id] int  NOT NULL,
     [WhereSolicitation_Id] int  NULL
 );
@@ -208,6 +231,12 @@ GO
 -- Creating primary key on [Id] in table 'ShareSet'
 ALTER TABLE [dbo].[ShareSet]
 ADD CONSTRAINT [PK_ShareSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'PermissionSet'
+ALTER TABLE [dbo].[PermissionSet]
+ADD CONSTRAINT [PK_PermissionSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

@@ -12,10 +12,11 @@
     <EntitySet Name="UserPositionSet" EntityType="DevelopmentPISModel.Store.UserPositionSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WhereSolicitationSet" EntityType="DevelopmentPISModel.Store.WhereSolicitationSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ShareSet" EntityType="DevelopmentPISModel.Store.ShareSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PermissionSet" EntityType="DevelopmentPISModel.Store.PermissionSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereAcceptationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereAcceptationEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereNegationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereNegationEvent" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="EventSet_WhereSolicitationEvent" EntityType="DevelopmentPISModel.Store.EventSet_WhereSolicitationEvent" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserUser" EntityType="DevelopmentPISModel.Store.UserUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserUser" EntityType="DevelopmentPISModel.Store.UserUser" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="UserSession" Association="DevelopmentPISModel.Store.UserSession">
       <End Role="User" EntitySet="Users" />
       <End Role="Session" EntitySet="SessionSet" />
@@ -29,12 +30,12 @@
       <End Role="Event" EntitySet="EventSet" />
     </AssociationSet>
     <AssociationSet Name="FK_UserUser_User" Association="DevelopmentPISModel.Store.FK_UserUser_User">
-      <End EntitySet="Users" Role="User" />
-      <End EntitySet="UserUser" Role="UserUser" />
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserUser" EntitySet="UserUser" />
     </AssociationSet>
     <AssociationSet Name="FK_UserUser_User1" Association="DevelopmentPISModel.Store.FK_UserUser_User1">
-      <End EntitySet="Users" Role="User1" />
-      <End EntitySet="UserUser" Role="UserUser" />
+      <End Role="User1" EntitySet="Users" />
+      <End Role="UserUser" EntitySet="UserUser" />
     </AssociationSet>
     <AssociationSet Name="WhereSolicitationWhereAcceptationEvent" Association="DevelopmentPISModel.Store.WhereSolicitationWhereAcceptationEvent">
       <End Role="WhereSolicitation" EntitySet="WhereSolicitationSet" />
@@ -125,10 +126,19 @@
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="Active" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="PermissionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Platform" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
   <EntityType Name="EventSet_WhereAcceptationEvent">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Sent" Type="bit" Nullable="false" />
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="WhereSolicitation_Id" Type="int" Nullable="true" />
   </EntityType>
@@ -136,6 +146,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Sent" Type="bit" Nullable="false" />
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="WhereSolicitation_Id" Type="int" Nullable="true" />
   </EntityType>
@@ -143,6 +154,7 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
+    <Property Name="Sent" Type="bit" Nullable="false" />
     <Property Name="Id" Type="int" Nullable="false" />
     <Property Name="WhereSolicitation_Id" Type="int" Nullable="true" />
   </EntityType>
@@ -151,8 +163,8 @@
       <PropertyRef Name="FriendsFrom_Id" />
       <PropertyRef Name="FriendsOf_Id" />
     </Key>
-    <Property Name="FriendsFrom_Id" Nullable="false" Type="int" />
-    <Property Name="FriendsOf_Id" Nullable="false" Type="int" />
+    <Property Name="FriendsFrom_Id" Type="int" Nullable="false" />
+    <Property Name="FriendsOf_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="UserSession">
     <End Role="User" Type="DevelopmentPISModel.Store.Users" Multiplicity="1" />
@@ -251,8 +263,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UserUser_User">
-    <End Type="DevelopmentPISModel.Store.Users" Multiplicity="1" Role="User" />
-    <End Type="DevelopmentPISModel.Store.UserUser" Multiplicity="*" Role="UserUser" />
+    <End Role="User" Type="DevelopmentPISModel.Store.Users" Multiplicity="1" />
+    <End Role="UserUser" Type="DevelopmentPISModel.Store.UserUser" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
         <PropertyRef Name="Id" />
@@ -263,8 +275,8 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_UserUser_User1">
-    <End Type="DevelopmentPISModel.Store.UserUser" Multiplicity="*" Role="UserUser" />
-    <End Type="DevelopmentPISModel.Store.Users" Multiplicity="1" Role="User1" />
+    <End Role="UserUser" Type="DevelopmentPISModel.Store.UserUser" Multiplicity="*" />
+    <End Role="User1" Type="DevelopmentPISModel.Store.Users" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="User1">
         <PropertyRef Name="Id" />
@@ -363,6 +375,7 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Share" EntitySet="ShareSet" />
           </AssociationSet>
+          <EntitySet Name="PermissionSet" EntityType="DevelopmentPISModel.Permission" />
           </EntityContainer>
         <EntityType Name="Event">
           <Key>
@@ -514,6 +527,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Platform" Nullable="false" />
+          <Property Type="Binary" Name="Content" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -530,16 +551,19 @@
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereAcceptationEvent)">
         <MappingFragment StoreEntitySet="EventSet_WhereAcceptationEvent">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereNegationEvent)">
         <MappingFragment StoreEntitySet="EventSet_WhereNegationEvent">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
         </MappingFragment>
       </EntityTypeMapping>
       <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.WhereSolicitationEvent)">
         <MappingFragment StoreEntitySet="EventSet_WhereSolicitationEvent">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Sent" ColumnName="Sent" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -593,6 +617,15 @@
           <ScalarProperty Name="UserId1" ColumnName="UserId1" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PermissionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(DevelopmentPISModel.Permission)">
+        <MappingFragment StoreEntitySet="PermissionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Platform" ColumnName="Platform" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
