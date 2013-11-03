@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/30/2013 01:52:41
--- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
+-- Date Created: 11/03/2013 19:09:50
+-- Generated from EDMX file: C:\Users\ENVY 14 SPECTRE\Documents\Fing\PIS\PISServer\PisDataAccess\DevelopmentEntity.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [developmentpis];
+USE [serverdevelopmentpis];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -41,6 +41,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_WhereSolicitationWhereSolicitationEvent]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EventSet_WhereSolicitationEvent] DROP CONSTRAINT [FK_WhereSolicitationWhereSolicitationEvent];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ShareUser]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ShareSet] DROP CONSTRAINT [FK_ShareUser];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserShare]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ShareSet] DROP CONSTRAINT [FK_UserShare];
+GO
 IF OBJECT_ID(N'[dbo].[FK_WhereAcceptationEvent_inherits_Event]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[EventSet_WhereAcceptationEvent] DROP CONSTRAINT [FK_WhereAcceptationEvent_inherits_Event];
 GO
@@ -69,6 +75,9 @@ IF OBJECT_ID(N'[dbo].[UserPositionSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[WhereSolicitationSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[WhereSolicitationSet];
+GO
+IF OBJECT_ID(N'[dbo].[ShareSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ShareSet];
 GO
 IF OBJECT_ID(N'[dbo].[EventSet_WhereAcceptationEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet_WhereAcceptationEvent];
@@ -145,6 +154,7 @@ GO
 
 -- Creating table 'EventSet_WhereAcceptationEvent'
 CREATE TABLE [dbo].[EventSet_WhereAcceptationEvent] (
+    [Sent] bit  NOT NULL,
     [Id] int  NOT NULL,
     [WhereSolicitation_Id] int  NULL
 );
@@ -152,6 +162,7 @@ GO
 
 -- Creating table 'EventSet_WhereNegationEvent'
 CREATE TABLE [dbo].[EventSet_WhereNegationEvent] (
+    [Sent] bit  NOT NULL,
     [Id] int  NOT NULL,
     [WhereSolicitation_Id] int  NULL
 );
@@ -159,6 +170,7 @@ GO
 
 -- Creating table 'EventSet_WhereSolicitationEvent'
 CREATE TABLE [dbo].[EventSet_WhereSolicitationEvent] (
+    [Sent] bit  NOT NULL,
     [Id] int  NOT NULL,
     [WhereSolicitation_Id] int  NULL
 );
