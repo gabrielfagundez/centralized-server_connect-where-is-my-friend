@@ -26,6 +26,7 @@
         <EntityTypeShape EntityType="DevelopmentPISModel.Share" Width="1.5" PointX="3.25" PointY="3" />
         <AssociationConnector Association="DevelopmentPISModel.ShareUser" />
         <AssociationConnector Association="DevelopmentPISModel.UserShare" />
+        <EntityTypeShape EntityType="DevelopmentPISModel.Permission" Width="1.5" PointX="1.125" PointY="1.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -7,6 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PISServer.Tests", "PISServe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PisDataAccess", "PisDataAccess\PisDataAccess.csproj", "{D2F1235D-0851-4A8B-84BB-5DC270EF5304}"
 EndProject
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "PISPush", "PISPush\PISPush.ccproj", "{543EF306-75F1-43F3-9C09-808A2AB334DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushWorkerRole", "PushWorkerRole\PushWorkerRole.csproj", "{F467856A-9F5A-4064-8D17-A95D61127006}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSharp.WindowsPhone", "PushSharp\PushSharp.WindowsPhone\PushSharp.WindowsPhone.csproj", "{9947F510-BA9A-4045-A648-BAB687D8F513}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSharp.Core", "PushSharp\PushSharp.Core\PushSharp.Core.csproj", "{836F225F-6CD9-48DE-910C-70F8A7CF54AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSharp.Google", "PushSharp\PushSharp.Android\PushSharp.Google.csproj", "{71E27C37-FBBF-481B-934B-1F7DBDE3C5D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSharp.Apple", "PushSharp\PushSharp.Apple\PushSharp.Apple.csproj", "{83C67156-893D-4AFF-9169-DB34771989CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +37,30 @@ Global
 		{D2F1235D-0851-4A8B-84BB-5DC270EF5304}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2F1235D-0851-4A8B-84BB-5DC270EF5304}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2F1235D-0851-4A8B-84BB-5DC270EF5304}.Release|Any CPU.Build.0 = Release|Any CPU
+		{543EF306-75F1-43F3-9C09-808A2AB334DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{543EF306-75F1-43F3-9C09-808A2AB334DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{543EF306-75F1-43F3-9C09-808A2AB334DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{543EF306-75F1-43F3-9C09-808A2AB334DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F467856A-9F5A-4064-8D17-A95D61127006}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F467856A-9F5A-4064-8D17-A95D61127006}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F467856A-9F5A-4064-8D17-A95D61127006}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F467856A-9F5A-4064-8D17-A95D61127006}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9947F510-BA9A-4045-A648-BAB687D8F513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9947F510-BA9A-4045-A648-BAB687D8F513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9947F510-BA9A-4045-A648-BAB687D8F513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9947F510-BA9A-4045-A648-BAB687D8F513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{836F225F-6CD9-48DE-910C-70F8A7CF54AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{836F225F-6CD9-48DE-910C-70F8A7CF54AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{836F225F-6CD9-48DE-910C-70F8A7CF54AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{836F225F-6CD9-48DE-910C-70F8A7CF54AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71E27C37-FBBF-481B-934B-1F7DBDE3C5D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71E27C37-FBBF-481B-934B-1F7DBDE3C5D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71E27C37-FBBF-481B-934B-1F7DBDE3C5D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71E27C37-FBBF-481B-934B-1F7DBDE3C5D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83C67156-893D-4AFF-9169-DB34771989CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83C67156-893D-4AFF-9169-DB34771989CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83C67156-893D-4AFF-9169-DB34771989CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83C67156-893D-4AFF-9169-DB34771989CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
