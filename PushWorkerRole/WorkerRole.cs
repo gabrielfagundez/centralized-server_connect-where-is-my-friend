@@ -55,26 +55,32 @@ namespace PushWorkerRole
 
         private void SendNotification(Event ev)
         {
-            ////ev.User.Session.
-            //if (device.Plataforma.Equals("iphone", StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    //falta permisos 
-            //}
-            //else if (device.Plataforma.Equals("android", StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    push.QueueNotification(new GcmNotification().ForDeviceRegistrationId(device.DeviceId)
-            //                                      .WithJson("{\"alert\":\"Fuiste pulliado, cabrón!\",\"badge\":7,\"sound\":\"sound.caf\"}"));
-            //}
-            //else if (device.Plataforma.Equals("winphone", StringComparison.InvariantCultureIgnoreCase))
-            //{
-            //    push.QueueNotification(new WindowsPhoneToastNotification()
-            //    .ForEndpointUri(new Uri(device.DeviceId))
-            //    .ForOSVersion(WindowsPhoneDeviceOSVersion.MangoSevenPointFive)
-            //    .WithBatchingInterval(BatchingInterval.Immediate)
-            //    .WithNavigatePath("/MainPage.xaml")
-            //    .WithText1("PISPUSH")
-            //    .WithText2("Usted ha sido pispushieado, malacate"));
-            //}
+            List<Session> ls = ev.User.Session.Where(s => s.Active = true)
+                                .ToList();
+            foreach (Session s in ls)
+            {
+                if (s.Platform.Equals("android"))
+                {
+                    push.QueueNotification(new GcmNotification()    //.WithData(new Dictionary())
+                                         .ForDeviceRegistrationId(s.DeviceId)
+                                         .WithJson("{\"alert\":\"Fuiste pulliado, cabrón!\",\"badge\":7,\"sound\":\"sound.caf\"}"))
+                                          ;
+                }
+                else if(s.Platform.Equals("wp"))
+                {
+                    push.QueueNotification(new WindowsPhoneToastNotification()
+                    .ForEndpointUri(new Uri(s.DeviceId))
+                    .ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
+                    .WithBatchingInterval(BatchingInterval.Immediate)
+                    .WithText1("You have a new solicitation!")
+                    .WithText2("Answer it!"));
+                }
+                else if(s.Platform.Equals("ios"))
+                {
+                    
+                }
+            }
+           
         }
     }
 }
