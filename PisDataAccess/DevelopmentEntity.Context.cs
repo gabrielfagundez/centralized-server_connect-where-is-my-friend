@@ -32,5 +32,6 @@ namespace PisDataAccess
         public DbSet<WhereSolicitation> WhereSolicitationSet { get; set; }
         public DbSet<Share> ShareSet { get; set; }
         public DbSet<Permission> PermissionSet { get; set; }
+        public DbSet<MensajeLog> MensajeLogSet { get; set; }
     }
 }

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSharp.Google", "PushSha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSharp.Apple", "PushSharp\PushSharp.Apple\PushSharp.Apple.csproj", "{83C67156-893D-4AFF-9169-DB34771989CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PushSharp", "PushSharp", "{3B12B09F-7832-4743-B10C-32AC63CF98F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,5 +66,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{83C67156-893D-4AFF-9169-DB34771989CB} = {3B12B09F-7832-4743-B10C-32AC63CF98F1}
+		{836F225F-6CD9-48DE-910C-70F8A7CF54AA} = {3B12B09F-7832-4743-B10C-32AC63CF98F1}
+		{71E27C37-FBBF-481B-934B-1F7DBDE3C5D6} = {3B12B09F-7832-4743-B10C-32AC63CF98F1}
+		{9947F510-BA9A-4045-A648-BAB687D8F513} = {3B12B09F-7832-4743-B10C-32AC63CF98F1}
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,11 @@
+﻿@model List<String>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Logs</h2>
+
+@foreach (String msg in Model) 
+{
+    <p>@msg</p>
+}

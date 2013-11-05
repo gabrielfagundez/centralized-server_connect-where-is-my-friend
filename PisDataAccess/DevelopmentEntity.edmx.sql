@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/04/2013 20:37:26
--- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
+-- Date Created: 11/05/2013 16:27:54
+-- Generated from EDMX file: C:\PISServer\PisDataAccess\DevelopmentEntity.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -81,6 +81,9 @@ IF OBJECT_ID(N'[dbo].[ShareSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[PermissionSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PermissionSet];
+GO
+IF OBJECT_ID(N'[dbo].[MensajeLogSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MensajeLogSet];
 GO
 IF OBJECT_ID(N'[dbo].[EventSet_WhereAcceptationEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet_WhereAcceptationEvent];
@@ -163,6 +166,13 @@ CREATE TABLE [dbo].[PermissionSet] (
 );
 GO
 
+-- Creating table 'MensajeLogSet'
+CREATE TABLE [dbo].[MensajeLogSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Mensaje] nvarchar(max)  NOT NULL
+);
+GO
+
 -- Creating table 'EventSet_WhereAcceptationEvent'
 CREATE TABLE [dbo].[EventSet_WhereAcceptationEvent] (
     [Sent] bit  NOT NULL,
@@ -237,6 +247,12 @@ GO
 -- Creating primary key on [Id] in table 'PermissionSet'
 ALTER TABLE [dbo].[PermissionSet]
 ADD CONSTRAINT [PK_PermissionSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'MensajeLogSet'
+ALTER TABLE [dbo].[MensajeLogSet]
+ADD CONSTRAINT [PK_MensajeLogSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
