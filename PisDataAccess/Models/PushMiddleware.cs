@@ -35,5 +35,35 @@ namespace PISServer.Models
                 return context.EventSet.OfType<WhereNegationEvent>().Where(s => s.Sent == false).ToList();
             }
         }
+
+        //Sets a solicitation as sent
+        public void SetSolicitationSent(WhereSolicitationEvent wse)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                wse.Sent = true;
+                context.SaveChanges();
+            }
+        }
+
+        //Sets a negation as sent
+        public void SetNegationSent(WhereNegationEvent wne)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                wne.Sent = true;
+                context.SaveChanges();
+            }
+        }
+
+        //Sets an acceptation as sent
+        public void SetAcceptationSent(WhereAcceptationEvent wae)
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                wae.Sent = true;
+                context.SaveChanges();
+            }
+        }
     }
 }

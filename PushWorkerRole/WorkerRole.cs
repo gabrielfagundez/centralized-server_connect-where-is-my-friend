@@ -23,7 +23,7 @@ namespace PushWorkerRole
     {
         //Create our push services broker
         PushBroker push;
-
+        PushMiddleware pm;
         public override void Run()
         {
             // This is a sample worker implementation. Replace with your logic.
@@ -31,7 +31,7 @@ namespace PushWorkerRole
             
             while (true)
             {
-                PushMiddleware pm = new PushMiddleware();
+                pm = new PushMiddleware();
                 pm.GetAcceptedEvents().ToList().ForEach(SendAcceptations);
                 pm.GetRejectedEvents().ToList().ForEach(SendRejections);
                 pm.GetUnsentEvents().ToList().ForEach(SendSolicitations);
@@ -74,7 +74,7 @@ namespace PushWorkerRole
                     SendIosAceptation(ev, s.DeviceId);
                 }
             }
-            ev.Sent = true;
+            pm.SetAcceptationSent(ev);
         }
 
         private void SendRejections(WhereNegationEvent ev)
@@ -97,7 +97,7 @@ namespace PushWorkerRole
                     SendIosAceptation(ev, s.DeviceId);
                 }
             }
-            ev.Sent = true;
+            pm.SetNegationSent(ev);
         }
 
         private void SendSolicitations(WhereSolicitationEvent ev)
@@ -120,7 +120,7 @@ namespace PushWorkerRole
                     SendIosAceptation(ev, s.DeviceId);
                 }
             }
-            ev.Sent = true;
+            pm.SetSolicitationSent(ev);
         }
 
         private void SendAndroid(Event wae, string devId, string text)

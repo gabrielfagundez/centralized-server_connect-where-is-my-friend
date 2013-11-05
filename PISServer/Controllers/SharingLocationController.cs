@@ -36,9 +36,9 @@ namespace PISServer.Controllers
                     }
                     context.SaveChanges();
 
-                    //Time is in miliseconds, so it works every 10 seconds
-                    Thread.Sleep(10000);
                 }
+                //Time is in miliseconds, so it works every 10 seconds
+                Thread.Sleep(10000);
             }   
         }
 
