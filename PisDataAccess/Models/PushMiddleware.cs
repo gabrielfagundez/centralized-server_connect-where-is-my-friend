@@ -9,61 +9,66 @@ namespace PISServer.Models
 {
     public class PushMiddleware
     {
+        private DevelopmentPISEntities context;
+
+        public PushMiddleware()
+        {
+            context = new DevelopmentPISEntities();
+        }
+
         // Returns all the events that should be sent to accept/negate
         public List<WhereSolicitationEvent> GetUnsentEvents()
         {
-            using (var context = new DevelopmentPISEntities())
-            {
-                return context.EventSet.OfType<WhereSolicitationEvent>().Where(s => s.Sent == false).ToList();
-            }
+            return context.EventSet.OfType<WhereSolicitationEvent>().Where(s => s.Sent == false).ToList();
         }
 
         // Return all accepted requests
         public List<WhereAcceptationEvent> GetAcceptedEvents()
         {
-            using (var context = new DevelopmentPISEntities())
-            {
-                return context.EventSet.OfType<WhereAcceptationEvent>().Where(s => s.Sent == false).ToList();
-            }
+            return context.EventSet.OfType<WhereAcceptationEvent>().Where(s => s.Sent == false).ToList();
         }
 
         // Return all rejected requests
         public List<WhereNegationEvent> GetRejectedEvents()
         {
-            using (var context = new DevelopmentPISEntities())
-            {
-                return context.EventSet.OfType<WhereNegationEvent>().Where(s => s.Sent == false).ToList();
-            }
+            return context.EventSet.OfType<WhereNegationEvent>().Where(s => s.Sent == false).ToList();
         }
 
-        //Sets a solicitation as sent
-        public void SetSolicitationSent(WhereSolicitationEvent wse)
+        public String GetUserFromSolicitation(WhereSolicitation solicitation)
         {
-            using (var context = new DevelopmentPISEntities())
-            {
-                wse.Sent = true;
-                context.SaveChanges();
-            }
+            return context.Users
+                        .Where(u => u.Id == solicitation.From)
+                        .Select(u => u.Name)
+                        .FirstOrDefault();
         }
 
-        //Sets a negation as sent
-        public void SetNegationSent(WhereNegationEvent wne)
+        public String GetUserForSolicitation(WhereSolicitation solicitation)
         {
-            using (var context = new DevelopmentPISEntities())
-            {
-                wne.Sent = true;
-                context.SaveChanges();
-            }
+            return context.Users
+                        .Where(u => u.Id == solicitation.For)
+                        .Select(u => u.Name)
+                        .FirstOrDefault();
         }
 
-        //Sets an acceptation as sent
-        public void SetAcceptationSent(WhereAcceptationEvent wae)
+
+        public byte[] GetPermission(String platform)
         {
-            using (var context = new DevelopmentPISEntities())
-            {
-                wae.Sent = true;
-                context.SaveChanges();
-            }
+            return context.PermissionSet
+                    .Where(p => p.Platform == platform)
+                    .Select(p => p.Content)
+                    .FirstOrDefault();
         }
+
+        public void Log(String str)
+        {
+            context.MensajeLogSetSet.Add(new MensajeLogSet() { Mensaje = str });
+        }
+
+        public void Save()
+        {
+            context.SaveChanges();
+        }
+
+
     }
 }

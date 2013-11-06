@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/04/2013 20:37:26
+-- Date Created: 11/06/2013 02:11:22
 -- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
 -- --------------------------------------------------
 
@@ -81,6 +81,9 @@ IF OBJECT_ID(N'[dbo].[ShareSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[PermissionSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[PermissionSet];
+GO
+IF OBJECT_ID(N'[dbo].[MensajeLogSetSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[MensajeLogSetSet];
 GO
 IF OBJECT_ID(N'[dbo].[EventSet_WhereAcceptationEvent]', 'U') IS NOT NULL
     DROP TABLE [dbo].[EventSet_WhereAcceptationEvent];
@@ -163,6 +166,13 @@ CREATE TABLE [dbo].[PermissionSet] (
 );
 GO
 
+-- Creating table 'MensajeLogSetSet'
+CREATE TABLE [dbo].[MensajeLogSetSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Mensaje] nvarchar(max)  NOT NULL
+);
+GO
+
 -- Creating table 'EventSet_WhereAcceptationEvent'
 CREATE TABLE [dbo].[EventSet_WhereAcceptationEvent] (
     [Sent] bit  NOT NULL,
@@ -237,6 +247,12 @@ GO
 -- Creating primary key on [Id] in table 'PermissionSet'
 ALTER TABLE [dbo].[PermissionSet]
 ADD CONSTRAINT [PK_PermissionSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'MensajeLogSetSet'
+ALTER TABLE [dbo].[MensajeLogSetSet]
+ADD CONSTRAINT [PK_MensajeLogSetSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 

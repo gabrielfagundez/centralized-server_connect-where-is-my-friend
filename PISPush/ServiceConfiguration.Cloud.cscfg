@@ -3,7 +3,7 @@
   <Role name="PushWorkerRole">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=portalvhdsjfdl9z3jzb09k;AccountKey=a5ZckBT45idOUareeN5APVmPkC66RwglcapJEHH1H1sja6ZxLPXYdfPNLzDphUwNuYMD+LfhuaGYaG+MiEcsLw==" />
     </ConfigurationSettings>
   </Role>
 </ServiceConfiguration>
