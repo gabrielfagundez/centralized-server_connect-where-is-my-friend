@@ -26,7 +26,7 @@ namespace PushWorkerRole
         PushBroker push;
         Logger Log;
 
-        public static String PLATAFORMA_PERMISO_IOS = "ios_test";
+        public static String PLATAFORMA_PERMISO_IOS = "ios";
 
         public static String SOLICITATION_ACCEPTATION = " accepted your solicitation";
         // para windows phone van dos textos
@@ -49,18 +49,34 @@ namespace PushWorkerRole
             {
                 while (true)
                 {
-                    PushMiddleware pm = new PushMiddleware();
-                    pm.GetAcceptedEvents().ToList().ForEach(n => SendAcceptations(n, pm.GetUserForSolicitation(n.WhereSolicitation)));
-                    pm.GetRejectedEvents().ToList().ForEach(n => SendRejections(n, pm.GetUserForSolicitation(n.WhereSolicitation)));
-                    pm.GetUnsentEvents().ToList().ForEach(n => SendSolicitations(n, pm.GetUserFromSolicitation(n.WhereSolicitation)));
-                    pm.Save();
-                    Thread.Sleep(10000);
-                    //Trace.TraceInformation("Working", "Information");
+                    try 
+                    {
+                        PushMiddleware pm = new PushMiddleware();
+                        if (pm.GetAcceptedEvents().Count > 0)
+                        {
+                            pm.GetAcceptedEvents().ToList().ForEach(n => SendAcceptations(n, pm.GetUserForSolicitation(n.WhereSolicitation)));
+                        }
+                        if (pm.GetRejectedEvents().Count > 0)
+                        {
+                            pm.GetRejectedEvents().ToList().ForEach(n => SendRejections(n, pm.GetUserForSolicitation(n.WhereSolicitation)));
+                        }
+                        if (pm.GetUnsentEvents().Count > 0)
+                        {
+                            pm.GetUnsentEvents().ToList().ForEach(n => SendSolicitations(n, pm.GetUserFromSolicitation(n.WhereSolicitation)));
+                        }
+                        pm.Save();
+                        Thread.Sleep(10000);
+                        //Trace.TraceInformation("Working", "Information");
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Write("el catch de adentro de run: " + e.Message);
+                    }
                 }
             }
             catch (Exception e)
             {
-                Log.Write(e.Message);
+                Log.Write("el catch de adentro de run: " + e.Message);
             }
         }
 
@@ -69,11 +85,13 @@ namespace PushWorkerRole
             // Set the maximum number of concurrent connections 
             ServicePointManager.DefaultConnectionLimit = 12;
 
-            push = new PushBroker();
-            Log = new Logger().ForPushBroker(push);
-
             try
             {
+
+                push = new PushBroker();
+                Log = new Logger().ForPushBroker(push);
+
+            
                 // REGISTRO ANDROID
                 push.RegisterGcmService(new GcmPushChannelSettings("AIzaSyCpS_GsfmIatkSYwWVkrtc3CTIw9hpwCKA"));
 
@@ -84,10 +102,11 @@ namespace PushWorkerRole
                 byte[] certificado = new PushMiddleware().GetPermission(PLATAFORMA_PERMISO_IOS);
                 push.RegisterAppleService(new ApplePushChannelSettings(certificado,
                     "pis2013"));
+                
             }
             catch (Exception e)
             {
-                Log.Write(e.Message);
+                Log.Write("el catch de onstart: " + e.Message);
             }
 
 
@@ -99,7 +118,6 @@ namespace PushWorkerRole
 
         private void SendAcceptations(WhereAcceptationEvent ev, String who)
         {
-            Log.Write("Enviando aceptacion a " + who);
             List<Session> ls = ev.User.Session.Where(s => s.Active = true)
                                 .ToList();
             foreach (Session s in ls)
@@ -107,6 +125,7 @@ namespace PushWorkerRole
                 if (s.Platform.Equals("android"))
                 {
                     SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION);
+                    Log.Write("Enviando aceptacion android a " + who);
                 }
                 else if (s.Platform.Equals("wp"))
                 {
@@ -114,10 +133,12 @@ namespace PushWorkerRole
                     SendWp(s.DeviceId,
                         who + SOLICITATION_ACCEPTATION,
                         SOLICITATION_ACCEPTATION_BIS, WIN_ACCEPTATION_PATH);
+                    Log.Write("Enviando aceptacion wp a " + who);
                 }
                 else if (s.Platform.Equals("ios"))
                 {
                     SendIosAceptation(s.DeviceId, who + SOLICITATION_ARRIVAL);
+                    Log.Write("Enviando aceptacion ios a " + who);
                 }
             }
             ev.Sent = true;
@@ -125,7 +146,6 @@ namespace PushWorkerRole
 
         private void SendRejections(WhereNegationEvent ev, String who)
         {
-            Log.Write("Envando rejection a " + who);
             List<Session> ls = ev.User.Session.Where(s => s.Active = true)
                                 .ToList();
             foreach (Session s in ls)
@@ -133,14 +153,17 @@ namespace PushWorkerRole
                 if (s.Platform.Equals("android"))
                 {
                     SendAndroid(s.DeviceId, who + SOLICITATION_NEGATION);
+                    Log.Write("Envando rejection android a " + who);
                 }
                 else if (s.Platform.Equals("wp"))
                 {
                     SendWp(s.DeviceId, who + SOLICITATION_NEGATION, "", WIN_NEGATION_PATH);
+                    Log.Write("Envando rejection wp a " + who);
                 }
                 else if (s.Platform.Equals("ios"))
                 {
                     SendIosAceptation(s.DeviceId, who + SOLICITATION_ARRIVAL);
+                    Log.Write("Envando rejection ios a " + who);
                 }
             }
             ev.Sent = true;
@@ -148,7 +171,7 @@ namespace PushWorkerRole
 
         private void SendSolicitations(WhereSolicitationEvent ev, String who)
         {
-            Log.Write("Enviando nueva solicitud a " + who);
+            
             List<Session> ls = ev.User.Session.Where(s => s.Active = true)
                                 .ToList();
             foreach (Session s in ls)
@@ -156,14 +179,17 @@ namespace PushWorkerRole
                 if (s.Platform.Equals("android"))
                 {
                     SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL);
+                    Log.Write("Enviando nueva solicitud Android a " + who);
                 }
                 else if (s.Platform.Equals("wp"))
                 {
                     SendWp(s.DeviceId, who + SOLICITATION_ARRIVAL, SOLICITATION_ARRIVAL_BIS, WIN_ARRIVAL_PATH);
+                    Log.Write("Enviando nueva solicitud windows a " + who);
                 }
                 else if (s.Platform.Equals("ios"))
                 {
                     SendIosAceptation(s.DeviceId, who + SOLICITATION_ARRIVAL);
+                    Log.Write("Enviando nueva solicitud ios a " + who);
                 }
             }
             ev.Sent = true;
@@ -171,15 +197,18 @@ namespace PushWorkerRole
 
         private void SendAndroid(string devId, string text)
         {
+            
             push.QueueNotification(new GcmNotification()    //.WithData(new Dictionary())
                                      .ForDeviceRegistrationId(devId)
                                      .WithJson("{\"alert\":\"" + text + "\"," +
                                                 "\"badge\":7,"
                                                 + "\"sound\":\"sound.caf\"}"));
+            
         }
 
         private void SendWp(string devId, string text1, string text2, String path)
         {
+            Log.Write("Sending to wp to devId " + devId);
             push.QueueNotification(new WindowsPhoneToastNotification()
                     .ForEndpointUri(new Uri(devId))
                     .ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
@@ -191,6 +220,7 @@ namespace PushWorkerRole
 
         private void SendIosAceptation(string devId, string text)
         {
+            Log.Write("Sending to ios to devId " + devId);
             push.QueueNotification(new AppleNotification()
                                        .ForDeviceToken(devId)
                                        .WithAlert(text)

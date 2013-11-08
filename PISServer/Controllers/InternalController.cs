@@ -61,5 +61,38 @@ namespace PISServer.Controllers
             }
             return "ok";
         }
+
+        [HttpGet]
+        public String GetLog()
+        {
+            String ret = "";
+            using (var context = new DevelopmentPISEntities())
+            {
+                //DataRepository<MensajeLog> repo = new DataRepository<MensajeLog>(new DevelopmentPISEntities());
+                 context.MensajeLogSetSet
+                    .OrderByDescending(m => m.Id)
+                    .Take(100)
+                    .Select(m => m.Mensaje)
+                    .ToList()
+                    .ForEach(m=> ret += m + "**************************************************");
+            }
+            return ret;
+
+        }
+
+        [HttpGet]
+        public String ResetLog()
+        {
+            using (var context = new DevelopmentPISEntities())
+            {
+                foreach (var msj in context.MensajeLogSetSet.ToList())
+                {
+                    context.MensajeLogSetSet.Remove(msj);
+                }
+                context.SaveChanges();
+            }
+            return "ok";
+
+        }
     }
 }

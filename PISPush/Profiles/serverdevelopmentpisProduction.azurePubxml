@@ -9,12 +9,12 @@
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>serverdevelopmentpis</AzureHostedServiceLabel>
-    <AzureHostedServiceName>serverdevelopmentpis</AzureHostedServiceName>
+    <AzureHostedServiceLabel>serverdevelopworker</AzureHostedServiceLabel>
+    <AzureHostedServiceName>serverdevelopworker</AzureHostedServiceName>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>
-    <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
+    <AzureSolutionConfiguration>Debug</AzureSolutionConfiguration>
     <AzureStorageAccountLabel>portalvhdsjfdl9z3jzb09k</AzureStorageAccountLabel>
     <AzureStorageAccountName>portalvhdsjfdl9z3jzb09k</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>

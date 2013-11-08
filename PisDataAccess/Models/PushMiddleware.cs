@@ -62,6 +62,7 @@ namespace PISServer.Models
         public void Log(String str)
         {
             context.MensajeLogSetSet.Add(new MensajeLogSet() { Mensaje = str });
+            context.SaveChanges();
         }
 
         public void Save()
