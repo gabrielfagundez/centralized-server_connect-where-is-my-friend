@@ -125,7 +125,7 @@ namespace PISServer.Controllers
                     }
 
                     return ret;
-                    
+
                 }
             }
             else
@@ -190,7 +190,7 @@ namespace PISServer.Controllers
                         throw new HttpResponseException(HttpStatusCode.Unauthorized);
                     }
                 }
-                
+
                 // Create a response
                 UserResponse userResponse = new UserResponse();
                 userResponse.Id = user.Id;
@@ -221,7 +221,7 @@ namespace PISServer.Controllers
             {
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
             }
-            
+
             if (request.Platform == null)
             {
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
@@ -299,7 +299,7 @@ namespace PISServer.Controllers
         // Used when a client is trying to signup to the System.
         //
         [ActionName("SignUp")]
-        public UserResponse PostSignUp([FromBody] UserRequest request) 
+        public UserResponse PostSignUp([FromBody] UserRequest request)
         {
             // Return Not Found if mail or password is null
             if (request.Mail == null || request.Password == null)
