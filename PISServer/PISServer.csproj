@@ -178,6 +178,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Datatypes\ChangeDeviceIdRequest.cs" />
+    <Compile Include="Models\Datatypes\ChangeLanguageRequest.cs" />
     <Compile Include="Models\Datatypes\PermissionRequest.cs" />
     <Compile Include="Models\Datatypes\FriendRequest.cs" />
     <Compile Include="Models\Datatypes\FriendRequestId.cs" />

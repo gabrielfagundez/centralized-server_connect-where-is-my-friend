@@ -19,10 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSharp.Google", "PushSha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushSharp.Apple", "PushSharp\PushSharp.Apple\PushSharp.Apple.csproj", "{83C67156-893D-4AFF-9169-DB34771989CB}"
 EndProject
-Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "prueba", "prueba\prueba.ccproj", "{C232D532-8458-4A35-AD94-FAE32C7F724B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pruebawr", "pruebawr\pruebawr.csproj", "{F25C796F-47C8-4571-AE0A-3B82962C123A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,14 +61,6 @@ Global
 		{83C67156-893D-4AFF-9169-DB34771989CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83C67156-893D-4AFF-9169-DB34771989CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83C67156-893D-4AFF-9169-DB34771989CB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C232D532-8458-4A35-AD94-FAE32C7F724B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C232D532-8458-4A35-AD94-FAE32C7F724B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C232D532-8458-4A35-AD94-FAE32C7F724B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C232D532-8458-4A35-AD94-FAE32C7F724B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F25C796F-47C8-4571-AE0A-3B82962C123A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F25C796F-47C8-4571-AE0A-3B82962C123A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F25C796F-47C8-4571-AE0A-3B82962C123A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F25C796F-47C8-4571-AE0A-3B82962C123A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

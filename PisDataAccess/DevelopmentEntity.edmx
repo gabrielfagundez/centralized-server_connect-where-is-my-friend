@@ -99,6 +99,8 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="Active" Type="bit" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Language" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Badge" Type="smallint" Nullable="false" />
   </EntityType>
   <EntityType Name="UserPositionSet">
     <Key>
@@ -431,6 +433,8 @@
           <Property Type="Int32" Name="UserId" Nullable="false" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
           <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="String" Name="Language" Nullable="true" />
+          <Property Type="Int16" Name="Badge" Nullable="false" />
         </EntityType>
         <Association Name="UserSession">
           <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="1" />
@@ -604,6 +608,8 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="Active" ColumnName="Active" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Language" ColumnName="Language" />
+          <ScalarProperty Name="Badge" ColumnName="Badge" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

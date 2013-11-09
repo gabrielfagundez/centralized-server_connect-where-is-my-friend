@@ -19,19 +19,42 @@ namespace PISServer.Models
         // Returns all the events that should be sent to accept/negate
         public List<WhereSolicitationEvent> GetUnsentEvents()
         {
-            return context.EventSet.OfType<WhereSolicitationEvent>().Where(s => s.Sent == false).ToList();
+            try
+            {
+                return context.EventSet.OfType<WhereSolicitationEvent>().Where(s => s.Sent == false).ToList();
+            }
+            catch
+            {
+                return new List<WhereSolicitationEvent>();
+            }
         }
 
         // Return all accepted requests
         public List<WhereAcceptationEvent> GetAcceptedEvents()
         {
-            return context.EventSet.OfType<WhereAcceptationEvent>().Where(s => s.Sent == false).ToList();
+            try
+            {
+                return context.EventSet.OfType<WhereAcceptationEvent>().Where(s => s.Sent == false).ToList();
+            }
+            catch
+            {
+                return new List<WhereAcceptationEvent>();
+            }
+            
         }
 
         // Return all rejected requests
         public List<WhereNegationEvent> GetRejectedEvents()
         {
-            return context.EventSet.OfType<WhereNegationEvent>().Where(s => s.Sent == false).ToList();
+            try
+            {
+                return context.EventSet.OfType<WhereNegationEvent>().Where(s => s.Sent == false).ToList();
+            }
+            catch
+            {
+                return new List<WhereNegationEvent>();
+            }
+            
         }
 
         public String GetUserFromSolicitation(WhereSolicitation solicitation)

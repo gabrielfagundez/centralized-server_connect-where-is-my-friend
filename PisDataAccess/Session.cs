@@ -20,6 +20,8 @@ namespace PisDataAccess
         public int UserId { get; set; }
         public bool Active { get; set; }
         public System.DateTime Date { get; set; }
+        public string Language { get; set; }
+        public short Badge { get; set; }
     
         public virtual User User { get; set; }
     }

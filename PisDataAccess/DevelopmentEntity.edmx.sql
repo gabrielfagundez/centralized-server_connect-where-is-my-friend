@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/06/2013 02:11:22
+-- Date Created: 11/09/2013 18:10:25
 -- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
 -- --------------------------------------------------
 
@@ -127,7 +127,9 @@ CREATE TABLE [dbo].[SessionSet] (
     [Platform] nvarchar(max)  NOT NULL,
     [UserId] int  NOT NULL,
     [Active] bit  NOT NULL,
-    [Date] datetime  NOT NULL
+    [Date] datetime  NOT NULL,
+    [Language] nvarchar(max)  NULL,
+    [Badge] smallint  NOT NULL
 );
 GO
 

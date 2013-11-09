@@ -5,12 +5,9 @@ using System.Web;
 
 namespace PISServer.Models.Datatypes
 {
-    public class UserLoginWhereRequest
+    public class ChangeLanguageRequest
     {
         public string Mail { get; set; }
-        public string Password { get; set; }
-        public string DeviceId { get; set; }
-        public string Platform { get; set; }
         public string Language { get; set; }
     }
 }

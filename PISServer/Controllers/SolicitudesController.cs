@@ -55,6 +55,16 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
+                 // Verify if exists a pending solicitation for the user
+                 WhereSolicitation exists = context.WhereSolicitationSet
+                             .Where(s => s.From == userFrom.Id && s.For == userFor.Id && s.WhereSolicitationEvent != null)
+                             .FirstOrDefault();
+ 
+                 if (exists != null)
+                 {
+                     throw new HttpResponseException(HttpStatusCode.BadRequest);
+                 };
+
                 // Verify if are friends
                 var friends = userFor.FriendsOf
                             .Where(u => u.Id == userFrom.Id)
@@ -266,10 +276,15 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
+                if (solicitud.WhereAcceptationEvent != null || solicitud.WhereNegationEvent != null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+                };
+
                 if (user.Id != solicitud.For)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
-                }
+                };
 
                 // Find the user that will be notified with a PUSH notification
                 var userFrom = context.Users
@@ -336,10 +351,15 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
+                if (solicitud.WhereAcceptationEvent != null || solicitud.WhereNegationEvent != null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+                };
+
                 if (user.Id != solicitud.For)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
-                }
+                };
 
                 // Find the user that will be notified with a PUSH notification
                 var userFrom = context.Users
