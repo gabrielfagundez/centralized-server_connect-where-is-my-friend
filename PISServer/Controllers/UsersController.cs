@@ -217,7 +217,7 @@ namespace PISServer.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            if (request.DeviceId == null)
+            if (request.DeviceId == null || request.DeviceId == "")
             {
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
             }
