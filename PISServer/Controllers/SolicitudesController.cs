@@ -269,12 +269,12 @@ namespace PISServer.Controllers
                 if (solicitud.WhereAcceptationEvent != null || solicitud.WhereNegationEvent != null)
                 {
                     throw new HttpResponseException(HttpStatusCode.BadRequest);
-                }
+                };
 
                 if (user.Id != solicitud.For)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
-                }
+                };
 
                 // Find the user that will be notified with a PUSH notification
                 var userFrom = context.Users
@@ -341,10 +341,15 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 };
 
+                if (solicitud.WhereAcceptationEvent != null || solicitud.WhereNegationEvent != null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+                };
+
                 if (user.Id != solicitud.For)
                 {
                     throw new HttpResponseException(HttpStatusCode.Unauthorized);
-                }
+                };
 
                 // Find the user that will be notified with a PUSH notification
                 var userFrom = context.Users
