@@ -209,7 +209,7 @@ namespace PISServer.Controllers
         // Used when a client of Where? is trying to login to the System.
         //
         [ActionName("LoginWhere")]
-        public UserResponse PostLogin([FromBody] UserLoginWhereRequest request)
+        public UserResponse PostLoginWhere([FromBody] UserLoginWhereRequest request)
         {
             // If mail is empty return Not Found
             if (request.Mail == null)
@@ -217,7 +217,7 @@ namespace PISServer.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            if (request.DeviceId == null)
+            if (request.DeviceId == null || request.DeviceId == "")
             {
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
             }
@@ -232,6 +232,16 @@ namespace PISServer.Controllers
                 (!request.Platform.Equals("android", StringComparison.OrdinalIgnoreCase)))
             {
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            }
+
+            string lang;
+            if (request.Language == null)
+            {
+                lang = "eng";
+            }
+            else
+            {
+                lang = request.Language;
             }
 
             using (var context = new DevelopmentPISEntities())
@@ -265,6 +275,8 @@ namespace PISServer.Controllers
                 ses.User = user;
                 ses.Active = true;
                 ses.Date = DateTime.Now;
+                ses.Language = lang;
+                ses.Badge = 0;
 
                 user.Session.Add(ses);
                 context.SaveChanges();
@@ -405,7 +417,7 @@ namespace PISServer.Controllers
         // Used when a client of Where? is trying to login to the System.
         //
         [ActionName("ChangeDeviceId")]
-        public string PostLogin([FromBody] ChangeDeviceIdRequest request)
+        public string PostChangeDeviceId([FromBody] ChangeDeviceIdRequest request)
         {
             // If mail is empty return Not Found
             if (request.Mail == null)
@@ -413,7 +425,7 @@ namespace PISServer.Controllers
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
 
-            if (request.DeviceId == null)
+            if (request.DeviceId == null || request.DeviceId == "")
             {
                 throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
             }
@@ -463,6 +475,117 @@ namespace PISServer.Controllers
                     {
                         ses.DeviceId = request.DeviceId;
                         ses.Platform = request.Platform;
+                    }
+                    context.SaveChanges();
+                }
+
+                return "ok";
+            }
+        }
+
+        //
+        // POST api/changeLanguage
+        //
+        // Used when a client of Where? is trying to login to the System.
+        //
+        [ActionName("ChangeLanguage")]
+        public string PostLogin([FromBody] ChangeLanguageRequest request)
+        {
+            // If mail is empty return Not Found
+            if (request.Mail == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            if (request.Language == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.PreconditionFailed);
+            }
+
+            using (var context = new DevelopmentPISEntities())
+            {
+                User user;
+
+                // Find the user
+                user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // Return not found if user is null
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    List<Session> sesList;
+                    sesList = context.SessionSet
+                                .Where(s => s.Active == true)
+                                .Where(s => s.UserId == user.Id)
+                                .ToList();
+
+                    //The user is not logued in
+                    if (sesList.Count == 0)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.NotFound);
+                    }
+
+                    foreach (Session ses in sesList)
+                    {
+                        ses.Language = request.Language;
+                    }
+                    context.SaveChanges();
+                }
+
+                return "ok";
+            }
+        }
+
+        //
+        // POST api/resetBadge
+        //
+        // Used when a client of Where? is trying to login to the System.
+        //
+        [ActionName("ResetBadge")]
+        public string PostResetBadge([FromBody] UserEmailRequest request)
+        {
+            // If mail is empty return Not Found
+            if (request.Mail == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            using (var context = new DevelopmentPISEntities())
+            {
+                User user;
+
+                // Find the user
+                user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // Return not found if user is null
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    List<Session> sesList;
+                    sesList = context.SessionSet
+                                .Where(s => s.Active == true)
+                                .Where(s => s.UserId == user.Id)
+                                .ToList();
+
+                    //The user is not logued in
+                    if (sesList.Count == 0)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.NotFound);
+                    }
+
+                    foreach (Session ses in sesList)
+                    {
+                        ses.Badge = 0;
                     }
                     context.SaveChanges();
                 }
