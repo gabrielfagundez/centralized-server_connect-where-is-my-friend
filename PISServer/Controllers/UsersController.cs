@@ -365,7 +365,7 @@ namespace PISServer.Controllers
         // Used when a client of Where? is trying to login to the System.
         //
         [ActionName("LogoutWhere")]
-        public string PostLogin([FromBody] UserEmailRequest request)
+        public string LogoutWhere([FromBody] UserEmailRequest request)
         {
             // If mail is empty return Not Found
             if (request.Mail == null)

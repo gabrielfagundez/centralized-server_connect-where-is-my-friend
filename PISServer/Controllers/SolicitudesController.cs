@@ -296,6 +296,8 @@ namespace PISServer.Controllers
                 userFrom.Event.Add(wa);
                 wa.User = userFrom;
 
+                context.EventSet.Remove(solicitud.WhereSolicitationEvent);
+
                 solicitud.WhereSolicitationEvent = null;
                 solicitud.WhereNegationEvent = null;
                 solicitud.WhereAcceptationEvent = wa;
@@ -370,6 +372,8 @@ namespace PISServer.Controllers
                 WhereNegationEvent wn = new WhereNegationEvent();
                 userFrom.Event.Add(wn);
                 wn.User = userFrom;
+                
+                context.EventSet.Remove(solicitud.WhereSolicitationEvent);
 
                 solicitud.WhereSolicitationEvent = null;
                 solicitud.WhereAcceptationEvent = null;
