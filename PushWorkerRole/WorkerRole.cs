@@ -61,9 +61,9 @@ namespace PushWorkerRole
 
 
         //public static String SOLICITATION_NEGATION = " couldn't accept your solicitation";
-        public static String SOLICITATION_ARRIVAL = " wants to know where you are";
+        public static String SOLICITATION_ARRIVAL = " wants to know where you are!";
         public static String SOLICITATION_ARRIVAL_BIS = "Answer his solicitation!";
-        public static String SOLICITATION_ARRIVAL_ESP = " quiere saber dónde estás";
+        public static String SOLICITATION_ARRIVAL_ESP = " quiere saber dónde estás!";
         public static String SOLICITATION_ARRIVAL_BIS_ESP = "Contesta su solicitud!";
 
         public override void Run()
@@ -132,7 +132,7 @@ namespace PushWorkerRole
 
         private void SendAcceptations(WhereAcceptationEvent ev, String who)
         {
-            List<Session> ls = ev.User.Session.Where(s => s.Active = true)
+            List<Session> ls = ev.User.Session.Where(s => s.Active == true)
                                 .ToList();
             
             foreach (Session s in ls)
@@ -142,11 +142,11 @@ namespace PushWorkerRole
                 {
                     if (s.Language.CompareTo("esp") == 0)
                     {
-                        SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION_ESP);
+                        SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION_ESP, s.Badge);
                     }
                     else
                     {
-                        SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION);
+                        SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION, s.Badge);
                     }
                     Log.Write("Enviando aceptacion android a " + who);
                 }
@@ -154,11 +154,11 @@ namespace PushWorkerRole
                 {
                     if (s.Language.CompareTo("esp") == 0)
                     {
-                        SendWp(s.DeviceId, WIN_ACCEPTATION_STRING1_ESP, WIN_ACCEPTATION_FIRST_STRING2_ESP + who + WIN_ACCEPTATION_SECOND_STRING2_ESP, WIN_ACCEPTATION_PATH);
+                        SendWp(s.DeviceId, WIN_ACCEPTATION_STRING1_ESP, WIN_ACCEPTATION_FIRST_STRING2_ESP + who + WIN_ACCEPTATION_SECOND_STRING2_ESP, WIN_ACCEPTATION_PATH, s.Badge);
                     }
                     else
                     {
-                        SendWp(s.DeviceId, WIN_ACCEPTATION_STRING1, WIN_ACCEPTATION_FIRST_STRING2 + who + WIN_ACCEPTATION_SECOND_STRING2, WIN_ACCEPTATION_PATH);
+                        SendWp(s.DeviceId, WIN_ACCEPTATION_STRING1, WIN_ACCEPTATION_FIRST_STRING2 + who + WIN_ACCEPTATION_SECOND_STRING2, WIN_ACCEPTATION_PATH, s.Badge);
                     }
                     Log.Write("Enviando aceptacion wp a " + who);
                 }
@@ -180,7 +180,7 @@ namespace PushWorkerRole
 
         //private void SendRejections(WhereNegationEvent ev, String who)
         //{
-        //    List<Session> ls = ev.User.Session.Where(s => s.Active = true)
+        //    List<Session> ls = ev.User.Session.Where(s => s.Active == true)
         //                        .ToList();
         //    foreach (Session s in ls)
         //    {
@@ -206,7 +206,7 @@ namespace PushWorkerRole
         private void SendSolicitations(WhereSolicitationEvent ev, String who)
         {
             
-            List<Session> ls = ev.User.Session.Where(s => s.Active = true)
+            List<Session> ls = ev.User.Session.Where(s => s.Active == true)
                                 .ToList();
             foreach (Session s in ls)
             {
@@ -215,25 +215,25 @@ namespace PushWorkerRole
                 {
                     if (s.Language.CompareTo("esp") == 0)
                     {
-                        SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL_ESP);
+                        SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL_ESP, s.Badge);
                     }
                     else
                     {
-                        SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL);
+                        SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL, s.Badge);
                     }
-                    Log.Write("Enviando nueva solicitud Android a " + who);
+                    Log.Write("Enviando nueva solicitud Android de " + who);
                 }
                 else if (s.Platform.Equals("wp"))
                 {
                     if (s.Language.CompareTo("esp") == 0)
                     {
-                        SendWp(s.DeviceId, WIN_SOLICITATION_STRING1_ESP, WIN_SOLICITATION_FIRST_STRING2_ESP + who + WIN_SOLICITATION_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH);
+                        SendWp(s.DeviceId, WIN_SOLICITATION_STRING1_ESP, WIN_SOLICITATION_FIRST_STRING2_ESP + who + WIN_SOLICITATION_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
                     }
                     else
                     {
-                        SendWp(s.DeviceId, WIN_SOLICITATION_STRING1, WIN_SOLICITATION_FIRST_STRING2 + who + WIN_SOLICITATION_SECOND_STRING2, WIN_SOLICITATION_PATH);
+                        SendWp(s.DeviceId, WIN_SOLICITATION_STRING1, WIN_SOLICITATION_FIRST_STRING2 + who + WIN_SOLICITATION_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
                     }
-                    Log.Write("Enviando nueva solicitud windows a " + who);
+                    Log.Write("Enviando nueva solicitud windows de " + who);
                 }
                 else if (s.Platform.Equals("ios"))
                 {
@@ -245,35 +245,42 @@ namespace PushWorkerRole
                     {
                         SendIos(s.DeviceId, who + SOLICITATION_ARRIVAL, s.Badge);
                     }
-                    Log.Write("Enviando nueva solicitud ios a " + who);
+                    Log.Write("Enviando nueva solicitud ios de " + who);
+                    
                 }
             }
             ev.Sent = true;
         }
 
-        private void SendAndroid(string devId, string text)
+        private void SendAndroid(string devId, string text, int badge)
         {
             
             push.QueueNotification(new GcmNotification()    //.WithData(new Dictionary())
                                      .ForDeviceRegistrationId(devId)
                                      .WithJson("{\"alert\":\"" + text + "\"," +
-                                                "\"badge\":7,"
-                                                + "\"sound\":\"sound.caf\"}"));
+                                                "\"badge\": " + badge + " }"));
             
         }
 
-        private void SendWp(string devId, string text1, string text2, String path)
+        private void SendWp(string devId, string text1, string text2, String path, int badge)
         {
             Log.Write("Sending to wp to devId " + devId);
             if (!String.IsNullOrEmpty(devId))
             {
+                Uri u = new Uri(devId);
                 push.QueueNotification(new WindowsPhoneToastNotification()
-                        .ForEndpointUri(new Uri(devId))
+                        .ForEndpointUri(u)
                         .ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
                         .WithBatchingInterval(BatchingInterval.Immediate)
                         .WithText1(text1)
                         .WithText2(text2)
                         .WithNavigatePath(path));
+                push.QueueNotification(new WindowsPhoneTileNotification()
+                        .ForEndpointUri(u)
+                        .ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
+                        .WithBatchingInterval(BatchingInterval.Immediate)
+                        .WithCount(badge)
+                        .WithTitle("Where is my friend?"));
             }
         }
 
@@ -283,7 +290,8 @@ namespace PushWorkerRole
             push.QueueNotification(new AppleNotification()
                                        .ForDeviceToken(devId)
                                        .WithAlert(text)
-                                       .WithBadge(badge));
+                                       .WithBadge(badge)
+                                       .WithSound("default"));
         }
 
         private class Logger
