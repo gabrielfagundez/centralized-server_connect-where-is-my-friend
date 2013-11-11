@@ -67,10 +67,17 @@ namespace PISServer.Models
 
         public String GetUserForSolicitation(WhereSolicitation solicitation)
         {
-            return context.Users
-                        .Where(u => u.Id == solicitation.For)
-                        .Select(u => u.Name)
-                        .FirstOrDefault();
+            if(solicitation == null)
+            {
+                return "NADIEEEEEEEEEEEE";
+            }
+            else
+            {
+                return context.Users
+                            .Where(u => u.Id == solicitation.For)
+                            .Select(u => u.Name)
+                            .FirstOrDefault();
+            }
         }
 
 

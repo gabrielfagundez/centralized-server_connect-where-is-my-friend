@@ -87,8 +87,7 @@ namespace PushWorkerRole
                     }
                     catch (Exception e)
                     {
-
-                        Log.Write("el catch de adentro de run: " + e.StackTrace);
+                        Log.Write("el catch de adentro de run: " + e.StackTrace + "y la excepcion esss " + e.Message);
                     }
                 }
             }
@@ -105,11 +104,9 @@ namespace PushWorkerRole
 
             try
             {
-
                 push = new PushBroker();
                 Log = new Logger().ForPushBroker(push);
 
-            
                 // REGISTRO ANDROID
                 push.RegisterGcmService(new GcmPushChannelSettings("AIzaSyCpS_GsfmIatkSYwWVkrtc3CTIw9hpwCKA"));
 
@@ -120,7 +117,6 @@ namespace PushWorkerRole
                 byte[] certificado = new PushMiddleware().GetPermission("ios");
                 push.RegisterAppleService(new ApplePushChannelSettings(certificado,
                     "pis2013"));
-                
             }
             catch (Exception e)
             {
@@ -283,11 +279,11 @@ namespace PushWorkerRole
 
         private void SendIos(string devId, string text, Int16 badge)
         {
-            Log.Write("Sending to ios to devId " + devId);
+            Log.Write("Sending to ios to devId " + devId + "con badge " + badge.ToString());
             push.QueueNotification(new AppleNotification()
                                        .ForDeviceToken(devId)
                                        .WithAlert(text)
-                                       .WithBadge(badge);
+                                       .WithBadge(badge));
         }
 
         private class Logger
