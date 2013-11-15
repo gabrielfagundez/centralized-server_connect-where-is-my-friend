@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/09/2013 18:10:25
+-- Date Created: 11/14/2013 21:04:13
 -- Generated from EDMX file: C:\Users\Gabriel\Documents\GitHub\PISServer\PisDataAccess\DevelopmentEntity.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [serverdevelopmentpis];
+USE [testingpis];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -129,7 +129,9 @@ CREATE TABLE [dbo].[SessionSet] (
     [Active] bit  NOT NULL,
     [Date] datetime  NOT NULL,
     [Language] nvarchar(max)  NULL,
-    [Badge] smallint  NOT NULL
+    [Badge] smallint  NOT NULL,
+    [BadgeAccept] smallint  NULL,
+    [BadgeSolicitation] smallint  NULL
 );
 GO
 

@@ -104,6 +104,7 @@ namespace PISServer.Controllers
                     // Create a response
                     LocationAddRequest userLocation = new LocationAddRequest();
                     userLocation.Mail = userSharing.Mail;
+                    userLocation.Name = userSharing.Name;
                     
                     // If user dont have position, return nulls
                     if (userSharing.UserPosition == null)
@@ -200,6 +201,7 @@ namespace PISServer.Controllers
                     // Create the response
                     LocationAddRequest userLocation = new LocationAddRequest();
                     userLocation.Mail = userSharing.Mail;
+                    userLocation.Name = userSharing.Name;
 
                     // If user dont have position, return nulls
                     if (userSharing.UserPosition == null)

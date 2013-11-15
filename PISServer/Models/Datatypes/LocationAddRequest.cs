@@ -8,6 +8,7 @@ namespace PISServer.Models.Datatypes
     public class LocationAddRequest
     {
         public string Mail { get; set; }
+        public string Name { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
     }

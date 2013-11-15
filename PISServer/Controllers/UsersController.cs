@@ -277,6 +277,8 @@ namespace PISServer.Controllers
                 ses.Date = DateTime.Now;
                 ses.Language = lang;
                 ses.Badge = 0;
+                ses.BadgeAccept = 0;
+                ses.BadgeSolicitation = 0;
 
                 user.Session.Add(ses);
                 context.SaveChanges();
@@ -586,6 +588,114 @@ namespace PISServer.Controllers
                     foreach (Session ses in sesList)
                     {
                         ses.Badge = 0;
+                    }
+                    context.SaveChanges();
+                }
+
+                return "ok";
+            }
+        }
+
+        //
+        // POST api/resetSolicitationBadge
+        //
+        // Used when a client of Where? is trying to login to the System.
+        //
+        [ActionName("ResetSolicitationBadge")]
+        public string PostResetSolicitationBadge([FromBody] UserEmailRequest request)
+        {
+            // If mail is empty return Not Found
+            if (request.Mail == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            using (var context = new DevelopmentPISEntities())
+            {
+                User user;
+
+                // Find the user
+                user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // Return not found if user is null
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    List<Session> sesList;
+                    sesList = context.SessionSet
+                                .Where(s => s.Active == true)
+                                .Where(s => s.UserId == user.Id)
+                                .ToList();
+
+                    //The user is not logued in
+                    if (sesList.Count == 0)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.NotFound);
+                    }
+
+                    foreach (Session ses in sesList)
+                    {
+                        ses.Badge = (Int16)(ses.Badge - ses.BadgeSolicitation);
+                        ses.BadgeSolicitation = 0;
+                    }
+                    context.SaveChanges();
+                }
+
+                return "ok";
+            }
+        }
+
+        //
+        // POST api/resetAcceptBadge
+        //
+        // Used when a client of Where? is trying to login to the System.
+        //
+        [ActionName("ResetAcceptBadge")]
+        public string PostResetAcceptBadge([FromBody] UserEmailRequest request)
+        {
+            // If mail is empty return Not Found
+            if (request.Mail == null)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
+
+            using (var context = new DevelopmentPISEntities())
+            {
+                User user;
+
+                // Find the user
+                user = context.Users
+                            .Where(u => u.Mail == request.Mail)
+                            .FirstOrDefault();
+
+                // Return not found if user is null
+                if (user == null)
+                {
+                    throw new HttpResponseException(HttpStatusCode.NotFound);
+                }
+                else
+                {
+                    List<Session> sesList;
+                    sesList = context.SessionSet
+                                .Where(s => s.Active == true)
+                                .Where(s => s.UserId == user.Id)
+                                .ToList();
+
+                    //The user is not logued in
+                    if (sesList.Count == 0)
+                    {
+                        throw new HttpResponseException(HttpStatusCode.NotFound);
+                    }
+
+                    foreach (Session ses in sesList)
+                    {
+                        ses.Badge = (Int16)(ses.Badge - ses.BadgeAccept);
+                        ses.BadgeAccept = 0;
                     }
                     context.SaveChanges();
                 }

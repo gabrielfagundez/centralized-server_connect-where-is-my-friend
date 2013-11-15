@@ -101,6 +101,8 @@
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="Language" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Badge" Type="smallint" Nullable="false" />
+    <Property Name="BadgeAccept" Type="smallint" Nullable="true" />
+    <Property Name="BadgeSolicitation" Type="smallint" Nullable="true" />
   </EntityType>
   <EntityType Name="UserPositionSet">
     <Key>
@@ -435,6 +437,8 @@
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <Property Type="String" Name="Language" Nullable="true" />
           <Property Type="Int16" Name="Badge" Nullable="false" />
+          <Property Type="Int16" Name="BadgeAccept" Nullable="true" />
+          <Property Type="Int16" Name="BadgeSolicitation" Nullable="true" />
         </EntityType>
         <Association Name="UserSession">
           <End Type="DevelopmentPISModel.User" Role="User" Multiplicity="1" />
@@ -610,6 +614,8 @@
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Language" ColumnName="Language" />
           <ScalarProperty Name="Badge" ColumnName="Badge" />
+          <ScalarProperty Name="BadgeAccept" ColumnName="BadgeAccept" />
+          <ScalarProperty Name="BadgeSolicitation" ColumnName="BadgeSolicitation" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

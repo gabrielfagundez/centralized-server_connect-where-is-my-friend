@@ -79,11 +79,9 @@ namespace PushWorkerRole
                     {
                         PushMiddleware pm = new PushMiddleware();
                         pm.GetAcceptedEvents().ToList().ForEach(n => SendAcceptations(n, pm.GetUserForSolicitation(n.WhereSolicitation)));
-                        //pm.GetRejectedEvents().ToList().ForEach(n => SendRejections(n, pm.GetUserForSolicitation(n.WhereSolicitation)));
                         pm.GetUnsentEvents().ToList().ForEach(n => SendSolicitations(n, pm.GetUserFromSolicitation(n.WhereSolicitation)));
                         pm.Save();
                         Thread.Sleep(10000);
-                        //Trace.TraceInformation("Working", "Information");
                     }
                     catch (Exception e)
                     {
@@ -138,15 +136,16 @@ namespace PushWorkerRole
             foreach (Session s in ls)
             {
                 s.Badge++;
+                s.BadgeAccept++;
                 if (s.Platform.Equals("android"))
                 {
                     if (s.Language.CompareTo("esp") == 0)
                     {
-                        SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION_ESP, s.Badge);
+                        SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION_ESP, (Int16)s.BadgeAccept, "a");
                     }
                     else
                     {
-                        SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION, s.Badge);
+                        SendAndroid(s.DeviceId, who + SOLICITATION_ACCEPTATION, (Int16)s.BadgeAccept, "s");
                     }
                     Log.Write("Enviando aceptacion android a " + who);
                 }
@@ -211,15 +210,16 @@ namespace PushWorkerRole
             foreach (Session s in ls)
             {
                 s.Badge++;
+                s.BadgeSolicitation++;
                 if (s.Platform.Equals("android"))
                 {
                     if (s.Language.CompareTo("esp") == 0)
                     {
-                        SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL_ESP, s.Badge);
+                        SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL_ESP, (Int16)s.BadgeSolicitation, "s");
                     }
                     else
                     {
-                        SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL, s.Badge);
+                        SendAndroid(s.DeviceId, who + SOLICITATION_ARRIVAL, (Int16)s.BadgeSolicitation, "s");
                     }
                     Log.Write("Enviando nueva solicitud Android de " + who);
                 }
@@ -252,13 +252,14 @@ namespace PushWorkerRole
             ev.Sent = true;
         }
 
-        private void SendAndroid(string devId, string text, int badge)
+        private void SendAndroid(string devId, string text, Int16 badge, string type)
         {
             
             push.QueueNotification(new GcmNotification()    //.WithData(new Dictionary())
                                      .ForDeviceRegistrationId(devId)
                                      .WithJson("{\"alert\":\"" + text + "\"," +
-                                                "\"badge\": " + badge + " }"));
+                                                "\"badge\": " + (Int16)badge + ", " +
+                                                "\"type\": \"" + type + "\"}"));
             
         }
 
@@ -275,7 +276,7 @@ namespace PushWorkerRole
                         .WithText1(text1)
                         .WithText2(text2)
                         .WithNavigatePath(path));
-                push.QueueNotification(new WindowsPhoneTileNotification()
+                push.QueueNotification(new WindowsPhoneIconicTileNotification()
                         .ForEndpointUri(u)
                         .ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
                         .WithBatchingInterval(BatchingInterval.Immediate)

@@ -22,6 +22,8 @@ namespace PisDataAccess
         public System.DateTime Date { get; set; }
         public string Language { get; set; }
         public short Badge { get; set; }
+        public Nullable<short> BadgeAccept { get; set; }
+        public Nullable<short> BadgeSolicitation { get; set; }
     
         public virtual User User { get; set; }
     }
