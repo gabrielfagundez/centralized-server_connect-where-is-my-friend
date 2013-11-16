@@ -282,7 +282,9 @@
     <None Include="Properties\PublishProfiles\serverdevelopmentpis - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\servidorpis - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\servidorpis - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\testingpis - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\testingpis - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\testingpis - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\testingpis - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\testPis - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\testPis - Web Deploy.pubxml" />
