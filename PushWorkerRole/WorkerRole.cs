@@ -202,31 +202,6 @@ namespace PushWorkerRole
             ev.Sent = true;
         }
 
-        //private void SendRejections(WhereNegationEvent ev, String who)
-        //{
-        //    List<Session> ls = ev.User.Session.Where(s => s.Active == true)
-        //                        .ToList();
-        //    foreach (Session s in ls)
-        //    {
-        //        if (s.Platform.Equals("android"))
-        //        {
-        //            SendAndroid(s.DeviceId, who + SOLICITATION_NEGATION);
-        //            Log.Write("Envando rejection android a " + who);
-        //        }
-        //        else if (s.Platform.Equals("wp"))
-        //        {
-        //            SendWp(s.DeviceId,"", "REJECTED", WIN_NEGATION_PATH);
-        //            Log.Write("Envando rejection wp a " + who);
-        //        }
-        //        else if (s.Platform.Equals("ios"))
-        //        {
-        //            SendIos(s.DeviceId, who + SOLICITATION_ARRIVAL);
-        //            Log.Write("Envando rejection ios a " + who);
-        //        }
-        //    }
-        //    ev.Sent = true;
-        //}
-
         private void SendSolicitations(WhereSolicitationEvent ev, String who)
         {
             
