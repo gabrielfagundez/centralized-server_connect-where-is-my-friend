@@ -127,7 +127,10 @@ namespace PISServer.Controllers
                     SolicitudesResponse solResponse = new SolicitudesResponse();
 
                     // Find the user
-                    var user_sol = context.Users.Find(solicitudes[i].From);
+                    int idFrom = solicitudes[i].From;
+                    var user_sol = context.Users
+                            .Where(u => u.Id == idFrom)
+                            .FirstOrDefault();
 
                     solResponse.SolicitudId = solicitudes[i].Id;
                     solResponse.SolicitudFromNombre = user_sol.Name;
