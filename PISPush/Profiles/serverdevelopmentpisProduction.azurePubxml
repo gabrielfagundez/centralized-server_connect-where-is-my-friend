@@ -9,8 +9,8 @@
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>serverdevelopworker</AzureHostedServiceLabel>
-    <AzureHostedServiceName>serverdevelopworker</AzureHostedServiceName>
+    <AzureHostedServiceLabel>testingpisworker</AzureHostedServiceLabel>
+    <AzureHostedServiceName>testingpisworker</AzureHostedServiceName>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>Cloud</AzureServiceConfiguration>

@@ -290,7 +290,10 @@ namespace PushSharp.Android
 				{
 					//401 bad auth token
 					result.ResponseCode = GcmMessageTransportResponseCode.InvalidAuthToken;
-					throw new GcmAuthenticationErrorTransportException(result);
+					//MODIFICADO POR GABRIEEEEL
+                    //throw new GcmAuthenticationErrorTransportException(result);
+
+                    throw new GcmMessageTransportException("ESTOY ACAAAAA", result);
 				}
 				else if (asyncParam.WebResponse.StatusCode == HttpStatusCode.BadRequest)
 				{

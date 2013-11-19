@@ -40,9 +40,19 @@ namespace PushWorkerRole
         public static String WIN_ACCEPTATION_FIRST_STRING2 = "Now you can see where ";
         public static String WIN_ACCEPTATION_SECOND_STRING2 = " is!";
 
-        public static String WIN_BADGE_STRING1 = "";
-        public static String WIN_BADGE_FIRST_STRING2 = "You have ";
-        public static String WIN_BADGE_SECOND_STRING2 = " pending notifications!";
+        public static String WIN_BADGE_ACCEPTATION_STRING1 = "";
+        public static String WIN_BADGE_ACCEPTATION_FIRST_STRING2 = "There are now ";
+        public static String WIN_BADGE_ACCEPTATION_SECOND_STRING2 = " new visible friends in the map!";
+
+        public static String WIN_BADGE_SOLICITATION_STRING1 = "";
+        public static String WIN_BADGE_SOLICITATION_FIRST_STRING2 = " ";
+        public static String WIN_BADGE_SOLICITATION_SECOND_STRING2 = " friends want to know where you are!";
+
+        public static String WIN_BADGE_BOTH_STRING1 = "";
+        public static String WIN_BADGE_BOTH_FIRST_STRING2 = " request pending - ";
+        public static String WIN_BADGE_BOTH_PLURAL_FIRST_STRING2 = " requests pending - ";
+        public static String WIN_BADGE_BOTH_SECOND_STRING2 = " new friend on the map!";
+        public static String WIN_BADGE_BOTH_PLURAL_SECOND_STRING2 = " new friends on the map!";
 
         //Windows Phone strings in spanish
         public static String WIN_SOLICITATION_STRING1_ESP = "";
@@ -50,12 +60,22 @@ namespace PushWorkerRole
         public static String WIN_SOLICITATION_SECOND_STRING2_ESP = " quiere saber dónde estás!";
 
         public static String WIN_ACCEPTATION_STRING1_ESP = "";
-        public static String WIN_ACCEPTATION_FIRST_STRING2_ESP = "¡Ahora podés saber dónde está ";
+        public static String WIN_ACCEPTATION_FIRST_STRING2_ESP = "¡Ahora puedes saber dónde está ";
         public static String WIN_ACCEPTATION_SECOND_STRING2_ESP = "!";
 
-        public static String WIN_BADGE_STRING1_ESP = "";
-        public static String WIN_BADGE_FIRST_STRING2_ESP = "¡Tienes ";
-        public static String WIN_BADGE_SECOND_STRING2_ESP = " notificaciones pendientes!";
+        public static String WIN_BADGE_ACCEPTATION_STRING1_ESP = "";
+        public static String WIN_BADGE_ACCEPTATION_FIRST_STRING2_ESP = "¡Hay ";
+        public static String WIN_BADGE_ACCEPTATION_SECOND_STRING2_ESP = " nuevos amigos visibles en el mapa!";
+
+        public static String WIN_BADGE_SOLICITATION_STRING1_ESP = "";
+        public static String WIN_BADGE_SOLICITATION_FIRST_STRING2_ESP = "¡ ";
+        public static String WIN_BADGE_SOLICITATION_SECOND_STRING2_ESP = " amigos quieren saber dónde estás!";
+
+        public static String WIN_BADGE_BOTH_STRING1_ESP = "";
+        public static String WIN_BADGE_BOTH_FIRST_STRING2_ESP = " solicitud pendiente - ";
+        public static String WIN_BADGE_BOTH_PLURAL_FIRST_STRING2_ESP = " solicitudes pendientes - ";
+        public static String WIN_BADGE_BOTH_SECOND_STRING2_ESP = " amigo en el mapa";
+        public static String WIN_BADGE_BOTH_PLURAL_SECOND_STRING2_ESP = " amigos en el mapa";
 
 
         //iOS strings
@@ -114,7 +134,7 @@ namespace PushWorkerRole
                 Log = new Logger().ForPushBroker(push);
 
                 // REGISTRO ANDROID
-                push.RegisterGcmService(new GcmPushChannelSettings("AIzaSyCpS_GsfmIatkSYwWVkrtc3CTIw9hpwCKA"));
+                push.RegisterGcmService(new GcmPushChannelSettings("1096662537091", "AIzaSyB4rYqXqgYvzhb2JE5E8yq2wvQuLMKIwUo", "com.whereismyfriend"));
 
                 // REGISTRO WINPHONE
                 push.RegisterWindowsPhoneService();
@@ -128,10 +148,6 @@ namespace PushWorkerRole
             {
                 Log.Write("el catch de onstart: " + e.Message);
             }
-
-
-            // For information on handling configuration changes
-            // see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
 
             return base.OnStart();
         }
@@ -163,9 +179,25 @@ namespace PushWorkerRole
                     {
                         if (s.Language.CompareTo("esp") == 0)
                         {
-                            if (s.Badge > 1)
+                            if ((s.BadgeSolicitation > 1) && (s.BadgeAccept > 1))
                             {
-                                SendWp(s.DeviceId, WIN_BADGE_STRING1_ESP, WIN_BADGE_FIRST_STRING2_ESP + s.Badge + WIN_BADGE_SECOND_STRING2_ESP, WIN_ACCEPTATION_PATH, s.Badge);
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_PLURAL_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_PLURAL_SECOND_STRING2_ESP, WIN_ACCEPTATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation == 1) && (s.BadgeAccept > 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_PLURAL_SECOND_STRING2_ESP, WIN_ACCEPTATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation > 1) && (s.BadgeAccept == 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_PLURAL_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2_ESP, WIN_ACCEPTATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation == 1) && (s.BadgeAccept == 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2_ESP, WIN_ACCEPTATION_PATH, s.Badge);
+                            }
+                            else if (s.BadgeAccept > 1)
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_ACCEPTATION_STRING1_ESP, WIN_BADGE_ACCEPTATION_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_ACCEPTATION_SECOND_STRING2_ESP, WIN_ACCEPTATION_PATH, s.Badge);
                             }
                             else
                             {
@@ -174,9 +206,25 @@ namespace PushWorkerRole
                         }
                         else
                         {
-                            if (s.Badge > 1)
+                            if ((s.BadgeSolicitation > 1) && (s.BadgeAccept > 1))
                             {
-                                SendWp(s.DeviceId, WIN_BADGE_STRING1, WIN_BADGE_FIRST_STRING2 + s.Badge + WIN_BADGE_SECOND_STRING2, WIN_ACCEPTATION_PATH, s.Badge);
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_PLURAL_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_PLURAL_SECOND_STRING2, WIN_ACCEPTATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation == 1) && (s.BadgeAccept > 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_PLURAL_SECOND_STRING2, WIN_ACCEPTATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation > 1) && (s.BadgeAccept == 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_PLURAL_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2, WIN_ACCEPTATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation == 1) && (s.BadgeAccept == 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2, WIN_ACCEPTATION_PATH, s.Badge);
+                            }
+                            else if (s.BadgeAccept > 1)
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_ACCEPTATION_STRING1, WIN_BADGE_ACCEPTATION_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_ACCEPTATION_SECOND_STRING2, WIN_ACCEPTATION_PATH, s.Badge);
                             }
                             else
                             {
@@ -189,11 +237,11 @@ namespace PushWorkerRole
                     {
                         if (s.Language.CompareTo("esp") == 0)
                         {
-                            SendIos(s.DeviceId, who + SOLICITATION_ACCEPTATION_ESP, s.Badge);
+                            SendIos(s.DeviceId, who + SOLICITATION_ACCEPTATION_ESP, (Int16)s.BadgeAccept, s.Badge, "a");
                         }
                         else
                         {
-                            SendIos(s.DeviceId, who + SOLICITATION_ACCEPTATION, s.Badge);
+                            SendIos(s.DeviceId, who + SOLICITATION_ACCEPTATION, (Int16)s.BadgeAccept, s.Badge, "a");
                         }
                         Log.Write("Enviando aceptacion ios a " + who);
                     }
@@ -201,31 +249,6 @@ namespace PushWorkerRole
             }
             ev.Sent = true;
         }
-
-        //private void SendRejections(WhereNegationEvent ev, String who)
-        //{
-        //    List<Session> ls = ev.User.Session.Where(s => s.Active == true)
-        //                        .ToList();
-        //    foreach (Session s in ls)
-        //    {
-        //        if (s.Platform.Equals("android"))
-        //        {
-        //            SendAndroid(s.DeviceId, who + SOLICITATION_NEGATION);
-        //            Log.Write("Envando rejection android a " + who);
-        //        }
-        //        else if (s.Platform.Equals("wp"))
-        //        {
-        //            SendWp(s.DeviceId,"", "REJECTED", WIN_NEGATION_PATH);
-        //            Log.Write("Envando rejection wp a " + who);
-        //        }
-        //        else if (s.Platform.Equals("ios"))
-        //        {
-        //            SendIos(s.DeviceId, who + SOLICITATION_ARRIVAL);
-        //            Log.Write("Envando rejection ios a " + who);
-        //        }
-        //    }
-        //    ev.Sent = true;
-        //}
 
         private void SendSolicitations(WhereSolicitationEvent ev, String who)
         {
@@ -255,9 +278,25 @@ namespace PushWorkerRole
                     {
                         if (s.Language.CompareTo("esp") == 0)
                         {
-                            if (s.Badge > 1)
+                            if ((s.BadgeSolicitation > 1) && (s.BadgeAccept > 1))
                             {
-                                SendWp(s.DeviceId, WIN_BADGE_STRING1_ESP, WIN_BADGE_FIRST_STRING2_ESP + s.Badge + WIN_BADGE_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_PLURAL_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_PLURAL_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation == 1) && (s.BadgeAccept > 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_PLURAL_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation > 1) && (s.BadgeAccept == 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_PLURAL_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation == 1) && (s.BadgeAccept == 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
+                            }
+                            else if (s.BadgeAccept > 1)
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_SOLICITATION_STRING1_ESP, WIN_BADGE_SOLICITATION_FIRST_STRING2_ESP + s.BadgeSolicitation + WIN_BADGE_SOLICITATION_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
                             }
                             else
                             {
@@ -266,9 +305,25 @@ namespace PushWorkerRole
                         }
                         else
                         {
-                            if (s.Badge > 1)
+                            if ((s.BadgeSolicitation > 1) && (s.BadgeAccept > 1))
                             {
-                                SendWp(s.DeviceId, WIN_BADGE_STRING1, WIN_BADGE_FIRST_STRING2 + s.Badge + WIN_BADGE_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_PLURAL_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_PLURAL_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation == 1) && (s.BadgeAccept > 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_PLURAL_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation > 1) && (s.BadgeAccept == 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_PLURAL_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
+                            }
+                            else if ((s.BadgeSolicitation == 1) && (s.BadgeAccept == 1))
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
+                            }
+                            else if (s.BadgeAccept > 1)
+                            {
+                                SendWp(s.DeviceId, WIN_BADGE_SOLICITATION_STRING1, WIN_BADGE_SOLICITATION_FIRST_STRING2 + s.BadgeSolicitation + WIN_BADGE_SOLICITATION_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
                             }
                             else
                             {
@@ -281,11 +336,11 @@ namespace PushWorkerRole
                     {
                         if (s.Language.CompareTo("esp") == 0)
                         {
-                            SendIos(s.DeviceId, who + SOLICITATION_ARRIVAL_ESP, s.Badge);
+                            SendIos(s.DeviceId, who + SOLICITATION_ARRIVAL_ESP, (Int16)s.BadgeSolicitation, s.Badge, "s");
                         }
                         else
                         {
-                            SendIos(s.DeviceId, who + SOLICITATION_ARRIVAL, s.Badge);
+                            SendIos(s.DeviceId, who + SOLICITATION_ARRIVAL, (Int16)s.BadgeSolicitation, s.Badge, "s");
                         }
                         Log.Write("Enviando nueva solicitud ios de " + who);
 
@@ -303,7 +358,7 @@ namespace PushWorkerRole
                                      .WithJson("{\"alert\":\"" + text + "\"," +
                                                 "\"badge\": " + (Int16)badge + ", " +
                                                 "\"type\": \"" + type + "\"}"));
-            
+           
         }
 
         private void SendWp(string devId, string text1, string text2, String path, int badge)
@@ -322,7 +377,7 @@ namespace PushWorkerRole
             }
         }
 
-        private void SendIos(string devId, string text, Int16 badge)
+        private void SendIos(string devId, string text, Int16 particularBadge, Int16 badge, string type)
         {
             Log.Write("Sending to ios to devId " + devId + "con badge " + badge.ToString());
             AppleNotificationAlert ana = new AppleNotificationAlert(){
@@ -332,7 +387,10 @@ namespace PushWorkerRole
                     Badge = badge,
                     Sound = "default",
                     Alert = ana
+                    
             };
+            anp.AddCustom("type", type);
+            anp.AddCustom("particularBadge", particularBadge);
             push.QueueNotification(new AppleNotification()
                                        .ForDeviceToken(devId)
                 //.WithAlert(text)
@@ -343,12 +401,6 @@ namespace PushWorkerRole
 
         private class Logger
         {
-            
-            //private DataRepository<MensajeLog> logger;
-            //public Logger()
-            //{
-            //    this.logger = new DataRepository<MensajeLog>(new DevelopmentPISEntities());
-            //}
             public void Write(String mensaje)
             {
                 PushMiddleware pm = new PushMiddleware();
@@ -358,7 +410,7 @@ namespace PushWorkerRole
             public Logger ForPushBroker(PushBroker push)
             {
                 push.OnNotificationSent += (s, n) => this.Write("Sent: " + s + " -> " + n);
-                push.OnNotificationFailed += (s, n, nfe) => this.Write("Failure: " + s + " -> " + nfe.Message + " -> " + n);
+                push.OnNotificationFailed += (s, n, nfe) => this.Write("Failure: " + s + " -> " + nfe.Message + " -> " + nfe.StackTrace + " -> " + n);
                 push.OnChannelException += (s, c, e) => this.Write("Channel Exception: " + s + " -> " + e);
                 push.OnServiceException += (s, e) => this.Write("Service Exception: " + s + " -> " + e);
                 push.OnDeviceSubscriptionExpired += (s, expId, t, not) => this.Write("Device Subscription Expired: " + s + " -> " + expId);

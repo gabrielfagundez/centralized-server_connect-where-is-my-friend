@@ -588,6 +588,8 @@ namespace PISServer.Controllers
                     foreach (Session ses in sesList)
                     {
                         ses.Badge = 0;
+                        ses.BadgeAccept = 0;
+                        ses.BadgeSolicitation = 0;
                     }
                     context.SaveChanges();
                 }
