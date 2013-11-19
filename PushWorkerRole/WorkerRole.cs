@@ -134,7 +134,11 @@ namespace PushWorkerRole
                 Log = new Logger().ForPushBroker(push);
 
                 // REGISTRO ANDROID
+<<<<<<< HEAD
                 push.RegisterGcmService(new GcmPushChannelSettings("983636988204", "AIzaSyDp7d9hh89cSyc35mxEc8RhSQFTPRydXWE", "com.whereismyfriend"));
+=======
+                push.RegisterGcmService(new GcmPushChannelSettings("AIzaSyBMjOfPupVM7EEBssc1iMcK0Z7Mnuso67Y"));
+>>>>>>> 68db96bb6c99ef63a068dbb7b079d8b9d095dbca
 
                 // REGISTRO WINPHONE
                 push.RegisterWindowsPhoneService();
