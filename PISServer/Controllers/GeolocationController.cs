@@ -150,12 +150,16 @@ namespace PISServer.Controllers
                     throw new HttpResponseException(HttpStatusCode.NotFound);
                 }
 
-                // Create the response
-                UserPosition up = new UserPosition();
-                up.Latitude = request.Latitude;
-                up.Longitude = request.Longitude;
-
-                user.UserPosition = up;
+                if (user.UserPosition == null) {
+                    UserPosition up = new UserPosition();
+                    up.Latitude = request.Latitude;
+                    up.Longitude = request.Longitude;
+                    user.UserPosition = up;
+                }
+                else {
+                    user.UserPosition.Latitude = request.Latitude;
+                    user.UserPosition.Longitude = request.Longitude;
+                }
                 context.SaveChanges();
 
                 return request;
