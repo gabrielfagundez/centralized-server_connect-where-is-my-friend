@@ -295,7 +295,7 @@ namespace PushWorkerRole
                             {
                                 SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1_ESP, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2_ESP + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
                             }
-                            else if (s.BadgeAccept > 1)
+                            else if (s.BadgeSolicitation > 1)
                             {
                                 SendWp(s.DeviceId, WIN_BADGE_SOLICITATION_STRING1_ESP, WIN_BADGE_SOLICITATION_FIRST_STRING2_ESP + s.BadgeSolicitation + WIN_BADGE_SOLICITATION_SECOND_STRING2_ESP, WIN_SOLICITATION_PATH, s.Badge);
                             }
@@ -322,7 +322,7 @@ namespace PushWorkerRole
                             {
                                 SendWp(s.DeviceId, WIN_BADGE_BOTH_STRING1, s.BadgeSolicitation + WIN_BADGE_BOTH_FIRST_STRING2 + s.BadgeAccept + WIN_BADGE_BOTH_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
                             }
-                            else if (s.BadgeAccept > 1)
+                            else if (s.BadgeSolicitation > 1)
                             {
                                 SendWp(s.DeviceId, WIN_BADGE_SOLICITATION_STRING1, WIN_BADGE_SOLICITATION_FIRST_STRING2 + s.BadgeSolicitation + WIN_BADGE_SOLICITATION_SECOND_STRING2, WIN_SOLICITATION_PATH, s.Badge);
                             }
